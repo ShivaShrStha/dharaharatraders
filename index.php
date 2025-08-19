@@ -786,7 +786,7 @@ try {
                 <div class="product-category">Medical</div>
                 <h3 class="product-name">Medical Equipment</h3>
                 <div class="product-price">Contact for Price</div>
-                <a href="shop.php" class="product-link">View Products →</a>
+                <a href="/shop" class="product-link">View Products →</a>
               </div>
             </div>
             <div class="product-card">
@@ -795,7 +795,7 @@ try {
                 <div class="product-category">Beauty</div>
                 <h3 class="product-name">Cosmetics & Beauty</h3>
                 <div class="product-price">Contact for Price</div>
-                <a href="shop.php" class="product-link">View Products →</a>
+                <a href="/shop" class="product-link">View Products →</a>
               </div>
             </div>
             <div class="product-card">
@@ -804,7 +804,7 @@ try {
                 <div class="product-category">Electronics</div>
                 <h3 class="product-name">Electronics</h3>
                 <div class="product-price">Contact for Price</div>
-                <a href="shop.php" class="product-link">View Products →</a>
+                <a href="/shop" class="product-link">View Products →</a>
               </div>
             </div>
           <?php endif; ?>

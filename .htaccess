@@ -20,9 +20,9 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^product/?$ product.php [L,QSA]
 
-# Redirect .php URLs to clean URLs
-RewriteCond %{THE_REQUEST} \s/+(.+?)\.php[\s?] [NC]
-RewriteRule ^ /%1? [R=301,L]
+# Redirect .php URLs to clean URLs (for production)
+# RewriteCond %{THE_REQUEST} \s/+(.+?)\.php[\s?] [NC]
+# RewriteRule ^ /%1? [R=301,L]
 
 # Force HTTPS (uncomment when SSL is installed)
 # RewriteCond %{HTTPS} off
