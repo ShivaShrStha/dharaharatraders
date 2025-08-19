@@ -647,7 +647,7 @@ try {
                     </div>
                     <?php endif; ?>
                     
-                    <a href="product?id=<?= $product['id'] ?>" class="product-btn">
+                    <a href="product.php?id=<?= $product['id'] ?>" class="product-btn">
                         View Details
                     </a>
                 </div>
@@ -659,7 +659,47 @@ try {
 
     <!-- Footer -->
     <!-- Footer -->
-    <?php include 'includes/footer.php'; ?>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Dharahara Traders</h3>
+                <p>Your trusted partner for premium imports and exports. We connect Nepal with the world through quality products and reliable service.</p>
+                <p><strong>License:</strong> 180151/077/078</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about">About Us</a></li>
+                    <li><a href="/shop">Products</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <p><i class="bi bi-geo-alt"></i> Chabahil, Kathmandu, Nepal</p>
+                <p><i class="bi bi-telephone"></i> +977-9818852676</p>
+                <p><i class="bi bi-envelope"></i> info@dharaharatraders.com</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div style="background: var(--cream-dark); border-radius: 8px; padding: 20px; text-align: center; border: 1px solid var(--brown-light);">
+                    <div style="font-size: 1.1rem; font-weight: 600; color: var(--gold-light); margin-bottom: 10px;">Follow Us</div>
+                    <p style="color: var(--text-secondary); margin-bottom: 15px; font-size: 0.9rem;">Connect with us on social media for updates</p>
+                    <a href="https://www.facebook.com/dharahara.traders" target="_blank" style="display: inline-block; background: #1877f2; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: 500; font-size: 0.9rem;">
+                        📘 Visit Facebook Page
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 Dharahara Traders Pvt. Ltd. All rights reserved.</p>
+        </div>
+    </footer>
 
     <script>
         // Mobile menu toggle

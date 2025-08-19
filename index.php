@@ -774,7 +774,7 @@ try {
                   <div class="product-category"><?php echo ucfirst($product['category']); ?></div>
                   <h3 class="product-name"><?php echo htmlspecialchars($product['name']); ?></h3>
                   <div class="product-price"><?php echo $product['price'] ?: 'Contact for Price'; ?></div>
-                  <a href="product?id=<?php echo $product['id']; ?>" class="product-link">View Details →</a>
+                  <a href="product.php?id=<?php echo $product['id']; ?>" class="product-link">View Details →</a>
                 </div>
               </div>
             <?php endforeach; ?>

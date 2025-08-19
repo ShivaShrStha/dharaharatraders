@@ -566,7 +566,7 @@ try {
         <div class="breadcrumb-container">
             <a href="/">Home</a>
             <i class="bi bi-chevron-right"></i>
-            <a href="shop.php">Products</a>
+            <a href="/shop">Products</a>
             <i class="bi bi-chevron-right"></i>
             <span><?php echo htmlspecialchars($product['name']); ?></span>
         </div>
