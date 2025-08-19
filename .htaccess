@@ -1,0 +1,119 @@
+# Dharahara Traders Website - .htaccess Configuration
+
+# Enable URL Rewriting
+RewriteEngine On
+
+# Handle clean URLs - map clean URLs to PHP files
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^about/?$ about.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^shop/?$ shop.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^contact/?$ contact.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^product/?$ product.php [L,QSA]
+
+# Redirect .php URLs to clean URLs
+RewriteCond %{THE_REQUEST} \s/+(.+?)\.php[\s?] [NC]
+RewriteRule ^ /%1? [R=301,L]
+
+# Force HTTPS (uncomment when SSL is installed)
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Security Headers
+<IfModule mod_headers.c>
+    # Prevent clickjacking
+    Header always append X-Frame-Options SAMEORIGIN
+    
+    # Prevent MIME type sniffing
+    Header always set X-Content-Type-Options nosniff
+    
+    # Enable XSS protection
+    Header always set X-XSS-Protection "1; mode=block"
+    
+    # Security header
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Protect sensitive files and directories
+<Files ".env">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+<Files "*.db">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+<Files "config.php">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# Protect admin configuration
+<FilesMatch "\.(env|db|config)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Protect backup files
+<FilesMatch "\.(bak|backup|old|tmp)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Protect admin area (optional additional security)
+<Directory "admin">
+    # You can add IP restrictions here if needed
+    # Require ip 192.168.1.0/24
+</Directory>
+
+# Browser caching for static files
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/jpg "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/svg+xml "access plus 1 month"
+</IfModule>
+
+# Gzip compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+</IfModule>
+
+# Custom error pages (optional)
+# ErrorDocument 404 /404.php
+# ErrorDocument 500 /500.php
+
+# Redirect www to non-www (optional)
+# RewriteCond %{HTTP_HOST} ^www\.dharaharatraders\.com [NC]
+# RewriteRule ^(.*)$ https://dharaharatraders.com/$1 [R=301,L]
+
+# Force HTTPS (uncomment when SSL is installed)
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Pretty URLs for products (optional enhancement)
+# RewriteRule ^product/([0-9]+)/?$ product.php?id=$1 [L,QSA]
+# RewriteRule ^category/([a-zA-Z0-9-]+)/?$ shop.php?category=$1 [L,QSA]
