@@ -7,7 +7,8 @@ try {
     $conn = $db->getConnection();
     
     // Get all active products
-    $stmt = $conn->query("SELECT * FROM products WHERE status = 'active' ORDER BY created_at DESC");
+    $stmt = $conn->prepare("SELECT * FROM products WHERE status = 'active' ORDER BY created_at DESC");
+    $stmt->execute();
     $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
     // Group products by category

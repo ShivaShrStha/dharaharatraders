@@ -538,6 +538,144 @@ try {
                 gap: 2rem;
             }
         }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: var(--cream-light);
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            padding: 2rem 2.5rem 1rem;
+            border-bottom: 1px solid var(--cream-dark);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--brown-dark);
+            margin: 0;
+        }
+
+        .close {
+            color: var(--text-muted);
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: var(--brown-dark);
+        }
+
+        .inquiry-form {
+            padding: 2rem 2.5rem 2.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--brown-dark);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--cream-dark);
+            border-radius: 10px;
+            font-size: 1rem;
+            background: var(--cream-light);
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--gold-light);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 2rem;
+        }
+
+        .form-message {
+            margin-top: 1rem;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .form-message.success {
+            background: #e8f5e8;
+            color: #2d5a2d;
+            border: 1px solid #90c695;
+        }
+
+        .form-message.error {
+            background: #ffeaea;
+            color: #d63031;
+            border: 1px solid #ffcdcd;
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                margin: 10% auto;
+                width: 95%;
+            }
+
+            .modal-header,
+            .inquiry-form {
+                padding: 1.5rem;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+        }
     </style>
 </head>
 
@@ -626,14 +764,67 @@ try {
                 </div>
 
                 <div class="product-actions">
-                    <a href="contact.php" class="btn-primary">
-                        <i class="bi bi-envelope"></i> Request Quote
-                    </a>
+                    <button class="btn-primary" onclick="openInquiryModal()">
+                        <i class="bi bi-envelope"></i> Send Inquiry
+                    </button>
                     <a href="https://wa.me/9779818852676?text=Hi! I'm interested in <?php echo urlencode($product['name']); ?>" 
                        target="_blank" class="btn-secondary">
                         <i class="bi bi-whatsapp"></i> WhatsApp
                     </a>
                 </div>
+            </div>
+        </div>
+
+        <!-- Inquiry Modal -->
+        <div id="inquiryModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Product Inquiry: <?php echo htmlspecialchars($product['name']); ?></h3>
+                    <span class="close" onclick="closeInquiryModal()">&times;</span>
+                </div>
+                <form id="inquiryForm" class="inquiry-form">
+                    <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                    <input type="hidden" name="product_name" value="<?php echo htmlspecialchars($product['name']); ?>">
+                    
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="company">Company/Organization</label>
+                        <input type="text" id="company" name="company">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="quantity">Quantity Interested</label>
+                        <input type="number" id="quantity" name="quantity" min="1">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Message/Requirements *</label>
+                        <textarea id="message" name="message" rows="4" required placeholder="Please describe your requirements, timeline, or any specific questions about this product..."></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="closeInquiryModal()">Cancel</button>
+                        <button type="submit" class="btn-primary">
+                            <i class="bi bi-send"></i> Send Inquiry
+                        </button>
+                    </div>
+                    
+                    <div id="inquiryMessage" class="form-message" style="display: none;"></div>
+                </form>
             </div>
         </div>
 
@@ -652,7 +843,16 @@ try {
                 <?php if (!empty($product['price'])): ?>
                 <div class="spec-item">
                     <span class="spec-label">Price:</span>
-                    <span class="spec-value">$<?php echo htmlspecialchars(number_format($product['price'], 2)); ?></span>
+                    <span class="spec-value">
+                        <?php 
+                        // Check if price is numeric before formatting
+                        if (is_numeric($product['price'])) {
+                            echo '$' . htmlspecialchars(number_format($product['price'], 2));
+                        } else {
+                            echo htmlspecialchars($product['price']);
+                        }
+                        ?>
+                    </span>
                 </div>
                 <?php endif; ?>
                 <div class="spec-item">
@@ -732,6 +932,61 @@ try {
                 document.querySelector(this.getAttribute('href')).scrollIntoView({
                     behavior: 'smooth'
                 });
+            });
+        });
+
+        // Inquiry Modal Functions
+        function openInquiryModal() {
+            document.getElementById('inquiryModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeInquiryModal() {
+            document.getElementById('inquiryModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('inquiryModal');
+            if (event.target === modal) {
+                closeInquiryModal();
+            }
+        });
+
+        // Handle inquiry form submission
+        document.getElementById('inquiryForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            
+            // Show loading state
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            
+            fetch('process_inquiry.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Thank you! Your inquiry has been sent successfully. We will contact you soon.');
+                    this.reset();
+                    closeInquiryModal();
+                } else {
+                    alert('Error: ' + (data.message || 'Failed to send inquiry. Please try again.'));
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to send inquiry. Please try again or contact us directly.');
+            })
+            .finally(() => {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
             });
         });
     </script>
