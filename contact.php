@@ -931,7 +931,7 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="contact-hero">
+  <section class="contact-hero" style="background: linear-gradient(135deg, var(--gold-light) 0%, var(--cream-light) 100%); color: var(--text-primary);">
     <div class="container">
       <div class="contact-hero-content">
         <h1>Get in Touch</h1>
