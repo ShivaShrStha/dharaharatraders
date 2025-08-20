@@ -43,6 +43,7 @@
       color: var(--text-primary);
       line-height: 1.6;
       overflow-x: hidden;
+      padding-top: 120px; /* Space for fixed header */
     }
 
     .container {
@@ -62,6 +63,91 @@
       z-index: 1000;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
+    }
+
+    /* New Header Styles */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: var(--cream-light);
+      box-shadow: 0 2px 10px var(--shadow-light);
+    }
+
+    .topbar {
+      background: var(--brown-dark);
+      color: var(--cream-light);
+      padding: 8px 0;
+      font-size: 0.9rem;
+    }
+
+    .topbar a {
+      color: var(--cream-light);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .topbar a:hover {
+      color: var(--gold-light);
+    }
+
+    .navwrap {
+      background: var(--cream-light);
+      border-bottom: 1px solid var(--cream-dark);
+      padding: 1rem 0;
+    }
+
+    .navcontainer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--brown-dark);
+      cursor: pointer;
+    }
+
+    .mainnav ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+      margin: 0;
+      padding: 0;
+    }
+
+    .mainnav a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-weight: 500;
+      transition: all 0.3s ease;
+      padding: 0.5rem 1rem;
+      border-radius: 25px;
+    }
+
+    .mainnav a:hover,
+    .mainnav a.active {
+      color: var(--brown-dark);
+      background: var(--gold-light);
+    }
+
+    .logo-img {
+      height: 50px;
+      margin-right: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .logo:hover .logo-img {
+      transform: scale(1.05);
     }
 
     .nav {
@@ -393,6 +479,41 @@
 
     /* Mobile Responsive */
     @media (max-width: 768px) {
+      body {
+        padding-top: 100px;
+      }
+
+      .hamburger {
+        display: block;
+      }
+      
+      .mainnav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--cream-light);
+        box-shadow: 0 4px 20px var(--shadow-medium);
+        padding: 1rem 0;
+      }
+      
+      .mainnav.active {
+        display: block;
+      }
+      
+      .mainnav ul {
+        flex-direction: column;
+        gap: 0;
+        padding: 0 1rem;
+      }
+      
+      .mainnav a {
+        display: block;
+        padding: 1rem;
+        border-bottom: 1px solid var(--cream-dark);
+      }
+
       .nav-links {
         display: none;
       }
@@ -436,23 +557,32 @@
 
 <body>
   <!-- Header -->
-  <header class="header">
-    <div class="container">
-      <nav class="nav">
-        <a href="/" class="logo">
-          <img src="img/Dharaharalogo.png" alt="Dharahara Traders Logo">
+  <header class="site-header">
+    <div class="topbar">
+      <div class="container">
+        <div class="top-left">
+          <a href="mailto:info@dharaharatraders.com">info@dharaharatraders.com</a>
+          <span>&nbsp;|&nbsp;</span>
+          <a href="tel:+977-9818852676">+977-9818852676</a>
+        </div>
+      </div>
+    </div>
+    <div class="navwrap">
+      <div class="navcontainer">
+        <a class="logo" href="/">
+          <img src="/img/Dharaharalogo.png" alt="Dharahara Traders Logo" class="logo-img">
           <span class="logo-text">Dharahara Traders</span>
         </a>
-        <ul class="nav-links">
-          <li><a href="/">Home</a></li>
-          <li><a href="/about" class="active">About</a></li>
-          <li><a href="/shop">Shop</a></li>
-          <li><a href="/contact">Contact</a></li>
-        </ul>
-        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-          ☰
-        </button>
-      </nav>
+        <button class="hamburger" onclick="toggleMenu()">☰</button>
+        <nav class="mainnav" id="mainnav">
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about" class="active">About</a></li>
+            <li><a href="/shop">Products</a></li>
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
     </div>
   </header>
 
@@ -563,9 +693,9 @@
 <?php include 'includes/footer.php'; ?>
 
   <script>
-    function toggleMobileMenu() {
-      const navLinks = document.querySelector('.nav-links');
-      navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+    function toggleMenu() {
+      const nav = document.getElementById('mainnav');
+      nav.classList.toggle('active');
     }
   </script>
 </body>

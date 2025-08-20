@@ -73,6 +73,92 @@ try {
             line-height: 1.6;
             color: var(--text-primary);
             background: var(--cream-light);
+            padding-top: 120px; /* Space for fixed header */
+        }
+
+        /* Header Styles */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: var(--cream-light);
+            box-shadow: 0 2px 10px rgba(139, 115, 85, 0.1);
+        }
+
+        .topbar {
+            background: var(--brown-dark);
+            color: var(--cream-light);
+            padding: 8px 0;
+            font-size: 0.9rem;
+        }
+
+        .topbar a {
+            color: var(--cream-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .topbar a:hover {
+            color: var(--gold-light);
+        }
+
+        .navwrap {
+            background: var(--cream-light);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 1rem 0;
+        }
+
+        .navcontainer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--brown-dark);
+            cursor: pointer;
+        }
+
+        .mainnav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        .mainnav a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+
+        .mainnav a:hover,
+        .mainnav a.active {
+            color: var(--brown-dark);
+            background: var(--gold-light);
+        }
+
+        .logo-img {
+            height: 50px;
+            margin-right: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover .logo-img {
+            transform: scale(1.05);
         }
 
         /* Navigation */
@@ -443,6 +529,41 @@ try {
 
         /* Responsive Design */
         @media (max-width: 768px) {
+            body {
+                padding-top: 100px;
+            }
+
+            .hamburger {
+                display: block;
+            }
+            
+            .mainnav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--cream-light);
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+                padding: 1rem 0;
+            }
+            
+            .mainnav.active {
+                display: block;
+            }
+            
+            .mainnav ul {
+                flex-direction: column;
+                gap: 0;
+                padding: 0 1rem;
+            }
+            
+            .mainnav a {
+                display: block;
+                padding: 1rem;
+                border-bottom: 1px solid var(--border-subtle);
+            }
+
             .nav-links {
                 display: none;
                 position: absolute;
@@ -548,24 +669,35 @@ try {
 </head>
 
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="/" class="logo">
-                <img src="img/Dharaharalogo.png" alt="Dharahara Traders Logo">
-                <span class="logo-text">Dharahara Traders</span>
-            </a>
-            <ul class="nav-links">
-                <li><a href="/">Home</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="/shop" class="active">Shop</a></li>
-                <li><a href="/contact">Contact</a></li>
-            </ul>
-            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-                ☰
-            </button>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="topbar">
+            <div class="container">
+                <div class="top-left">
+                    <a href="mailto:info@dharaharatraders.com">info@dharaharatraders.com</a>
+                    <span>&nbsp;|&nbsp;</span>
+                    <a href="tel:+977-9818852676">+977-9818852676</a>
+                </div>
+            </div>
         </div>
-    </nav>
+        <div class="navwrap">
+            <div class="navcontainer">
+                <a class="logo" href="/">
+                    <img src="/img/Dharaharalogo.png" alt="Dharahara Traders Logo" class="logo-img">
+                    <span class="logo-text">Dharahara Traders</span>
+                </a>
+                <button class="hamburger" onclick="toggleMenu()">☰</button>
+                <nav class="mainnav" id="mainnav">
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/shop" class="active">Products</a></li>
+                        <li><a href="/contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
 
     <!-- Hero Section -->
     <section class="products-hero">
@@ -690,7 +822,7 @@ try {
                 <div style="background: var(--cream-dark); border-radius: 8px; padding: 20px; text-align: center; border: 1px solid var(--brown-light);">
                     <div style="font-size: 1.1rem; font-weight: 600; color: var(--gold-light); margin-bottom: 10px;">Follow Us</div>
                     <p style="color: var(--text-secondary); margin-bottom: 15px; font-size: 0.9rem;">Connect with us on social media for updates</p>
-                    <a href="https://www.facebook.com/dharahara.traders" target="_blank" style="display: inline-block; background: #1877f2; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: 500; font-size: 0.9rem;">
+                    <a href="https://www.facebook.com/profile.php?id=61570953567067" target="_blank" style="display: inline-block; background: #1877f2; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: 500; font-size: 0.9rem;">
                         📘 Visit Facebook Page
                     </a>
                 </div>
@@ -704,9 +836,9 @@ try {
 
     <script>
         // Mobile menu toggle
-        function toggleMobileMenu() {
-            const navLinks = document.querySelector('.nav-links');
-            navLinks.classList.toggle('active');
+        function toggleMenu() {
+            const nav = document.getElementById('mainnav');
+            nav.classList.toggle('active');
         }
 
         // Filter functionality

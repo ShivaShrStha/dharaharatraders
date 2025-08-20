@@ -76,6 +76,7 @@ try {
       color: var(--text-primary);
       background: var(--cream-light);
       overflow-x: hidden;
+      padding-top: 120px; /* Space for fixed header */
     }
 
     .container {
@@ -84,32 +85,47 @@ try {
       padding: 0 20px;
     }
 
-    /* Navigation */
-    .navbar {
+    /* Header Styles */
+    .site-header {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       z-index: 1000;
-      background: rgba(254, 252, 247, 0.95);
-      backdrop-filter: blur(20px);
+      background: var(--cream-light);
+      box-shadow: 0 2px 10px var(--shadow-light);
+    }
+
+    .topbar {
+      background: var(--brown-dark);
+      color: var(--cream-light);
+      padding: 8px 0;
+      font-size: 0.9rem;
+    }
+
+    .topbar a {
+      color: var(--cream-light);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .topbar a:hover {
+      color: var(--gold-light);
+    }
+
+    .navwrap {
+      background: var(--cream-light);
       border-bottom: 1px solid var(--cream-dark);
-      transition: all 0.3s ease;
       padding: 1rem 0;
     }
 
-    .navbar.scrolled {
-      background: var(--cream-light);
-      box-shadow: 0 4px 20px var(--shadow-light);
-    }
-
-    .nav-container {
+    .navcontainer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      padding: 0 20px;
     }
 
     .logo {
@@ -119,10 +135,14 @@ try {
       color: var(--brown-dark);
     }
 
-    .logo img {
+    .logo-img {
       height: 50px;
       margin-right: 10px;
       transition: transform 0.3s ease;
+    }
+
+    .logo:hover .logo-img {
+      transform: scale(1.05);
     }
 
     .logo-text {
@@ -132,36 +152,36 @@ try {
       color: var(--brown-dark);
     }
 
-    .logo:hover img {
-      transform: scale(1.05);
-    }
-
-    .nav-links {
-      display: flex;
-      list-style: none;
-      gap: 2rem;
-      align-items: center;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      color: var(--text-secondary);
-      font-weight: 500;
-      transition: color 0.3s ease;
-    }
-
-    .nav-links a:hover,
-    .nav-links a.active {
-      color: var(--accent-gold);
-    }
-
-    .mobile-menu-btn {
+    .hamburger {
       display: none;
       background: none;
       border: none;
       font-size: 1.5rem;
       color: var(--brown-dark);
       cursor: pointer;
+    }
+
+    .mainnav ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+      margin: 0;
+      padding: 0;
+    }
+
+    .mainnav a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-weight: 500;
+      transition: all 0.3s ease;
+      padding: 0.5rem 1rem;
+      border-radius: 25px;
+    }
+
+    .mainnav a:hover,
+    .mainnav a.active {
+      color: var(--brown-dark);
+      background: var(--gold-light);
     }
 
     /* Hero Section */
@@ -172,7 +192,7 @@ try {
       align-items: center;
       background: linear-gradient(135deg, var(--cream-medium) 0%, var(--cream-dark) 100%);
       overflow: hidden;
-      margin-top: 80px;
+      margin-top: 0; /* No margin needed with new header */
     }
 
     .hero::before {
@@ -594,30 +614,42 @@ try {
 
     /* Responsive Design */
     @media (max-width: 768px) {
-      .mobile-menu-btn {
-        display: block;
+      body {
+        padding-top: 100px;
       }
 
-      .nav-links {
+      .hamburger {
+        display: block;
+      }
+      
+      .mainnav {
         display: none;
-        position: fixed;
+        position: absolute;
         top: 100%;
         left: 0;
         right: 0;
         background: var(--cream-light);
-        padding: 2rem;
         box-shadow: 0 4px 20px var(--shadow-medium);
-        flex-direction: column;
-        gap: 1rem;
+        padding: 1rem 0;
       }
-
-      .nav-links.active {
-        display: flex;
-        animation: slideDown 0.3s ease;
+      
+      .mainnav.active {
+        display: block;
+      }
+      
+      .mainnav ul {
+        flex-direction: column;
+        gap: 0;
+        padding: 0 1rem;
+      }
+      
+      .mainnav a {
+        display: block;
+        padding: 1rem;
+        border-bottom: 1px solid var(--cream-dark);
       }
 
       .hero {
-        margin-top: 80px;
         min-height: 90vh;
       }
 
@@ -676,24 +708,35 @@ try {
 </head>
 
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="/" class="logo">
-                <img src="img/Dharaharalogo.png" alt="Dharahara Traders Logo">
-                <span class="logo-text">Dharahara Traders</span>
-            </a>
-            <ul class="nav-links">
-                <li><a href="/" class="active">Home</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="/shop">Shop</a></li>
-                <li><a href="/contact">Contact</a></li>
-            </ul>
-            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-                ☰
-            </button>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="topbar">
+            <div class="container">
+                <div class="top-left">
+                    <a href="mailto:info@dharaharatraders.com">info@dharaharatraders.com</a>
+                    <span>&nbsp;|&nbsp;</span>
+                    <a href="tel:+977-9818852676">+977-9818852676</a>
+                </div>
+            </div>
         </div>
-    </nav>
+        <div class="navwrap">
+            <div class="navcontainer">
+                <a class="logo" href="/">
+                    <img src="/img/Dharaharalogo.png" alt="Dharahara Traders Logo" class="logo-img">
+                    <span class="logo-text">Dharahara Traders</span>
+                </a>
+                <button class="hamburger" onclick="toggleMenu()">☰</button>
+                <nav class="mainnav" id="mainnav">
+                    <ul>
+                        <li><a href="/" class="active">Home</a></li>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/shop">Products</a></li>
+                        <li><a href="/contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -837,14 +880,14 @@ try {
 
     <script>
         // Mobile menu toggle
-        function toggleMobileMenu() {
-            const navLinks = document.querySelector('.nav-links');
-            navLinks.classList.toggle('active');
+        function toggleMenu() {
+            const nav = document.getElementById('mainnav');
+            nav.classList.toggle('active');
         }
 
-        // Header scroll effect
+        // Header scroll effect (keeping for potential future use)
         window.addEventListener('scroll', function() {
-            const navbar = document.querySelector('.navbar');
+            const navbar = document.querySelector('.site-header');
             if (window.scrollY > 100) {
                 navbar.classList.add('scrolled');
             } else {

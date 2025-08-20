@@ -1,4 +1,13 @@
 <?php
+// Serve static files directly if they exist
+$static_file = __DIR__ . parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
+if (is_file($static_file)) {
+    $mime = mime_content_type($static_file);
+    header("Content-Type: $mime");
+    readfile($static_file);
+    exit;
+}
+
 // Simple router for clean URLs
 $request = $_SERVER['REQUEST_URI'];
 $path = parse_url($request, PHP_URL_PATH);

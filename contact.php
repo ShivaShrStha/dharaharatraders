@@ -169,7 +169,7 @@
       min-height: 60vh;
       display: flex;
       align-items: center;
-      background: linear-gradient(135deg, var(--cream-medium) 0%, var(--cream-dark) 100%);
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--cream-light) 100%);
       overflow: hidden;
       margin-top: 100px;
     }
