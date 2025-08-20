@@ -6,6 +6,7 @@ $path = trim($path, '/');
 
 // Remove query string for routing
 $route = explode('?', $path)[0];
+$route = rtrim($route, '/'); // Ensure no trailing slash
 
 // Check if it's a PHP file that exists and should be executed
 $static_file = __DIR__ . '/' . $path;
