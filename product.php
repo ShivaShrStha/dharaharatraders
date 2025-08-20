@@ -797,6 +797,45 @@ try {
                 flex-direction: column;
             }
         }
+
+        /* Improved Inquiry Modal Styles */
+        .form-row {
+            display: flex;
+            gap: 2rem;
+        }
+        @media (max-width: 600px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+        .form-group label i {
+            margin-right: 6px;
+            color: var(--accent-gold);
+        }
+        #inquiryModal .modal-content {
+            box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+            border: 1px solid var(--gold-light);
+        }
+        #inquiryModal .modal-header h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        #inquiryMessage.form-message.success {
+            display: block;
+            background: #e8f5e8;
+            color: #2d5a2d;
+            border: 1px solid #90c695;
+            margin-top: 1rem;
+        }
+        #inquiryMessage.form-message.error {
+            display: block;
+            background: #ffeaea;
+            color: #d63031;
+            border: 1px solid #ffcdcd;
+            margin-top: 1rem;
+        }
     </style>
 </head>
 
@@ -911,50 +950,46 @@ try {
         <div id="inquiryModal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3>Product Inquiry: <?php echo htmlspecialchars($product['name']); ?></h3>
+                    <h3><i class="bi bi-envelope"></i> Product Inquiry: <?php echo htmlspecialchars($product['name']); ?></h3>
                     <span class="close" onclick="closeInquiryModal()">&times;</span>
                 </div>
                 <form id="inquiryForm" class="inquiry-form">
                     <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
                     <input type="hidden" name="product_name" value="<?php echo htmlspecialchars($product['name']); ?>">
-                    
-                    <div class="form-group">
-                        <label for="name">Full Name *</label>
-                        <input type="text" id="name" name="name" required>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name"><i class="bi bi-person"></i> Full Name *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email"><i class="bi bi-envelope"></i> Email *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="email">Email *</label>
-                        <input type="email" id="email" name="email" required>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone"><i class="bi bi-telephone"></i> Phone Number</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="company"><i class="bi bi-building"></i> Company/Organization</label>
+                            <input type="text" id="company" name="company">
+                        </div>
                     </div>
-                    
                     <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="company">Company/Organization</label>
-                        <input type="text" id="company" name="company">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="quantity">Quantity Interested</label>
+                        <label for="quantity"><i class="bi bi-box"></i> Quantity Interested</label>
                         <input type="number" id="quantity" name="quantity" min="1">
                     </div>
-                    
                     <div class="form-group">
-                        <label for="message">Message/Requirements *</label>
+                        <label for="message"><i class="bi bi-chat-dots"></i> Message/Requirements *</label>
                         <textarea id="message" name="message" rows="4" required placeholder="Please describe your requirements, timeline, or any specific questions about this product..."></textarea>
                     </div>
-                    
                     <div class="form-actions">
                         <button type="button" class="btn-secondary" onclick="closeInquiryModal()">Cancel</button>
                         <button type="submit" class="btn-primary">
                             <i class="bi bi-send"></i> Send Inquiry
                         </button>
                     </div>
-                    
                     <div id="inquiryMessage" class="form-message" style="display: none;"></div>
                 </form>
             </div>
@@ -1089,15 +1124,15 @@ try {
         // Handle inquiry form submission
         document.getElementById('inquiryForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            
             const formData = new FormData(this);
             const submitBtn = this.querySelector('button[type="submit"]');
             const originalText = submitBtn.textContent;
-            
+            const inquiryMessage = document.getElementById('inquiryMessage');
             // Show loading state
             submitBtn.textContent = 'Sending...';
             submitBtn.disabled = true;
-            
+            inquiryMessage.style.display = 'none';
+            inquiryMessage.className = 'form-message';
             fetch('process_inquiry.php', {
                 method: 'POST',
                 body: formData
@@ -1105,16 +1140,26 @@ try {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    alert('Thank you! Your inquiry has been sent successfully. We will contact you soon.');
+                    inquiryMessage.textContent = 'Thank you! Your inquiry has been sent successfully. We will contact you soon.';
+                    inquiryMessage.classList.add('success');
+                    inquiryMessage.style.display = 'block';
                     this.reset();
-                    closeInquiryModal();
+                    setTimeout(() => {
+                        closeInquiryModal();
+                        inquiryMessage.style.display = 'none';
+                        inquiryMessage.className = 'form-message';
+                    }, 2500);
                 } else {
-                    alert('Error: ' + (data.message || 'Failed to send inquiry. Please try again.'));
+                    inquiryMessage.textContent = data.message || 'Failed to send inquiry. Please try again.';
+                    inquiryMessage.classList.add('error');
+                    inquiryMessage.style.display = 'block';
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Failed to send inquiry. Please try again or contact us directly.');
+                inquiryMessage.textContent = 'Failed to send inquiry. Please try again or contact us directly.';
+                inquiryMessage.classList.add('error');
+                inquiryMessage.style.display = 'block';
             })
             .finally(() => {
                 submitBtn.textContent = originalText;
