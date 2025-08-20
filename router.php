@@ -8,6 +8,12 @@ $path = trim($path, '/');
 $route = explode('?', $path)[0];
 $route = rtrim($route, '/'); // Ensure no trailing slash
 
+// Add support for product details with query string (e.g., /product?id=123)
+if ($route === 'product' && isset($_GET['id'])) {
+    include 'product.php';
+    exit;
+}
+
 // Check if it's a PHP file that exists and should be executed
 $static_file = __DIR__ . '/' . $path;
 if (is_file($static_file)) {

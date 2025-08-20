@@ -43,190 +43,21 @@ try {
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="img/Dharaharalogo.png">
     
+    <link rel="stylesheet" href="includes/header.css">
+    
     <style>
         :root {
             --cream-light: #fefcf7;
-            --cream-medium: #faf6ef;
-            --cream-dark: #f5f0e6;
-            --gold-light: #f4e5c1;
-            --gold-medium: #e6d7a3;
-            --gold-dark: #d4c085;
-            --brown-light: #8b7355;
-            --brown-medium: #6d5a3f;
-            --brown-dark: #4a3d2a;
-            --accent-gold: #c9a96e;
-            --text-primary: #2c2416;
-            --text-secondary: #5a4e3a;
-            --border-subtle: #e8dcc6;
+            --cream-medium: #faf7f0;
+            --cream-dark: #f5f1e8;
+            --brown-dark: #8b7355;
+            --gold-light: #ecd9b0;
+            --shadow-light: rgba(139, 115, 85, 0.1);
+            --text-secondary: #6c5c3a;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            color: var(--text-primary);
-            background: var(--cream-light);
-            padding-top: 120px; /* Space for fixed header */
-        }
-
-        /* Header Styles */
-        .site-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: var(--cream-light);
-            box-shadow: 0 2px 10px rgba(139, 115, 85, 0.1);
-        }
-
-        .topbar {
-            background: var(--brown-dark);
-            color: var(--cream-light);
-            padding: 8px 0;
-            font-size: 0.9rem;
-        }
-
-        .topbar a {
-            color: var(--cream-light);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .topbar a:hover {
-            color: var(--gold-light);
-        }
-
-        .navwrap {
-            background: var(--cream-light);
-            border-bottom: 1px solid var(--border-subtle);
-            padding: 1rem 0;
-        }
-
-        .navcontainer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .hamburger {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--brown-dark);
-            cursor: pointer;
-        }
-
-        .mainnav ul {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-            margin: 0;
-            padding: 0;
-        }
-
-        .mainnav a {
-            text-decoration: none;
-            color: var(--text-secondary);
-            font-weight: 500;
-            transition: all 0.3s ease;
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-        }
-
-        .mainnav a:hover,
-        .mainnav a.active {
-            color: var(--brown-dark);
-            background: var(--gold-light);
-        }
-
-        .logo-img {
-            height: 50px;
-            margin-right: 10px;
-            transition: transform 0.3s ease;
-        }
-
-        .logo:hover .logo-img {
-            transform: scale(1.05);
-        }
-
-        /* Navigation */
-        .navbar {
-            background: rgba(254, 252, 247, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-subtle);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            padding: 1rem 0;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 2rem;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            color: var(--brown-dark);
-            font-weight: 700;
-        }
-
-        .logo img {
-            width: 40px;
-            height: 40px;
-            margin-right: 10px;
-        }
-
-        .logo-text {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-secondary);
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--accent-gold);
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--brown-dark);
-            cursor: pointer;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--cream-light); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; padding-top: 120px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
         /* Breadcrumb */
         .breadcrumb {
             background: var(--cream-medium);
@@ -250,7 +81,7 @@ try {
         }
 
         .breadcrumb a:hover {
-            color: var(--brown-dark);
+            color: var (--brown-dark);
         }
 
         /* Product Detail */
@@ -559,58 +390,6 @@ try {
                 padding-top: 100px;
             }
 
-            .hamburger {
-                display: block;
-            }
-            
-            .mainnav {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: var(--cream-light);
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-                padding: 1rem 0;
-            }
-            
-            .mainnav.active {
-                display: block;
-            }
-            
-            .mainnav ul {
-                flex-direction: column;
-                gap: 0;
-                padding: 0 1rem;
-            }
-            
-            .mainnav a {
-                display: block;
-                padding: 1rem;
-                border-bottom: 1px solid var(--border-subtle);
-            }
-
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: var(--cream-light);
-                flex-direction: column;
-                padding: 2rem;
-                border-top: 1px solid var(--border-subtle);
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .mobile-menu-btn {
-                display: block;
-            }
-
             .breadcrumb {
                 padding: 5rem 1rem 1rem;
             }
@@ -840,36 +619,7 @@ try {
 </head>
 
 <body>
-    <!-- Header -->
-    <header class="site-header">
-        <div class="topbar">
-            <div class="container">
-                <div class="top-left">
-                    <a href="mailto:info@dharaharatraders.com">info@dharaharatraders.com</a>
-                    <span>&nbsp;|&nbsp;</span>
-                    <a href="tel:+977-9818852676">+977-9818852676</a>
-                </div>
-            </div>
-        </div>
-        <div class="navwrap">
-            <div class="navcontainer">
-                <a class="logo" href="/">
-                    <img src="/img/Dharaharalogo.png" alt="Dharahara Traders Logo" class="logo-img">
-                    <span class="logo-text">Dharahara Traders</span>
-                </a>
-                <button class="hamburger" onclick="toggleMenu()">☰</button>
-                <nav class="mainnav" id="mainnav">
-                    <ul>
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/about">About</a></li>
-                        <li><a href="/shop" class="active">Products</a></li>
-                        <li><a href="/contact">Contact</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </header>
-
+    <?php include 'includes/header.php'; ?>
     <!-- Breadcrumb -->
     <section class="breadcrumb">
         <div class="breadcrumb-container">

@@ -1,0 +1,154 @@
+/* Header Styles for Consistency Across All Pages */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: var(--cream-light);
+  box-shadow: 0 2px 10px rgba(139, 115, 85, 0.1);
+  width: 100%;
+}
+
+/* Add universal header link styling for consistency */
+.site-header a, .site-header a:visited, .site-header a:active {
+  color: var(--brown-dark, #8b7355) !important;
+  text-decoration: none !important;
+}
+
+.topbar {
+  background: var(--brown-dark);
+  color: var(--cream-light);
+  padding: 8px 0;
+  font-size: 0.9rem;
+  width: 100%;
+}
+.topbar a {
+  color: var(--cream-light) !important;
+  text-decoration: none !important;
+  transition: color 0.3s ease;
+}
+.topbar a:hover {
+  color: var(--gold-light) !important;
+}
+.navwrap {
+  background: var(--cream-light);
+  border-bottom: 1px solid var(--cream-dark);
+  padding: 1rem 0;
+  width: 100%;
+}
+.navcontainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  width: 100%;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--brown-dark);
+}
+.logo-img {
+  max-width: 48px !important;
+  max-height: 48px !important;
+  width: 48px !important;
+  height: 48px !important;
+  margin-right: 10px;
+  transition: transform 0.3s ease;
+  vertical-align: middle;
+  object-fit: contain;
+}
+.logo:hover .logo-img {
+  transform: scale(1.05);
+}
+.logo-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--brown-dark);
+}
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--brown-dark);
+  cursor: pointer;
+}
+.mainnav ul {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+}
+
+/* Add fallback for nav links if CSS variable is missing */
+.mainnav a {
+  text-decoration: none;
+  color: var(--brown-dark, #8b7355);
+  font-weight: 500;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+}
+.mainnav a:hover,
+.mainnav a.active {
+  color: var(--brown-dark);
+  background: var(--gold-light);
+}
+@media (max-width: 900px) {
+  .navcontainer {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 10px;
+  }
+  .logo-text {
+    font-size: 1.1rem;
+  }
+}
+@media (max-width: 768px) {
+  .hamburger {
+    display: block !important;
+  }
+  .mainnav {
+    display: none !important;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--cream-light);
+    box-shadow: 0 4px 20px rgba(139, 115, 85, 0.2);
+    padding: 1rem 0;
+  }
+  .mainnav.active {
+    display: block !important;
+  }
+  .mainnav ul {
+    flex-direction: column;
+    gap: 0;
+    padding: 0 1rem;
+  }
+  .mainnav a {
+    display: block;
+    padding: 1rem;
+    border-bottom: 1px solid var(--cream-dark);
+  }
+  .logo-img {
+    max-width: 36px !important;
+    max-height: 36px !important;
+    width: 36px !important;
+    height: 36px !important;
+    margin-right: 8px;
+  }
+  .logo-text {
+    font-size: 1rem;
+  }
+  body {
+    padding-top: 80px !important;
+  }
+}

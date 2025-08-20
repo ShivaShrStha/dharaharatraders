@@ -17,6 +17,8 @@
   
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="img/Dharaharalogo.png">
+ 
+  <link rel="stylesheet" href="/includes/header.css">
   <style>
     /* Ultra Premium Creamy Design - Contact Page */
     :root {
@@ -50,117 +52,13 @@
       color: var(--text-primary);
       background: var(--cream-light);
       overflow-x: hidden;
+      padding-top: 120px;
     }
 
     .container {
       max-width: 1200px;
       margin: 0 auto;
       padding: 0 20px;
-    }
-
-    /* Header Styles */
-    .site-header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-      background: rgba(254, 252, 247, 0.95);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--cream-dark);
-      transition: all 0.3s ease;
-    }
-
-    .site-header.scrolled {
-      background: var(--cream-light);
-      box-shadow: 0 4px 20px var(--shadow-light);
-    }
-
-    .topbar {
-      background: var(--brown-dark);
-      color: var(--cream-light);
-      padding: 8px 0;
-      font-size: 0.85rem;
-    }
-
-    .top-left a {
-      color: var(--cream-light);
-      text-decoration: none;
-      margin-right: 15px;
-      opacity: 0.9;
-      transition: opacity 0.3s ease;
-    }
-
-    .top-left a:hover {
-      opacity: 1;
-    }
-
-    .navwrap {
-      padding: 15px 0;
-    }
-
-    .navcontainer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-      color: var(--brown-dark);
-    }
-
-    .logo-img {
-      height: 50px;
-      margin-right: 10px;
-      transition: transform 0.3s ease;
-    }
-
-    .logo-text {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--brown-dark);
-    }
-
-    .logo:hover .logo-img {
-      transform: scale(1.05);
-    }
-
-    .mainnav ul {
-      display: flex;
-      list-style: none;
-      gap: 40px;
-      align-items: center;
-    }
-
-    .mainnav a {
-      color: var(--text-primary);
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 0.95rem;
-      padding: 8px 16px;
-      border-radius: 25px;
-      transition: all 0.3s ease;
-      position: relative;
-    }
-
-    .mainnav a:hover,
-    .mainnav a.active {
-      background: var(--gold-light);
-      color: var(--brown-dark);
-      transform: translateY(-2px);
-    }
-
-    .hamburger {
-      display: none;
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      color: var(--brown-dark);
-      cursor: pointer;
     }
 
     /* Hero Section */
@@ -240,7 +138,7 @@
 
     .contact-info p {
       font-size: 1.1rem;
-      color: var(--text-secondary);
+      color: var (--text-secondary);
       margin-bottom: 2rem;
       line-height: 1.7;
     }
@@ -495,7 +393,7 @@
       text-align: center;
       padding-top: 2rem;
       border-top: 1px solid var(--brown-medium);
-      color: var(--cream-light);
+      color: var (--cream-light);
       opacity: 0.7;
     }
 
@@ -527,31 +425,6 @@
 
     /* Responsive Design */
     @media (max-width: 768px) {
-      .hamburger {
-        display: block;
-      }
-
-      .mainnav {
-        display: none;
-        position: fixed;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: var(--cream-light);
-        padding: 2rem;
-        box-shadow: 0 4px 20px var(--shadow-medium);
-      }
-
-      .mainnav.active {
-        display: block;
-        animation: slideDown 0.3s ease;
-      }
-
-      .mainnav ul {
-        flex-direction: column;
-        gap: 1rem;
-      }
-
       .contact-hero {
         margin-top: 80px;
         min-height: 50vh;
@@ -901,34 +774,7 @@
   </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="topbar">
-      <div class="container">
-        <div class="top-left">
-          <a href="mailto:info@dharaharatraders.com">info@dharaharatraders.com</a>
-          <span>&nbsp;|&nbsp;</span>
-          <a href="tel:+977-9818852676">+977-9818852676</a>
-        </div>
-      </div>
-    </div>
-    <div class="navwrap">
-      <div class="container navcontainer">
-        <a class="logo" href="/">
-          <img src="img/Dharaharalogo.png" alt="Dharahara Traders Logo" class="logo-img">
-          <span class="logo-text">Dharahara Traders</span>
-        </a>
-        <button class="hamburger" onclick="toggleMenu()">☰</button>
-        <nav class="mainnav" id="mainnav">
-          <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/shop">Products</a></li>
-            <li><a href="/contact" class="active">Contact</a></li>
-          </ul>
-        </nav>
-      </div>
-    </div>
-  </header>
+    <?php include 'includes/header.php'; ?>
 
   <!-- Hero Section -->
   <section class="contact-hero" style="background: linear-gradient(135deg, var(--gold-light) 0%, var(--cream-light) 100%); color: var(--text-primary);">

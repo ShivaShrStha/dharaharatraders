@@ -43,146 +43,20 @@ try {
   
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="img/Dharaharalogo.png">
+  <link rel="stylesheet" href="includes/header.css">
   <style>
-    /* Ultra Premium Creamy Design */
     :root {
       --cream-light: #fefcf7;
       --cream-medium: #faf7f0;
       --cream-dark: #f5f1e8;
-      --gold-light: #d4af37;
-      --gold-medium: #b8860b;
-      --gold-dark: #8b6914;
-      --brown-light: #8b7355;
-      --brown-medium: #6d5a3d;
-      --brown-dark: #4a3728;
-      --text-primary: #2c1810;
-      --text-secondary: #5d4e37;
-      --text-muted: #8b7355;
-      --accent: #cd9456;
+      --brown-dark: #8b7355;
+      --gold-light: #ecd9b0;
       --shadow-light: rgba(139, 115, 85, 0.1);
-      --shadow-medium: rgba(139, 115, 85, 0.2);
-      --shadow-heavy: rgba(139, 115, 85, 0.3);
+      --text-secondary: #6c5c3a;
     }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      line-height: 1.6;
-      color: var(--text-primary);
-      background: var(--cream-light);
-      overflow-x: hidden;
-      padding-top: 120px; /* Space for fixed header */
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    /* Header Styles */
-    .site-header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-      background: var(--cream-light);
-      box-shadow: 0 2px 10px var(--shadow-light);
-    }
-
-    .topbar {
-      background: var(--brown-dark);
-      color: var(--cream-light);
-      padding: 8px 0;
-      font-size: 0.9rem;
-    }
-
-    .topbar a {
-      color: var(--cream-light);
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    .topbar a:hover {
-      color: var(--gold-light);
-    }
-
-    .navwrap {
-      background: var(--cream-light);
-      border-bottom: 1px solid var(--cream-dark);
-      padding: 1rem 0;
-    }
-
-    .navcontainer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-      color: var(--brown-dark);
-    }
-
-    .logo-img {
-      height: 50px;
-      margin-right: 10px;
-      transition: transform 0.3s ease;
-    }
-
-    .logo:hover .logo-img {
-      transform: scale(1.05);
-    }
-
-    .logo-text {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--brown-dark);
-    }
-
-    .hamburger {
-      display: none;
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      color: var(--brown-dark);
-      cursor: pointer;
-    }
-
-    .mainnav ul {
-      display: flex;
-      list-style: none;
-      gap: 2rem;
-      margin: 0;
-      padding: 0;
-    }
-
-    .mainnav a {
-      text-decoration: none;
-      color: var(--text-secondary);
-      font-weight: 500;
-      transition: all 0.3s ease;
-      padding: 0.5rem 1rem;
-      border-radius: 25px;
-    }
-
-    .mainnav a:hover,
-    .mainnav a.active {
-      color: var(--brown-dark);
-      background: var(--gold-light);
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: var(--cream-light); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; padding-top: 120px; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
 
     /* Hero Section */
     .hero {
@@ -271,12 +145,12 @@ try {
     .btn-primary {
       background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-medium) 100%);
       color: var(--brown-dark);
-      box-shadow: 0 8px 25px var(--shadow-medium);
+      box-shadow: 0 8px 25px var(--shadow-light);
     }
 
     .btn-primary:hover {
       transform: translateY(-3px);
-      box-shadow: 0 12px 35px var(--shadow-heavy);
+      box-shadow: 0 12px 35px var(--shadow-light);
       background: linear-gradient(135deg, var(--gold-medium) 0%, var(--gold-dark) 100%);
       color: var(--cream-light);
     }
@@ -284,14 +158,14 @@ try {
     .btn-secondary {
       background: transparent;
       color: var(--text-primary);
-      border-color: var(--brown-light);
+      border-color: var(--brown-dark);
     }
 
     .btn-secondary:hover {
-      background: var(--brown-light);
+      background: var(--brown-dark);
       color: var(--cream-light);
       transform: translateY(-3px);
-      box-shadow: 0 8px 25px var(--shadow-medium);
+      box-shadow: 0 8px 25px var(--shadow-light);
     }
 
     /* Animations */
@@ -378,7 +252,7 @@ try {
 
     .feature-card:hover {
       transform: translateY(-10px);
-      box-shadow: 0 20px 40px var(--shadow-medium);
+      box-shadow: 0 20px 40px var(--shadow-light);
     }
 
     .feature-icon {
@@ -432,7 +306,7 @@ try {
 
     .product-card:hover {
       transform: translateY(-8px);
-      box-shadow: 0 20px 40px var(--shadow-medium);
+      box-shadow: 0 20px 40px var(--shadow-light);
     }
 
     .product-image {
@@ -469,14 +343,14 @@ try {
     .product-price {
       font-size: 1.2rem;
       font-weight: 700;
-      color: var(--gold-medium);
+      color: var (--gold-medium);
       margin-bottom: 1rem;
     }
 
     .product-link {
       display: inline-flex;
       align-items: center;
-      color: var(--brown-medium);
+      color: var(--brown-dark);
       text-decoration: none;
       font-weight: 500;
       font-size: 0.9rem;
@@ -596,13 +470,13 @@ try {
 
     .footer-facebook iframe {
       border-radius: 12px;
-      border: 1px solid var(--brown-medium);
+      border: 1px solid var(--brown-dark);
     }
 
     .copyright {
       text-align: center;
       padding-top: 2rem;
-      border-top: 1px solid var(--brown-medium);
+      border-top: 1px solid var(--brown-dark);
       color: var(--cream-light);
       opacity: 0.7;
     }
@@ -616,37 +490,6 @@ try {
     @media (max-width: 768px) {
       body {
         padding-top: 100px;
-      }
-
-      .hamburger {
-        display: block;
-      }
-      
-      .mainnav {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: var(--cream-light);
-        box-shadow: 0 4px 20px var(--shadow-medium);
-        padding: 1rem 0;
-      }
-      
-      .mainnav.active {
-        display: block;
-      }
-      
-      .mainnav ul {
-        flex-direction: column;
-        gap: 0;
-        padding: 0 1rem;
-      }
-      
-      .mainnav a {
-        display: block;
-        padding: 1rem;
-        border-bottom: 1px solid var(--cream-dark);
       }
 
       .hero {
@@ -708,35 +551,7 @@ try {
 </head>
 
 <body>
-    <!-- Header -->
-    <header class="site-header">
-        <div class="topbar">
-            <div class="container">
-                <div class="top-left">
-                    <a href="mailto:info@dharaharatraders.com">info@dharaharatraders.com</a>
-                    <span>&nbsp;|&nbsp;</span>
-                    <a href="tel:+977-9818852676">+977-9818852676</a>
-                </div>
-            </div>
-        </div>
-        <div class="navwrap">
-            <div class="navcontainer">
-                <a class="logo" href="/">
-                    <img src="/img/Dharaharalogo.png" alt="Dharahara Traders Logo" class="logo-img">
-                    <span class="logo-text">Dharahara Traders</span>
-                </a>
-                <button class="hamburger" onclick="toggleMenu()">☰</button>
-                <nav class="mainnav" id="mainnav">
-                    <ul>
-                        <li><a href="/" class="active">Home</a></li>
-                        <li><a href="/about">About</a></li>
-                        <li><a href="/shop">Products</a></li>
-                        <li><a href="/contact">Contact</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </header>
+    <?php include 'includes/header.php'; ?>
 
     <!-- Hero Section -->
     <section class="hero">
