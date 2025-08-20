@@ -527,6 +527,15 @@ try {
             color: rgba(254, 252, 247, 0.6);
         }
 
+        .facebook-embed {
+            text-align: center;
+        }
+
+        .facebook-embed iframe {
+            border-radius: 12px;
+            border: 1px solid var(--brown-medium);
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             body {
@@ -819,12 +828,16 @@ try {
             
             <div class="footer-section">
                 <h3>Follow Us</h3>
-                <div style="background: var(--cream-dark); border-radius: 8px; padding: 20px; text-align: center; border: 1px solid var(--brown-light);">
-                    <div style="font-size: 1.1rem; font-weight: 600; color: var(--gold-light); margin-bottom: 10px;">Follow Us</div>
-                    <p style="color: var(--text-secondary); margin-bottom: 15px; font-size: 0.9rem;">Connect with us on social media for updates</p>
-                    <a href="https://www.facebook.com/profile.php?id=61570953567067" target="_blank" style="display: inline-block; background: #1877f2; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: 500; font-size: 0.9rem;">
-                        📘 Visit Facebook Page
-                    </a>
+                <div class="facebook-embed">
+                    <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fdharahara.traders&tabs=timeline&width=350&height=400&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" 
+                            width="100%" 
+                            height="400" 
+                            style="border:none;overflow:hidden;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,0.1);max-width:350px;" 
+                            scrolling="no" 
+                            frameborder="0" 
+                            allowfullscreen="true" 
+                            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+                    </iframe>
                 </div>
             </div>
         </div>

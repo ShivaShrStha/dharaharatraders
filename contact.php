@@ -159,7 +159,7 @@
       background: none;
       border: none;
       font-size: 1.5rem;
-      color: var(--text-primary);
+      color: var(--brown-dark);
       cursor: pointer;
     }
 

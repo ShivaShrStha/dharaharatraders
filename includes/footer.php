@@ -38,7 +38,7 @@
         <div class="facebook-section">
           <h2>Follow Us on Facebook</h2>
           <div class="facebook-embed">
-            <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D61570953567067&tabs=timeline&width=350&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" 
+            <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fdharahara.traders&tabs=timeline&width=350&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" 
                     width="350" 
                     height="500" 
                     style="border:none;overflow:hidden;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,0.1);" 
