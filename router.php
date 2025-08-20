@@ -39,6 +39,13 @@ if (array_key_exists($route, $routes)) {
 
 // Handle product with ID
 if (strpos($route, 'product') === 0) {
+    $_GET['id'] = substr($route, 8); // Extract ID from product/123
+    include 'product.php';
+    exit;
+}
+
+// Handle product.php specifically
+if (isset($_GET['id']) && $route === 'product.php') {
     include 'product.php';
     exit;
 }

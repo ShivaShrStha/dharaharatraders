@@ -22,27 +22,33 @@
         </ul>
       </div>
       <div>
-        <h4>Our Brand</h4>
-        <div style="font-size: 1.3rem; font-weight: 600; color: var(--gold-light); margin-bottom: 0.5rem;">
+        <h4>Our Products</h4>
+        <div style="font-size: 1.1rem; font-weight: 600; color: var(--gold-light); margin-bottom: 1rem;">
           Dharahara Traders Pvt. Ltd.
         </div>
-        <p style="font-size: 0.95rem; color: var(--cream-light); margin: 0; opacity: 0.8;">
-          Quality • Trust • Excellence
-        </p>
-        <a href="http://localhost:8000/" target="_blank" style="color: var(--gold-light); text-decoration: none; font-size: 0.9rem; display: block; margin-top: 0.5rem;">
-          localhost:8000
-        </a>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 0.5rem; color: var(--cream-light); opacity: 0.9;">Medical Equipment</li>
+          <li style="margin-bottom: 0.5rem; color: var(--cream-light); opacity: 0.9;">Cosmetics</li>
+          <li style="margin-bottom: 0.5rem; color: var(--cream-light); opacity: 0.9;">Herbs</li>
+          <li style="margin-bottom: 0.5rem; color: var(--cream-light); opacity: 0.9;">Surgical Instruments</li>
+          <li style="margin-bottom: 0.5rem; color: var(--cream-light); opacity: 0.9;">Electronics</li>
+        </ul>
       </div>
-      <div class="footer-facebook">
-        <h4>Follow Us</h4>
-        <div style="background: var(--cream-dark); border-radius: 8px; padding: 20px; text-align: center; border: 1px solid var(--brown-light);">
-          <div style="font-size: 1.1rem; font-weight: 600; color: var(--gold-light); margin-bottom: 10px;">Follow Us</div>
-          <p style="color: var(--text-secondary); margin-bottom: 15px; font-size: 0.9rem;">Connect with us on social media for updates</p>
-          <a href="https://www.facebook.com/profile.php?id=61570953567067" target="_blank" style="display: inline-block; background: #1877f2; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: 500; font-size: 0.9rem;">
-            📘 Visit Facebook Page
-          </a>
+      <!-- Facebook Section -->
+        <div class="facebook-section">
+          <h2>Follow Us on Facebook</h2>
+          <div class="facebook-embed">
+            <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D61570953567067&tabs=timeline&width=350&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" 
+                    width="350" 
+                    height="500" 
+                    style="border:none;overflow:hidden;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,0.1);" 
+                    scrolling="no" 
+                    frameborder="0" 
+                    allowfullscreen="true" 
+                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+            </iframe>
+          </div>
         </div>
-      </div>
     </div>
     <div class="copyright">
       © Copyright Dharahara Traders Pvt. Ltd. | Developed by <a href="https://shivasharanshrestha.com.np" target="_blank">Shiva Sharan Shrestha</a>
