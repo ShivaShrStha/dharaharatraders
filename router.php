@@ -37,7 +37,7 @@ $routes = [
     '' => 'index.php',
     'home' => 'index.php',
     'about' => 'about.php',
-    'shop' => 'shop.php',
+    'products' => 'products.php',
     'contact' => 'contact.php',
     'product' => 'product.php'
 ];

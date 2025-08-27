@@ -255,15 +255,14 @@ try {
       box-shadow: 0 20px 40px var(--shadow-light);
     }
 
+    /* Fix emoji visibility in feature icons */
     .feature-icon {
       position: relative;
       z-index: 2;
       font-size: 3.5rem;
       margin-bottom: 1.5rem;
-      background: linear-gradient(135deg, var(--gold-light), var(--gold-medium));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--gold-light);
+      font-family: 'Playfair Display', serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'NotoColorEmoji', 'Noto Emoji', sans-serif;
     }
 
     .feature-card h3 {
@@ -327,7 +326,7 @@ try {
     .product-category {
       font-size: 0.85rem;
       font-weight: 500;
-      color: var(--gold-medium);
+      color: var (--gold-medium);
       text-transform: uppercase;
       letter-spacing: 1px;
       margin-bottom: 0.5rem;
@@ -561,8 +560,8 @@ try {
           <h1>Dharahara Traders</h1>
           <p class="hero-subtitle">Your trusted partner for premium quality products from Nepal to the world. Specializing in medical equipment, cosmetics, herbs, and electronics.</p>
           <div class="hero-cta">
-            <a href="/shop" class="btn btn-primary">Explore Products</a>
-            <a href="/contact" class="btn btn-secondary">Get in Touch</a>
+            <a href="products.php" class="btn btn-primary">Explore Products</a>
+            <a href="contact.php" class="btn btn-secondary">Get in Touch</a>
           </div>
         </div>
       </div>
@@ -623,16 +622,69 @@ try {
           <?php if (!empty($featured_products)): ?>
             <?php foreach ($featured_products as $product): ?>
               <div class="product-card">
-                <?php if ($product['image_url']): ?>
-                  <img src="<?php echo htmlspecialchars($product['image_url']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="product-image">
-                <?php else: ?>
-                  <img src="img/placeholder-product.jpg" alt="<?php echo htmlspecialchars($product['name']); ?>" class="product-image">
-                <?php endif; ?>
+                <?php
+                  // Choose image based on product name/category if image_url is missing
+                  $img = 'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=400&q=80'; // Default online placeholder
+                  if (!empty($product['image_url'])) {
+                    $img = htmlspecialchars($product['image_url']);
+                  } else {
+                    $name = strtolower($product['name']);
+                    if (strpos($name, 'thermometer') !== false) {
+                      $img = 'https://images.unsplash.com/photo-1588776814546-ec7e8e8b6b6b?auto=format&fit=crop&w=400&q=80'; // Digital Thermometer
+                    } elseif (strpos($name, 'oximeter') !== false) {
+                      $img = 'https://images.unsplash.com/photo-1588776814546-ec7e8e8b6b6b?auto=format&fit=crop&w=400&q=80'; // Pulse Oximeter
+                    } elseif (strpos($name, 'smart watch') !== false) {
+                      $img = 'https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?auto=format&fit=crop&w=400&q=80'; // Bluetooth Smart Watch
+                    } elseif (strpos($name, 'glucose') !== false) {
+                      $img = 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80'; // Blood Glucose Monitor
+                    } elseif (strpos($name, 'ecg') !== false) {
+                      $img = 'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=400&q=80'; // ECG Monitor
+                    } elseif (strpos($name, 'cream') !== false) {
+                      $img = 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80'; // Himalayan Face Cream
+                    } elseif (strpos($name, 'medical') !== false) {
+                      $img = 'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=400&q=80'; // Medical Equipment
+                    } elseif (strpos($name, 'electronics') !== false) {
+                      $img = 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=400&q=80'; // Electronics
+                    } else {
+                      $img = 'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=400&q=80'; // Fallback
+                    }
+                  }
+                ?>
+                <img src="<?php echo $img; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="product-image">
                 <div class="product-info">
-                  <div class="product-category"><?php echo ucfirst($product['category']); ?></div>
-                  <h3 class="product-name"><?php echo htmlspecialchars($product['name']); ?></h3>
-                  <div class="product-price"><?php echo $product['price'] ?: 'Contact for Price'; ?></div>
-                  <a href="product.php?id=<?php echo $product['id']; ?>" class="product-link">View Details →</a>
+                  <div class="product-category" style="color:#3661b7;font-weight:600;letter-spacing:1px;"><?php echo ucfirst($product['category']); ?></div>
+                  <h3 class="product-name" style="color:#8b7355;font-weight:700;"><?php echo htmlspecialchars($product['name']); ?></h3>
+                  <div class="product-price" style="color:#d63031;font-weight:700;">
+                    <?php
+                      // Show NRP price based on product type
+                      $name = strtolower($product['name']);
+                      if (strpos($name, 'thermometer') !== false) {
+                        echo 'NRP 450';
+                      } elseif (strpos($name, 'oximeter') !== false) {
+                        echo 'NRP 1,500';
+                      } elseif (strpos($name, 'smart watch') !== false) {
+                        echo 'NRP 3,500';
+                      } elseif (strpos($name, 'glucose') !== false) {
+                        echo 'NRP 2,800';
+                      } elseif (strpos($name, 'ecg') !== false) {
+                        echo 'NRP 12,000';
+                      } elseif (strpos($name, 'cream') !== false) {
+                        echo 'NRP 800';
+                      } elseif (strpos($name, 'medical') !== false) {
+                        echo 'NRP 2,000+';
+                      } elseif (strpos($name, 'electronics') !== false) {
+                        echo 'NRP 2,500+';
+                      } else {
+                        if (!empty($product['price'])) {
+                          echo 'NRP ' . htmlspecialchars($product['price']);
+                        } else {
+                          echo 'Contact for Price';
+                        }
+                      }
+                    ?>
+                  </div>
+                  <a href="product.php?id=<?php echo $product['id']; ?>" class="product-link">View Details &rarr;</a>
+                  <a href="https://wa.me/9779851040562?text=Hi! I'm interested in <?php echo urlencode($product['name']); ?>" class="product-link" target="_blank" style="color:#25D366;font-weight:600;">WhatsApp Inquiry</a>
                 </div>
               </div>
             <?php endforeach; ?>
@@ -644,7 +696,7 @@ try {
                 <div class="product-category">Medical</div>
                 <h3 class="product-name">Medical Equipment</h3>
                 <div class="product-price">Contact for Price</div>
-                <a href="/shop" class="product-link">View Products →</a>
+                <a href="products.php" class="product-link">View Products →</a>
               </div>
             </div>
             <div class="product-card">
@@ -653,7 +705,7 @@ try {
                 <div class="product-category">Beauty</div>
                 <h3 class="product-name">Cosmetics & Beauty</h3>
                 <div class="product-price">Contact for Price</div>
-                <a href="/shop" class="product-link">View Products →</a>
+                <a href="products.php" class="product-link">View Products →</a>
               </div>
             </div>
             <div class="product-card">
@@ -662,13 +714,13 @@ try {
                 <div class="product-category">Electronics</div>
                 <h3 class="product-name">Electronics</h3>
                 <div class="product-price">Contact for Price</div>
-                <a href="/shop" class="product-link">View Products →</a>
+                <a href="products.php" class="product-link">View Products →</a>
               </div>
             </div>
           <?php endif; ?>
         </div>
         <div style="text-align: center; margin-top: 3rem;">
-          <a href="/shop" class="btn btn-primary">View All Products</a>
+          <a href="shop.php" class="btn btn-primary">View All Products</a>
         </div>
       </div>
     </section>
@@ -678,12 +730,12 @@ try {
       <div class="container">
         <div class="newsletter-inner">
           <div>
-            <h3>Stay Updated</h3>
-            <p>Subscribe to our newsletter for the latest products, offers, and industry insights.</p>
+            <h3 style="color:#3661b7;font-weight:700;">Stay Updated</h3>
+            <p style="color:#8b7355;font-weight:500;">Subscribe to our newsletter for the latest products, offers, and industry insights.</p>
           </div>
           <form class="newsletter-form" id="newsletterForm">
-            <input name="email" placeholder="Enter your email" type="email" required>
-            <button id="newsletterBtn" type="submit">Subscribe</button>
+            <input name="email" placeholder="Enter your email" type="email" required style="border:2px solid #3661b7;color:#8b7355;">
+            <button id="newsletterBtn" type="submit" style="background:#25D366;color:white;font-weight:700;">Subscribe</button>
             <div class="form-message" id="newsletterMessage" style="display:none; margin-top:15px; padding:12px; border-radius:8px; font-size:0.9rem; width: 100%;"></div>
           </form>
         </div>

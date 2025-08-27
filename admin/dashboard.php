@@ -402,7 +402,7 @@ if (isset($_GET['logout'])) {
     <div id="editProductModal" class="modal">
         <div class="modal-content">
             <h3>Edit Product</h3>
-            <form id="editProductForm">
+            <form id="editProductForm" enctype="multipart/form-data">
                 <input type="hidden" id="editProductId" name="id">
                 <div class="form-group">
                     <label>Product Name</label>
@@ -433,6 +433,11 @@ if (isset($_GET['logout'])) {
                         <option value="active">Active</option>
                         <option value="inactive">Inactive</option>
                     </select>
+                </div>
+                <div class="form-group">
+                    <label>Current Image</label>
+                    <div id="editProductImagePreview" style="margin-bottom:10px;"></div>
+                    <input type="file" id="editProductImage" name="image" accept="image/*">
                 </div>
                 <button type="submit" class="btn btn-primary">Save Changes</button>
                 <button type="button" class="btn btn-danger" onclick="closeEditProductModal()">Cancel</button>
@@ -511,10 +516,36 @@ if (isset($_GET['logout'])) {
             fetch('get_products.php')
                 .then(response => response.json())
                 .then(data => {
-                    let html = '<table class="data-table"><thead><tr><th>ID</th><th>Name</th><th>Category</th><th>Price</th><th>Status</th><th>Actions</th></tr></thead><tbody>';
+                    let html = '<table class="data-table"><thead><tr><th>ID</th><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Status</th><th>Actions</th></tr></thead><tbody>';
                     data.forEach(product => {
+                        // JS fallback logic for image
+                        let img = 'img/placeholder-product.jpg';
+                        if (product.image) {
+                            img = product.image;
+                        } else {
+                            let name = product.name.toLowerCase();
+                            let cat = product.category.toLowerCase();
+                            if (name.includes('thermometer')) {
+                                img = 'img/digital-thermometer.jpg';
+                            } else if (name.includes('oximeter')) {
+                                img = 'img/pulse-oximeter.jpg';
+                            } else if (name.includes('smart watch')) {
+                                img = 'img/bluetooth-smart-watch.jpg';
+                            } else if (name.includes('glucose')) {
+                                img = 'img/blood-glucose-monitor.jpg';
+                            } else if (name.includes('ecg')) {
+                                img = 'img/ecg-monitor.jpg';
+                            } else if (cat === 'medical') {
+                                img = 'img/medical-equipment.jpg';
+                            } else if (cat === 'electronics') {
+                                img = 'img/electronics.jpg';
+                            } else if (cat === 'cosmetic' || cat === 'cosmetics' || name.includes('cream')) {
+                                img = 'img/himalayan-face-cream.jpg';
+                            }
+                        }
                         html += `<tr>
                             <td>${product.id}</td>
+                            <td><img src="${img}" alt="${product.name}" style="width:60px;height:60px;object-fit:cover;border-radius:8px;"></td>
                             <td>${product.name}</td>
                             <td>${product.category}</td>
                             <td>${product.price || 'Contact for price'}</td>
@@ -567,6 +598,32 @@ if (isset($_GET['logout'])) {
                     document.getElementById('editProductDescription').value = product.description;
                     document.getElementById('editProductPrice').value = product.price;
                     document.getElementById('editProductStatus').value = product.status;
+                    // Fallback image logic
+                    let img = 'img/placeholder-product.jpg';
+                    if (product.image) {
+                        img = product.image;
+                    } else {
+                        let name = product.name.toLowerCase();
+                        let cat = product.category.toLowerCase();
+                        if (name.includes('thermometer')) {
+                            img = 'img/digital-thermometer.jpg';
+                        } else if (name.includes('oximeter')) {
+                            img = 'img/pulse-oximeter.jpg';
+                        } else if (name.includes('smart watch')) {
+                            img = 'img/bluetooth-smart-watch.jpg';
+                        } else if (name.includes('glucose')) {
+                            img = 'img/blood-glucose-monitor.jpg';
+                        } else if (name.includes('ecg')) {
+                            img = 'img/ecg-monitor.jpg';
+                        } else if (cat === 'medical') {
+                            img = 'img/medical-equipment.jpg';
+                        } else if (cat === 'electronics') {
+                            img = 'img/electronics.jpg';
+                        } else if (cat === 'cosmetic' || cat === 'cosmetics' || name.includes('cream')) {
+                            img = 'img/himalayan-face-cream.jpg';
+                        }
+                    }
+                    document.getElementById('editProductImagePreview').innerHTML = `<img src='${img}' alt='${product.name}' style='width:100px;height:100px;object-fit:cover;border-radius:8px;'>`;
                     document.getElementById('editProductModal').style.display = 'flex';
                 });
         }

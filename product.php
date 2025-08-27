@@ -3,7 +3,7 @@
 $product_id = $_GET['id'] ?? null;
 
 if (!$product_id) {
-    header('Location: shop');
+    header('Location: products');
     exit;
 }
 
@@ -18,11 +18,11 @@ try {
     $product = $stmt->fetch(PDO::FETCH_ASSOC);
     
     if (!$product) {
-        header('Location: shop');
+        header('Location: products');
         exit;
     }
 } catch(Exception $e) {
-    header('Location: shop');
+    header('Location: products');
     exit;
 }
 ?>
@@ -162,7 +162,7 @@ try {
             font-family: 'Playfair Display', serif;
             font-size: 1.5rem;
             font-weight: 600;
-            color: var(--brown-dark);
+            color: var (--brown-dark);
             margin-bottom: 1rem;
         }
 
@@ -623,9 +623,9 @@ try {
     <!-- Breadcrumb -->
     <section class="breadcrumb">
         <div class="breadcrumb-container">
-            <a href="/">Home</a>
+            <a href="index.php">Home</a>
             <i class="bi bi-chevron-right"></i>
-            <a href="/shop">Products</a>
+            <a href="products.php">Products</a>
             <i class="bi bi-chevron-right"></i>
             <span><?php echo htmlspecialchars($product['name']); ?></span>
         </div>
@@ -635,16 +635,34 @@ try {
     <main class="product-detail">
         <div class="product-grid">
             <div class="product-images">
-                <?php if (!empty($product['image'])): ?>
-                    <img src="<?php echo htmlspecialchars($product['image']); ?>" 
-                         alt="<?php echo htmlspecialchars($product['name']); ?>" 
-                         class="main-image"
-                         onerror="this.src='img/placeholder-product.jpg'">
-                <?php else: ?>
-                    <img src="img/placeholder-product.jpg" 
-                         alt="Product placeholder" 
-                         class="main-image">
-                <?php endif; ?>
+                <?php
+                // Use same image logic as index.php
+                $img = 'img/placeholder-product.jpg';
+                if (!empty($product['image'])) {
+                    $img = htmlspecialchars($product['image']);
+                } else {
+                    $name = strtolower($product['name']);
+                    $cat = strtolower($product['category']);
+                    if (strpos($name, 'thermometer') !== false) {
+                        $img = 'img/digital-thermometer.jpg';
+                    } elseif (strpos($name, 'oximeter') !== false) {
+                        $img = 'img/pulse-oximeter.jpg';
+                    } elseif (strpos($name, 'smart watch') !== false) {
+                        $img = 'img/bluetooth-smart-watch.jpg';
+                    } elseif (strpos($name, 'glucose') !== false) {
+                        $img = 'img/blood-glucose-monitor.jpg';
+                    } elseif (strpos($name, 'ecg') !== false) {
+                        $img = 'img/ecg-monitor.jpg';
+                    } elseif ($cat === 'medical') {
+                        $img = 'img/medical-equipment.jpg';
+                    } elseif ($cat === 'electronics') {
+                        $img = 'img/electronics.jpg';
+                    } elseif ($cat === 'cosmetic' || $cat === 'cosmetics' || strpos($name, 'cream') !== false) {
+                        $img = 'img/himalayan-face-cream.jpg';
+                    }
+                }
+                ?>
+                <img src="<?php echo $img; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="main-image">
             </div>
 
             <div class="product-info">
