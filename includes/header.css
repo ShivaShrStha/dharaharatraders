@@ -317,7 +317,9 @@
     margin-bottom: 8px;
   }
   .logo-text {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 1.2px;
   }
   .mainnav {
     margin-left: 0;
@@ -349,13 +351,13 @@
     min-height: 24px;
   }
   .logo-img {
-    max-width: 28px !important;
-    max-height: 28px !important;
-    width: 28px !important;
-    height: 28px !important;
+    max-width: 36px !important;
+    max-height: 36px !important;
+    width: 36px !important;
+    height: 36px !important;
   }
   .logo-text {
-    font-size: 1rem;
+    font-size: 1.7rem;
   }
   .navcontainer {
     padding: 0 4px;
