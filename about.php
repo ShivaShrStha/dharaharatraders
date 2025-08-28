@@ -327,6 +327,73 @@
     </div>
   </section>
 
+  <!-- Featured Products Section -->
+  <?php
+  require_once 'admin/database.php';
+  try {
+      $db = new Database();
+      $conn = $db->getConnection();
+      $stmt = $conn->prepare("SELECT * FROM products WHERE status = 'active' ORDER BY created_at DESC LIMIT 4");
+      $stmt->execute();
+      $featured_products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  } catch(Exception $e) {
+      $featured_products = [];
+  }
+  ?>
+  <section class="products-section">
+    <div class="container">
+      <div class="section-header" style="text-align:center;margin-bottom:2.5rem;">
+        <h2 class="section-title" style="font-size:2rem;color:#3661b7;font-family:'Playfair Display',serif;font-weight:700;">Featured Products</h2>
+        <p class="section-subtitle" style="font-size:1.1rem;color:var(--text-secondary);">Explore some of our latest reliable imports, available for inquiry and purchase.</p>
+      </div>
+      <?php if (!empty($featured_products)): ?>
+      <div class="products-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;">
+        <?php foreach ($featured_products as $product):
+          $img = 'img/placeholder-product.jpg';
+          if (!empty($product['image'])) {
+            $img = htmlspecialchars($product['image']);
+          }
+        ?>
+        <div class="product-card" style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 8px 30px var(--shadow-light);transition:all 0.4s ease;border:1px solid var(--cream-dark);">
+          <a href="product.php?id=<?= $product['id'] ?>" style="text-decoration:none;display:block;">
+            <img src="<?= $img ?>" alt="<?= htmlspecialchars($product['name']) ?>" class="product-image" style="width:100%;height:220px;object-fit:cover;">
+            <div class="product-content" style="padding:1.5rem;">
+              <div class="product-category" style="font-size:0.95rem;font-weight:600;color:#3661b7;margin-bottom:0.5rem;">
+                <?= htmlspecialchars(ucfirst($product['category'])) ?>
+              </div>
+              <h3 class="product-title" style="font-size:1.2rem;color:#8b7355;font-weight:700;margin-bottom:0.5rem;">
+                <?= htmlspecialchars($product['name']) ?>
+              </h3>
+              <p class="product-description" style="color:var(--text-secondary);font-size:0.98rem;margin-bottom:1rem;">
+                <?= htmlspecialchars(substr($product['description'],0,80)) ?>...
+              </p>
+              <?php if (!empty($product['price'])): ?>
+              <div class="product-price" style="font-size:1.1rem;color:#d63031;font-weight:700;margin-bottom:1rem;">
+                <?php 
+                  if (is_numeric($product['price'])) {
+                    echo 'NRP ' . htmlspecialchars(number_format($product['price'],2));
+                  } else {
+                    echo htmlspecialchars($product['price']);
+                  }
+                ?>
+              </div>
+              <?php endif; ?>
+              <a href="product.php?id=<?= $product['id'] ?>" class="product-btn" style="background:linear-gradient(135deg,#ecd9b0,#8b7355);color:white;border:none;padding:0.7rem 1.5rem;border-radius:50px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block;text-align:center;">View Details</a>
+            </div>
+          </a>
+        </div>
+        <?php endforeach; ?>
+      </div>
+      <?php else: ?>
+      <div class="empty-state" style="text-align:center;padding:3rem;color:var(--text-secondary);">
+        <i class="bi bi-box-seam" style="font-size:3rem;color:#ecd9b0;margin-bottom:1rem;"></i>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:#8b7355;margin-bottom:1rem;">No Products Available</h3>
+        <p>We're currently updating our product catalog. Please check back soon!</p>
+      </div>
+      <?php endif; ?>
+    </div>
+  </section>
+
 <!-- Footer -->
 <?php include 'includes/footer.php'; ?>
 

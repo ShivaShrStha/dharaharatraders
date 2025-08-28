@@ -301,8 +301,9 @@ try {
         }
 
         .product-image {
-            width: 100%;
-            height: 280px;
+            max-width: 100%;
+            height: auto;
+            min-height: 180px;
             object-fit: cover;
             position: relative;
             z-index: 2;
@@ -587,34 +588,21 @@ try {
         <div class="products-grid" id="products-grid">
             <?php
             foreach ($products as $product):
-                // Use same image logic as index.php
                 $img = 'img/placeholder-product.jpg';
                 if (!empty($product['image'])) {
-                    $img = htmlspecialchars($product['image']);
-                } else {
-                    $name = strtolower($product['name']);
-                    $cat = strtolower($product['category']);
-                    if (strpos($name, 'thermometer') !== false) {
-                        $img = 'img/digital-thermometer.jpg';
-                    } elseif (strpos($name, 'oximeter') !== false) {
-                        $img = 'img/pulse-oximeter.jpg';
-                    } elseif (strpos($name, 'smart watch') !== false) {
-                        $img = 'img/bluetooth-smart-watch.jpg';
-                    } elseif (strpos($name, 'glucose') !== false) {
-                        $img = 'img/blood-glucose-monitor.jpg';
-                    } elseif (strpos($name, 'ecg') !== false) {
-                        $img = 'img/ecg-monitor.jpg';
-                    } elseif ($cat === 'medical') {
-                        $img = 'img/medical-equipment.jpg';
-                    } elseif ($cat === 'electronics') {
-                        $img = 'img/electronics.jpg';
-                    } elseif ($cat === 'cosmetic' || $cat === 'cosmetics' || strpos($name, 'cream') !== false) {
-                        $img = 'img/himalayan-face-cream.jpg';
+                    $imagePath = $product['image'];
+                    // Always use uploads/products/ for admin-uploaded images
+                    if (strpos($imagePath, 'uploads/products/') === 0) {
+                        $img = $imagePath;
+                    } elseif (strpos($imagePath, '/') === false) {
+                        $img = 'uploads/products/' . $imagePath;
+                    } else {
+                        $img = $imagePath;
                     }
                 }
             ?>
             <div class="product-card" data-category="<?= htmlspecialchars($product['category']) ?>">
-                <img src="<?= $img ?>" alt="<?= htmlspecialchars($product['name']) ?>" class="product-image">
+                <img src="<?= $img ?>" alt="<?= htmlspecialchars($product['name']) ?>" class="product-image" style="width:100%;height:280px;object-fit:cover;" onerror="this.src='img/placeholder-product.jpg'">
                 <div class="product-content">
                     <div class="product-category">
                         <?= htmlspecialchars(ucfirst($product['category'])) ?>
