@@ -222,6 +222,21 @@
       .values-grid { grid-template-columns: 1fr; gap: 0.7rem; }
       .value-card { padding: 1.2rem 0.7rem 1rem 0.7rem; }
       .value-icon { font-size: 2rem; }
+      .product-image {
+        height: auto;
+        max-height: 180px;
+        min-height: 120px;
+      }
+      .product-content {
+        padding: 1rem;
+      }
+      .products-grid {
+        gap: 1rem;
+      }
+      .product-btn, .filter-btn {
+        padding: 1rem 1.5rem;
+        font-size: 1rem;
+      }
     }
   </style>
 </head>

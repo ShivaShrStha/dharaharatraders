@@ -493,6 +493,24 @@ try {
             }
         }
 
+        @media (max-width: 600px) {
+            .product-image {
+                height: auto;
+                max-height: 180px;
+                min-height: 120px;
+            }
+            .product-content {
+                padding: 1rem;
+            }
+            .products-grid {
+                gap: 1rem;
+            }
+            .product-btn, .filter-btn {
+                padding: 1rem 1.5rem;
+                font-size: 1rem;
+            }
+        }
+
         @media (max-width: 480px) {
             .products-hero h1 {
                 font-size: 2rem;
