@@ -1,21 +1,22 @@
 <!-- Header Include Start -->
-<header class="site-header">
-  <div class="topbar">
-    <div class="container">
-      <div class="top-left">
-        <a href="mailto:info@dharaharatraders.com">info@dharaharatraders.com</a>
-        <span>&nbsp;|&nbsp;</span>
-        <a href="tel:+977-9818852676">+977-9818852676</a>
-      </div>
+<div class="topbar">
+  <div class="container">
+    <div class="top-left">
+      <a href="mailto:info@dharaharatraders.com">info@dharaharatraders.com</a>
+      <span> | </span>
+      <a href="tel:+977-9818852676">+977-9818852676</a>
     </div>
   </div>
+</div>
+<header class="site-header">
   <div class="navwrap">
     <div class="navcontainer">
       <a class="logo" href="index.php">
         <img src="img/Dharaharalogo.png" alt="Dharahara Traders Logo" class="logo-img">
         <span class="logo-text">Dharahara Traders</span>
       </a>
-      <nav class="mainnav" id="mainnav">
+      <button class="hamburger" aria-label="Toggle navigation">&#9776;</button>
+      <nav class="mainnav">
         <ul>
           <li><a href="index.php" class="nav-link">Home</a></li>
           <li><a href="about.php" class="nav-link">About</a></li>
@@ -23,15 +24,29 @@
           <li><a href="contact.php" class="nav-link">Contact</a></li>
         </ul>
       </nav>
-      <button class="hamburger" aria-label="Toggle navigation" onclick="toggleMenu()">☰</button>
     </div>
   </div>
 </header>
 <link rel="stylesheet" href="includes/header.css">
-<link rel="icon" type="image/png" href="img/Dharaharalogo.png">
 <script>
-function toggleMenu() {
-  document.getElementById('mainnav').classList.toggle('active');
-}
+document.addEventListener('DOMContentLoaded', function() {
+  const hamburger = document.querySelector('.hamburger');
+  const siteHeader = document.querySelector('.site-header');
+  if (hamburger && siteHeader) {
+    hamburger.addEventListener('click', function(e) {
+      e.stopPropagation();
+      siteHeader.classList.toggle('menu-open');
+    });
+    document.addEventListener('click', function(event) {
+      if (siteHeader.classList.contains('menu-open')) {
+        const nav = document.querySelector('.mainnav');
+        if (nav && !nav.contains(event.target) && !hamburger.contains(event.target)) {
+          siteHeader.classList.remove('menu-open');
+        }
+      }
+    });
+  }
+});
 </script>
+<link rel="icon" type="image/png" href="img/Dharaharalogo.png">
 <!-- Header Include End -->
