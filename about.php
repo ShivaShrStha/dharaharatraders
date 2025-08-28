@@ -81,11 +81,26 @@
     }
     .content-image img {
       width: 100%;
+      height: auto;
+      max-width: 340px;
+      min-width: 120px;
       border-radius: 18px;
       box-shadow: 0 8px 32px var(--shadow-light);
-      object-fit: cover;
-      min-height: 220px;
-      max-height: 340px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
+    }
+    @media (max-width: 900px) {
+      .content-image img {
+        max-width: 220px;
+        min-width: 80px;
+      }
+    }
+    @media (max-width: 600px) {
+      .content-image img {
+        max-width: 140px;
+        min-width: 60px;
+      }
     }
 
     /* STATS SECTION */

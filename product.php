@@ -192,47 +192,45 @@ try {
             flex-wrap: wrap;
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, var(--accent-gold), var(--gold-dark));
-            color: white;
+        .btn-primary, .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2rem;
+            font-size: 1.08rem;
+            font-weight: 600;
+            border-radius: 50px;
             border: none;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
             text-decoration: none;
-            display: inline-block;
-            text-align: center;
-            font-size: 1rem;
+            gap: 0.6rem;
         }
-
+        .btn-primary {
+            background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
+            color: #fff;
+            box-shadow: 0 8px 24px rgba(139,115,85,0.10);
+        }
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(201, 169, 110, 0.4);
-            color: white;
-            text-decoration: none;
+            background: linear-gradient(135deg, #b8860b 0%, #8b6914 100%);
+            color: #fff;
+            box-shadow: 0 8px 25px rgba(139,115,85,0.15);
         }
-
         .btn-secondary {
-            background: transparent;
-            color: var(--accent-gold);
-            border: 2px solid var(--accent-gold);
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-            font-size: 1rem;
+            background: #faf7f0;
+            color: #8b7355;
+            border: 2px solid #d4af37;
         }
-
         .btn-secondary:hover {
-            background: var(--accent-gold);
-            color: white;
-            text-decoration: none;
+            background: #ecd9b0;
+            color: #2c1810;
+        }
+        @media (max-width: 600px) {
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                font-size: 1rem;
+                padding: 0.8rem 1rem;
+            }
         }
 
         /* Product Specifications */
