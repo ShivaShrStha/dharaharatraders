@@ -44,6 +44,7 @@ try {
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="img/Dharaharalogo.png">
   <link rel="stylesheet" href="includes/header.css">
+  <link rel="stylesheet" href="includes/footer.css">
   <style>
     :root {
       --cream-light: #fefcf7;
@@ -427,63 +428,7 @@ try {
     }
 
     /* Footer */
-    .site-footer {
-      background: var(--text-primary);
-      color: var(--cream-light);
-      padding: 60px 0 30px;
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 3rem;
-      margin-bottom: 3rem;
-    }
-
-    .footer-grid h4 {
-      font-size: 1.2rem;
-      font-weight: 600;
-      margin-bottom: 1.5rem;
-      color: var(--gold-light);
-    }
-
-    .footer-grid ul {
-      list-style: none;
-    }
-
-    .footer-grid li {
-      margin-bottom: 0.8rem;
-    }
-
-    .footer-grid a {
-      color: var(--cream-light);
-      text-decoration: none;
-      opacity: 0.8;
-      transition: opacity 0.3s ease;
-    }
-
-    .footer-grid a:hover {
-      opacity: 1;
-      color: var(--gold-light);
-    }
-
-    .footer-facebook iframe {
-      border-radius: 12px;
-      border: 1px solid var(--brown-dark);
-    }
-
-    .copyright {
-      text-align: center;
-      padding-top: 2rem;
-      border-top: 1px solid var(--brown-dark);
-      color: var(--cream-light);
-      opacity: 0.7;
-    }
-
-    .copyright a {
-      color: var(--gold-light);
-      text-decoration: none;
-    }
+    /* Remove conflicting styles and use shared footer.css */
 
     /* Responsive Design */
     @media (max-width: 768px) {

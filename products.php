@@ -46,6 +46,7 @@ try {
     <link rel="icon" type="image/png" href="img/Dharaharalogo.png">
     
     <link rel="stylesheet" href="includes/header.css">
+    <link rel="stylesheet" href="includes/footer.css">
     
     <style>
         :root {
