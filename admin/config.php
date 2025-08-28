@@ -25,7 +25,7 @@ function loadEnv($path) {
 $env = loadEnv(__DIR__ . '/../.env');
 
 $config = [
-    'admin_password' => $env['ADMIN_PASSWORD'] ?? 'dharahara2025admin',
+    'admin_password' => $env['ADMIN_PASSWORD'],
     'database_path' => __DIR__ . '/' . ($env['DB_PATH'] ?? 'dharahara_data.db'),
     'site_name' => $env['SITE_NAME'] ?? 'Dharahara Traders Admin',
     'max_login_attempts' => (int)($env['MAX_LOGIN_ATTEMPTS'] ?? 5),

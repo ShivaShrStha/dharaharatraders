@@ -6,7 +6,7 @@ class Database {
     public function __construct() {
         try {
             // Create SQLite database file in admin folder
-            $this->db = new PDO('sqlite:' . __DIR__ . '/nexa_data.db');
+            $this->db = new PDO('sqlite:' . __DIR__ . '/dharahara_data.db');
             $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->createTables();
         } catch(PDOException $e) {
