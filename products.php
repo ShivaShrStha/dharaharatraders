@@ -1,5 +1,5 @@
 <?php
-// Products page for Dharahara Traders - Ultra Premium Design
+// Products page for Dharahara Traders - Ultra Reliable Design
 require_once 'admin/database.php';
 
 try {
@@ -29,13 +29,13 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Products | Dharahara Traders Pvt. Ltd.</title>
-    <meta name="description" content="Explore our premium collection of medical equipment, cosmetics, herbs, and electronics. Quality products sourced globally for Nepal and beyond.">
-    <meta name="keywords" content="premium products nepal, medical equipment, cosmetics, herbs, electronics, quality imports, dharahara traders products">
+    <title>Reliable Products | Dharahara Traders Pvt. Ltd.</title>
+    <meta name="description" content="Explore our reliable collection of medical equipment, cosmetics, herbs, and electronics. Quality products sourced globally for Nepal and beyond.">
+    <meta name="keywords" content="reliable products nepal, medical equipment, cosmetics, herbs, electronics, quality imports, dharahara traders products">
     
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Premium Products | Dharahara Traders Pvt. Ltd.">
-    <meta property="og:description" content="Explore our premium collection of medical equipment, cosmetics, herbs, and electronics sourced globally.">
+    <meta property="og:title" content="Reliable Products | Dharahara Traders Pvt. Ltd.">
+    <meta property="og:description" content="Explore our reliable collection of medical equipment, cosmetics, herbs, and electronics sourced globally.">
     <meta property="og:type" content="website">
     
     <!-- Google Fonts -->
@@ -63,6 +63,87 @@ try {
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; background: var(--cream-light); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; padding-top: 120px; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+
+        .site-nav {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            position: relative;
+        }
+        .nav-list {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .nav-list li a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.3s;
+            padding: 8px 16px;
+            border-radius: 8px;
+        }
+        .nav-list li a:hover {
+            background: var(--gold-light);
+            color: var(--brown-dark);
+        }
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-left: 1rem;
+            padding: 8px;
+        }
+        .hamburger, .hamburger::before, .hamburger::after {
+            background: var(--brown-dark);
+            height: 3px;
+            width: 28px;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+        .hamburger {
+            display: block;
+            position: relative;
+        }
+        .hamburger::before,
+        .hamburger::after {
+            content: '';
+            position: absolute;
+            left: 0;
+        }
+        .hamburger::before {
+            top: -8px;
+        }
+        .hamburger::after {
+            top: 8px;
+        }
+        @media (max-width: 900px) {
+            .nav-list {
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                right: 0;
+                background: var(--cream-light);
+                box-shadow: 0 8px 24px var(--shadow-light);
+                border-radius: 12px;
+                padding: 1.5rem 2rem;
+                gap: 1.5rem;
+                min-width: 180px;
+                z-index: 100;
+                display: none;
+            }
+            .site-nav.active .nav-list,
+            #mainnav.active .nav-list {
+                display: flex;
+            }
+            .nav-toggle {
+                display: block;
+            }
+        }
 
         /* Hero Section */
         .products-hero {
@@ -466,8 +547,8 @@ try {
     <!-- Hero Section -->
     <section class="products-hero">
         <div class="hero-content">
-            <h1>Premium Products</h1>
-            <p>Discover our carefully curated collection of premium products, sourced from trusted partners worldwide to ensure the highest quality for our valued customers.</p>
+            <h1>Reliable Products</h1>
+            <p>Discover our carefully curated collection of reliable products, sourced from trusted partners worldwide to ensure the highest quality for our valued customers.</p>
         </div>
     </section>
 
@@ -573,6 +654,18 @@ try {
             const nav = document.getElementById('mainnav');
             nav.classList.toggle('active');
         }
+
+        // Close menu on outside click or link click
+        document.addEventListener('click', function(e) {
+            const nav = document.getElementById('mainnav');
+            const toggle = document.querySelector('.nav-toggle');
+            if (nav.classList.contains('active') && !nav.contains(e.target) && !toggle.contains(e.target)) {
+                nav.classList.remove('active');
+            }
+            if (e.target.closest('.nav-list li a')) {
+                nav.classList.remove('active');
+            }
+        });
 
         // Filter functionality
         document.addEventListener('DOMContentLoaded', function() {

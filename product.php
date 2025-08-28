@@ -1,5 +1,5 @@
 <?php
-// Product detail page for Dharahara Traders - Ultra Premium Design
+// Product detail page for Dharahara Traders - Ultra Reliable Design
 $product_id = $_GET['id'] ?? null;
 
 if (!$product_id) {
@@ -693,7 +693,7 @@ try {
                 <div class="product-features">
                     <h3 class="features-title">Key Features</h3>
                     <ul class="features-list">
-                        <li>Premium quality materials</li>
+                        <li>Reliable quality materials</li>
                         <li>International standards compliance</li>
                         <li>Trusted manufacturer source</li>
                         <li>Quality assurance guarantee</li>

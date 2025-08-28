@@ -15,7 +15,8 @@
         <img src="img/Dharaharalogo.png" alt="Dharahara Traders Logo" class="logo-img">
         <span class="logo-text">Dharahara Traders</span>
       </a>
-      <button class="hamburger" aria-label="Toggle navigation">&#9776;</button>
+      <!-- Hamburger menu button for mobile only -->
+      <button class="hamburger" aria-label="Toggle navigation" style="display:none;"></button>
       <nav class="mainnav">
         <ul>
           <li><a href="index.php" class="nav-link">Home</a></li>
@@ -33,6 +34,17 @@ document.addEventListener('DOMContentLoaded', function() {
   const hamburger = document.querySelector('.hamburger');
   const siteHeader = document.querySelector('.site-header');
   if (hamburger && siteHeader) {
+    // Show hamburger only on mobile
+    function updateHamburgerVisibility() {
+      if (window.innerWidth <= 1024) {
+        hamburger.style.display = 'block';
+      } else {
+        hamburger.style.display = 'none';
+        siteHeader.classList.remove('menu-open');
+      }
+    }
+    updateHamburgerVisibility();
+    window.addEventListener('resize', updateHamburgerVisibility);
     hamburger.addEventListener('click', function(e) {
       e.stopPropagation();
       siteHeader.classList.toggle('menu-open');

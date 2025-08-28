@@ -1,11 +1,11 @@
-<?php // Contact page for Dharahara Traders - Ultra Premium Design ?>
+<?php // Contact page for Dharahara Traders - Ultra Reliable Design ?>
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Contact Us | Dharahara Traders Pvt. Ltd.</title>
-  <meta name="description" content="Get in touch with Dharahara Traders Pvt. Ltd. Contact us for premium import-export services, product inquiries, and business partnerships in Nepal.">
+  <meta name="description" content="Get in touch with Dharahara Traders Pvt. Ltd. Contact us for reliable import-export services, product inquiries, and business partnerships in Nepal.">
   <meta name="keywords" content="contact dharahara traders, import export nepal contact, business inquiries, product inquiries, partnerships">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="img/Dharaharalogo.png">
@@ -44,6 +44,63 @@
     .contact-main .form-message.error { background: #ffeaea; border: 1px solid #ffcdcd; color: #d63031; }
     .contact-main .contact-right { flex: 1 1 400px; min-width: 320px; display: flex; align-items: center; justify-content: center; border-radius: 20px; overflow: hidden; box-shadow: 0 8px 24px rgba(44,24,16,0.08); background: #faf7f0; border: 1px solid #f5f1e8; min-height: 400px; }
     .contact-main .contact-map { width: 100%; height: 400px; border: none; border-radius: 20px; box-shadow: 0 4px 16px rgba(44,24,16,0.07); }
+    .site-nav {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      position: relative;
+    }
+    .nav-list {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-list li a {
+      color: #2c1810;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: color 0.3s;
+      padding: 8px 16px;
+      border-radius: 8px;
+    }
+    .nav-list li a:hover {
+      background: #ecd9b0;
+      color: #8b7355;
+    }
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      margin-left: 1rem;
+      padding: 8px;
+    }
+    .hamburger, .hamburger::before, .hamburger::after {
+      background: var(--brown-dark);
+      height: 3px;
+      width: 28px;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .hamburger {
+      display: block;
+      position: relative;
+    }
+    .hamburger::before,
+    .hamburger::after {
+      content: '';
+      position: absolute;
+      left: 0;
+    }
+    .hamburger::before {
+      top: -8px;
+    }
+    .hamburger::after {
+      top: 8px;
+    }
     @media (max-width: 900px) { 
       .contact-main .contact-flex { flex-direction: column; gap: 30px; padding: 0 10px; } 
       .contact-main .contact-left, .contact-main .contact-right { min-width: 0; padding: 30px 10px; } 
@@ -54,6 +111,27 @@
         text-align: center;
         word-break: break-word;
         white-space: normal;
+        display: block;
+      }
+      .nav-list {
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background: #fefcf7;
+        box-shadow: 0 8px 24px rgba(139, 115, 85, 0.1);
+        border-radius: 12px;
+        padding: 1.5rem 2rem;
+        gap: 1.5rem;
+        min-width: 180px;
+        z-index: 100;
+        display: none;
+      }
+      .site-nav.active .nav-list,
+      #mainnav.active .nav-list {
+        display: flex;
+      }
+      .nav-toggle {
         display: block;
       }
     }
@@ -149,6 +227,22 @@
         submitBtn.textContent = 'Send Message';
         submitBtn.disabled = false;
       });
+    });
+
+    function toggleMenu() {
+      const nav = document.getElementById('mainnav');
+      nav.classList.toggle('active');
+    }
+
+    document.addEventListener('click', function(e) {
+      const nav = document.getElementById('mainnav');
+      const toggle = document.querySelector('.nav-toggle');
+      if (nav.classList.contains('active') && !nav.contains(e.target) && !toggle.contains(e.target)) {
+        nav.classList.remove('active');
+      }
+      if (e.target.closest('.nav-list li a')) {
+        nav.classList.remove('active');
+      }
     });
   </script>
 </body>

@@ -1,5 +1,5 @@
 <?php
-// Homepage for Dharahara Traders - Ultra Premium Design
+// Homepage for Dharahara Traders - Ultra Reliable Design
 require_once 'admin/database.php';
 
 // Get featured products
@@ -20,13 +20,13 @@ try {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Dharahara Traders Pvt. Ltd. | Premium Import Export Company Nepal</title>
+  <title>Dharahara Traders Pvt. Ltd. | Reliable Import Export Company Nepal</title>
   <meta name="description" content="Leading import-export company in Nepal specializing in medical equipment, cosmetics, herbs, and electronics. Quality products, global sourcing, trusted partnerships.">
-  <meta name="keywords" content="import export nepal, medical equipment, cosmetics, herbs, electronics, dharahara traders, premium products, global sourcing">
+  <meta name="keywords" content="import export nepal, medical equipment, cosmetics, herbs, electronics, dharahara traders, reliable products, global sourcing">
   <meta name="author" content="Dharahara Traders Pvt. Ltd.">
   
   <!-- Open Graph Meta Tags -->
-  <meta property="og:title" content="Dharahara Traders Pvt. Ltd. | Premium Import Export Company Nepal">
+  <meta property="og:title" content="Dharahara Traders Pvt. Ltd. | Reliable Import Export Company Nepal">
   <meta property="og:description" content="Leading import-export company in Nepal specializing in medical equipment, cosmetics, herbs, and electronics.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="http://dharaharatraders.com">
@@ -34,7 +34,7 @@ try {
   
   <!-- Twitter Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Dharahara Traders Pvt. Ltd. | Premium Import Export Company Nepal">
+  <meta name="twitter:title" content="Dharahara Traders Pvt. Ltd. | Reliable Import Export Company Nepal">
   <meta name="twitter:description" content="Leading import-export company in Nepal specializing in medical equipment, cosmetics, herbs, and electronics.">
   
   <!-- Preload critical resources -->
@@ -58,6 +58,87 @@ try {
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Inter', sans-serif; background: var(--cream-light); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; padding-top: 120px; }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+
+    .site-nav {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      position: relative;
+    }
+    .nav-list {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-list li a {
+      color: var(--text-primary);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: color 0.3s;
+      padding: 8px 16px;
+      border-radius: 8px;
+    }
+    .nav-list li a:hover {
+      background: var(--gold-light);
+      color: var(--brown-dark);
+    }
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      margin-left: 1rem;
+      padding: 8px;
+    }
+    .hamburger, .hamburger::before, .hamburger::after {
+      background: var(--brown-dark);
+      height: 3px;
+      width: 28px;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .hamburger {
+      display: block;
+      position: relative;
+    }
+    .hamburger::before,
+    .hamburger::after {
+      content: '';
+      position: absolute;
+      left: 0;
+    }
+    .hamburger::before {
+      top: -8px;
+    }
+    .hamburger::after {
+      top: 8px;
+    }
+    @media (max-width: 900px) {
+      .nav-list {
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background: var(--cream-light);
+        box-shadow: 0 8px 24px var(--shadow-light);
+        border-radius: 12px;
+        padding: 1.5rem 2rem;
+        gap: 1.5rem;
+        min-width: 180px;
+        z-index: 100;
+        display: none;
+      }
+      .site-nav.active .nav-list,
+      #mainnav.active .nav-list {
+        display: flex;
+      }
+      .nav-toggle {
+        display: block;
+      }
+    }
 
     /* Hero Section */
     .hero {
@@ -501,9 +582,9 @@ try {
     <section class="hero">
       <div class="container">
         <div class="hero-inner">
-          <div class="eyebrow">Premium Import Export</div>
+          <div class="eyebrow">Reliable Import Export</div>
           <h1>Dharahara Traders</h1>
-          <p class="hero-subtitle">Your trusted partner for premium quality products from Nepal to the world. Specializing in medical equipment, cosmetics, herbs, and electronics.</p>
+          <p class="hero-subtitle">Your trusted partner for reliable quality products from Nepal to the world. Specializing in medical equipment, cosmetics, herbs, and electronics.</p>
           <div class="hero-cta">
             <a href="products.php" class="btn btn-primary">Explore Products</a>
             <a href="contact.php" class="btn btn-secondary">Get in Touch</a>
@@ -523,7 +604,7 @@ try {
         <div class="features-grid">
           <div class="feature-card">
             <div class="feature-icon">🏆</div>
-            <h3>Premium Quality</h3>
+            <h3>Reliable Quality</h3>
             <p>We source only the finest products from certified manufacturers, ensuring the highest standards of quality and reliability.</p>
           </div>
           <div class="feature-card">
@@ -561,7 +642,7 @@ try {
         <div class="section-header">
           <div class="section-eyebrow">Our Products</div>
           <h2 class="section-title">Featured Categories</h2>
-          <p class="section-subtitle">Discover our premium collection of carefully curated products across multiple categories.</p>
+          <p class="section-subtitle">Discover our reliable collection of carefully curated products across multiple categories.</p>
         </div>
         <div class="products-grid">
           <?php if (!empty($featured_products)): ?>
@@ -696,6 +777,18 @@ try {
             const nav = document.getElementById('mainnav');
             nav.classList.toggle('active');
         }
+
+        // Optional: Close menu when clicking outside or on a link (mobile UX)
+        document.addEventListener('click', function(e) {
+            const nav = document.getElementById('mainnav');
+            const toggle = document.querySelector('.nav-toggle');
+            if (nav.classList.contains('active') && !nav.contains(e.target) && !toggle.contains(e.target)) {
+                nav.classList.remove('active');
+            }
+            if (e.target.closest('.nav-list li a')) {
+                nav.classList.remove('active');
+            }
+        });
 
         // Header scroll effect (keeping for potential future use)
         window.addEventListener('scroll', function() {

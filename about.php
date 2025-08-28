@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>About Us | Dharahara Traders Pvt. Ltd. | Premium Import Export Company Nepal</title>
+  <title>About Us | Dharahara Traders Pvt. Ltd. | Reliable Import Export Company Nepal</title>
   <meta name="description" content="Learn about Dharahara Traders Pvt. Ltd., Nepal's leading import-export company specializing in medical equipment, cosmetics, herbs, and electronics since our founding.">
-  <meta name="keywords" content="about dharahara traders, import export nepal, company history, medical equipment supplier, premium products nepal">
+  <meta name="keywords" content="about dharahara traders, import export nepal, company history, medical equipment supplier, reliable products nepal">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="img/Dharaharalogo.png">
   <link rel="stylesheet" href="includes/header.css">
@@ -232,7 +232,7 @@
     <div class="container">
       <div class="hero-content">
         <h1>About Dharahara Traders</h1>
-        <p>Pioneering excellence in import-export business across Nepal with premium quality products and unmatched service standards.</p>
+        <p>Pioneering excellence in import-export business across Nepal with reliable quality products and unmatched service standards.</p>
       </div>
     </div>
   </section>
@@ -243,7 +243,7 @@
       <div class="content-grid">
         <div class="content-text">
           <h2>Our Story</h2>
-          <p>Founded with a vision to bridge global markets with Nepal's growing economy, Dharahara Traders Pvt. Ltd. has emerged as a trusted name in the import-export industry. We specialize in bringing premium quality medical equipment, cosmetics, herbs, and electronics to the Nepalese market.</p>
+          <p>Founded with a vision to bridge global markets with Nepal's growing economy, Dharahara Traders Pvt. Ltd. has emerged as a trusted name in the import-export industry. We specialize in bringing reliable quality medical equipment, cosmetics, herbs, and electronics to the Nepalese market.</p>
           <p>Our commitment to excellence and customer satisfaction has helped us build lasting relationships with suppliers worldwide and customers across Nepal. We believe in quality, integrity, and innovation as the cornerstones of our business philosophy.</p>
         </div>
         <div class="content-image">
@@ -254,7 +254,7 @@
       <div class="content-grid">
         <div class="content-text">
           <h2>Our Mission</h2>
-          <p>To provide Nepal with access to premium international products while maintaining the highest standards of quality, service, and ethical business practices. We strive to be the gateway for global innovation entering the Nepalese market.</p>
+          <p>To provide Nepal with access to reliable international products while maintaining the highest standards of quality, service, and ethical business practices. We strive to be the gateway for global innovation entering the Nepalese market.</p>
           <p>Through strategic partnerships and careful selection of products, we ensure that every item we import meets international quality standards and addresses the specific needs of our customers in Nepal.</p>
         </div>
       </div>
@@ -335,30 +335,40 @@
       const nav = document.getElementById('mainnav');
       nav.classList.toggle('active');
     }
-  </script>
-  <script>
-document.addEventListener("DOMContentLoaded", function() {
-  function animateCount(el, target, duration = 1500) {
-    let start = 0;
-    let startTime = null;
-    function update(timestamp) {
-      if (!startTime) startTime = timestamp;
-      const progress = Math.min((timestamp - startTime) / duration, 1);
-      el.textContent = Math.floor(progress * (target - start) + start);
-      if (progress < 1) {
-        requestAnimationFrame(update);
-      } else {
-        el.textContent = target + "+";
-      }
-    }
-    requestAnimationFrame(update);
-  }
 
-  document.querySelectorAll('.stat-item h3').forEach(stat => {
-    const target = parseInt(stat.textContent.replace(/\D/g, ''));
-    animateCount(stat, target);
-  });
-});
-</script>
+    document.addEventListener("DOMContentLoaded", function() {
+      function animateCount(el, target, duration = 1500) {
+        let start = 0;
+        let startTime = null;
+        function update(timestamp) {
+          if (!startTime) startTime = timestamp;
+          const progress = Math.min((timestamp - startTime) / duration, 1);
+          el.textContent = Math.floor(progress * (target - start) + start);
+          if (progress < 1) {
+            requestAnimationFrame(update);
+          } else {
+            el.textContent = target + "+";
+          }
+        }
+        requestAnimationFrame(update);
+      }
+
+      document.querySelectorAll('.stat-item h3').forEach(stat => {
+        const target = parseInt(stat.textContent.replace(/\D/g, ''));
+        animateCount(stat, target);
+      });
+
+      document.addEventListener('click', function(e) {
+        const nav = document.getElementById('mainnav');
+        const toggle = document.querySelector('.nav-toggle');
+        if (nav.classList.contains('active') && !nav.contains(e.target) && !toggle.contains(e.target)) {
+          nav.classList.remove('active');
+        }
+        if (e.target.closest('.nav-list li a')) {
+          nav.classList.remove('active');
+        }
+      });
+    });
+  </script>
 </body>
 </html>
