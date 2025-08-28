@@ -245,5 +245,17 @@
       }
     });
   </script>
+  <?php
+  if (!empty($product['price'])): ?>
+  <div class="product-price">
+      <?php 
+      if (is_numeric($product['price'])) {
+          echo 'NRP ' . htmlspecialchars(number_format($product['price'], 2));
+      } else {
+          echo htmlspecialchars($product['price']);
+      }
+      ?>
+  </div>
+  <?php endif; ?>
 </body>
 </html>

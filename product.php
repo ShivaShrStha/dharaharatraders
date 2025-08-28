@@ -678,7 +678,7 @@ try {
                     <?php 
                     // Check if price is numeric
                     if (is_numeric($product['price'])) {
-                        echo '$' . htmlspecialchars(number_format($product['price'], 2));
+                        echo 'NRP ' . htmlspecialchars(number_format($product['price'], 2));
                     } else {
                         echo htmlspecialchars($product['price']);
                     }
@@ -779,9 +779,8 @@ try {
                     <span class="spec-label">Price:</span>
                     <span class="spec-value">
                         <?php 
-                        // Check if price is numeric before formatting
                         if (is_numeric($product['price'])) {
-                            echo '$' . htmlspecialchars(number_format($product['price'], 2));
+                            echo 'NRP ' . htmlspecialchars(number_format($product['price'], 2));
                         } else {
                             echo htmlspecialchars($product['price']);
                         }

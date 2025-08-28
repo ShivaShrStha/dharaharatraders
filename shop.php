@@ -628,7 +628,7 @@ try {
                     <div class="product-price">
                         <?php 
                         if (is_numeric($product['price'])) {
-                            echo '$' . htmlspecialchars(number_format($product['price'], 2));
+                            echo 'NRP ' . htmlspecialchars(number_format($product['price'], 2));
                         } else {
                             echo htmlspecialchars($product['price']);
                         }
