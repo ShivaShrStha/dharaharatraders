@@ -5,21 +5,23 @@ require_once 'admin/database.php';
 try {
     $db = new Database();
     $conn = $db->getConnection();
-    
+    // Get all categories
+    $catStmt = $conn->prepare("SELECT name FROM categories ORDER BY name ASC");
+    $catStmt->execute();
+    $categories = $catStmt->fetchAll(PDO::FETCH_COLUMN);
     // Get all active products
     $stmt = $conn->prepare("SELECT * FROM products WHERE status = 'active' ORDER BY created_at DESC");
     $stmt->execute();
     $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
     // Group products by category
     $productsByCategory = [];
     foreach ($products as $product) {
         $productsByCategory[$product['category']][] = $product;
     }
-    
 } catch(Exception $e) {
     $products = [];
     $productsByCategory = [];
+    $categories = [];
 }
 ?>
 <!DOCTYPE html>
@@ -476,7 +478,6 @@ try {
             <div class="filter-buttons">
                 <button class="filter-btn active" data-category="all">All Products</button>
                 <?php
-                $categories = array_keys($productsByCategory);
                 foreach ($categories as $category) {
                     if (!empty($category)) {
                         echo '<button class="filter-btn" data-category="' . htmlspecialchars($category) . '">' . 

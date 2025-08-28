@@ -294,6 +294,7 @@ if (isset($_GET['logout'])) {
             <button class="nav-tab" onclick="showSection('inquiries')">Inquiries</button>
             <button class="nav-tab" onclick="showSection('newsletter')">Newsletter</button>
             <button class="nav-tab" onclick="showSection('contact-messages')">Contact Messages</button>
+            <button class="nav-tab" onclick="showSection('categories')">Categories</button>
         </div>
     </div>
     
@@ -330,12 +331,6 @@ if (isset($_GET['logout'])) {
                     <label for="productCategory">Category *</label>
                     <select id="productCategory" name="category" required>
                         <option value="">Select Category</option>
-                        <option value="cosmetic">Cosmetic Products</option>
-                        <option value="medical">Medical Equipment</option>
-                        <option value="health">Health Equipment</option>
-                        <option value="bathroom">Bathroom Accessories</option>
-                        <option value="electronics">Electronics Equipment</option>
-                        <option value="herbs">Medicinal Herbs</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -396,6 +391,22 @@ if (isset($_GET['logout'])) {
                 <!-- Table will be loaded here -->
             </div>
         </div>
+
+        <!-- Categories Section -->
+        <div id="categories" class="content-section">
+            <h2 class="section-title">🗂️ Category Management</h2>
+            <div style="margin-bottom: 1rem;">
+                <button class="btn btn-success" onclick="loadCategories()">🔄 Refresh</button>
+            </div>
+            <form id="addCategoryForm" style="margin-bottom:2rem;max-width:400px;">
+                <div class="form-group">
+                    <label for="categoryName">Category Name *</label>
+                    <input type="text" id="categoryName" name="name" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Add Category</button>
+            </form>
+            <div id="categoriesTable"></div>
+        </div>
     </div>
 
     <!-- Edit Product Modal -->
@@ -411,12 +422,7 @@ if (isset($_GET['logout'])) {
                 <div class="form-group">
                     <label>Category</label>
                     <select id="editProductCategory" name="category" required>
-                        <option value="cosmetic">Cosmetic Products</option>
-                        <option value="medical">Medical Equipment</option>
-                        <option value="health">Health Equipment</option>
-                        <option value="bathroom">Bathroom Accessories</option>
-                        <option value="electronics">Electronics Equipment</option>
-                        <option value="herbs">Medicinal Herbs</option>
+                        <option value="">Select Category</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -472,6 +478,9 @@ if (isset($_GET['logout'])) {
                 case 'products':
                     loadProducts();
                     break;
+                case 'add-product':
+                    populateProductCategories();
+                    break;
                 case 'inquiries':
                     loadInquiries();
                     break;
@@ -480,6 +489,9 @@ if (isset($_GET['logout'])) {
                     break;
                 case 'contact-messages':
                     loadContactMessages();
+                    break;
+                case 'categories':
+                    loadCategories();
                     break;
             }
         }
@@ -518,31 +530,7 @@ if (isset($_GET['logout'])) {
                 .then(data => {
                     let html = '<table class="data-table"><thead><tr><th>ID</th><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Status</th><th>Actions</th></tr></thead><tbody>';
                     data.forEach(product => {
-                        // JS fallback logic for image
-                        let img = 'img/placeholder-product.jpg';
-                        if (product.image) {
-                            img = product.image;
-                        } else {
-                            let name = product.name.toLowerCase();
-                            let cat = product.category.toLowerCase();
-                            if (name.includes('thermometer')) {
-                                img = 'img/digital-thermometer.jpg';
-                            } else if (name.includes('oximeter')) {
-                                img = 'img/pulse-oximeter.jpg';
-                            } else if (name.includes('smart watch')) {
-                                img = 'img/bluetooth-smart-watch.jpg';
-                            } else if (name.includes('glucose')) {
-                                img = 'img/blood-glucose-monitor.jpg';
-                            } else if (name.includes('ecg')) {
-                                img = 'img/ecg-monitor.jpg';
-                            } else if (cat === 'medical') {
-                                img = 'img/medical-equipment.jpg';
-                            } else if (cat === 'electronics') {
-                                img = 'img/electronics.jpg';
-                            } else if (cat === 'cosmetic' || cat === 'cosmetics' || name.includes('cream')) {
-                                img = 'img/himalayan-face-cream.jpg';
-                            }
-                        }
+                        let img = product.image ? product.image : 'img/placeholder-product.jpg';
                         html += `<tr>
                             <td>${product.id}</td>
                             <td><img src="${img}" alt="${product.name}" style="width:60px;height:60px;object-fit:cover;border-radius:8px;"></td>
@@ -587,42 +575,31 @@ if (isset($_GET['logout'])) {
             window.open(`export_data.php?type=${type}`, '_blank');
         }
 
-        // Edit product
+        // Populate categories in Edit Product modal
+        function populateEditProductCategories(selected) {
+            fetch('process_category.php?action=list')
+                .then(response => response.json())
+                .then(data => {
+                    const select = document.getElementById('editProductCategory');
+                    select.innerHTML = '<option value="">Select Category</option>';
+                    data.forEach(cat => {
+                        select.innerHTML += `<option value="${cat.name}"${cat.name === selected ? ' selected' : ''}>${cat.name}</option>`;
+                    });
+                });
+        }
+
+        // Update editProduct to call this
         function editProduct(id) {
             fetch(`get_product.php?id=${id}`)
                 .then(response => response.json())
                 .then(product => {
                     document.getElementById('editProductId').value = product.id;
                     document.getElementById('editProductName').value = product.name;
-                    document.getElementById('editProductCategory').value = product.category;
+                    populateEditProductCategories(product.category);
                     document.getElementById('editProductDescription').value = product.description;
                     document.getElementById('editProductPrice').value = product.price;
                     document.getElementById('editProductStatus').value = product.status;
-                    // Fallback image logic
-                    let img = 'img/placeholder-product.jpg';
-                    if (product.image) {
-                        img = product.image;
-                    } else {
-                        let name = product.name.toLowerCase();
-                        let cat = product.category.toLowerCase();
-                        if (name.includes('thermometer')) {
-                            img = 'img/digital-thermometer.jpg';
-                        } else if (name.includes('oximeter')) {
-                            img = 'img/pulse-oximeter.jpg';
-                        } else if (name.includes('smart watch')) {
-                            img = 'img/bluetooth-smart-watch.jpg';
-                        } else if (name.includes('glucose')) {
-                            img = 'img/blood-glucose-monitor.jpg';
-                        } else if (name.includes('ecg')) {
-                            img = 'img/ecg-monitor.jpg';
-                        } else if (cat === 'medical') {
-                            img = 'img/medical-equipment.jpg';
-                        } else if (cat === 'electronics') {
-                            img = 'img/electronics.jpg';
-                        } else if (cat === 'cosmetic' || cat === 'cosmetics' || name.includes('cream')) {
-                            img = 'img/himalayan-face-cream.jpg';
-                        }
-                    }
+                    let img = product.image ? product.image : 'img/placeholder-product.jpg';
                     document.getElementById('editProductImagePreview').innerHTML = `<img src='${img}' alt='${product.name}' style='width:100px;height:100px;object-fit:cover;border-radius:8px;'>`;
                     document.getElementById('editProductModal').style.display = 'flex';
                 });
@@ -770,6 +747,101 @@ if (isset($_GET['logout'])) {
                     
                     html += '</tbody></table>';
                     document.getElementById('contactMessagesTable').innerHTML = html;
+                });
+        }
+
+        // Load categories
+        function loadCategories() {
+            fetch('process_category.php?action=list')
+                .then(response => response.json())
+                .then(data => {
+                    let html = '<table class="data-table"><thead><tr><th>ID</th><th>Name</th><th>Actions</th></tr></thead><tbody>';
+                    data.forEach(cat => {
+                        html += `<tr>
+                            <td>${cat.id}</td>
+                            <td><input type="text" value="${cat.name}" data-id="${cat.id}" class="edit-cat-name" style="width:120px;" /></td>
+                            <td>
+                                <button class="btn btn-warning" onclick="editCategory(${cat.id})">Edit</button>
+                                <button class="btn btn-danger" onclick="deleteCategory(${cat.id})">Delete</button>
+                            </td>
+                        </tr>`;
+                    });
+                    html += '</tbody></table>';
+                    document.getElementById('categoriesTable').innerHTML = html;
+                });
+        }
+
+        // Add category
+        document.getElementById('addCategoryForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            fetch('process_category.php?action=add', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Category added!');
+                    this.reset();
+                    loadCategories();
+                } else {
+                    alert('Error: ' + (data.error || 'Unknown error'));
+                }
+            });
+        });
+
+        // Edit category
+        function editCategory(id) {
+            const name = document.querySelector(`.edit-cat-name[data-id='${id}']`).value;
+            const formData = new FormData();
+            formData.append('id', id);
+            formData.append('name', name);
+            fetch('process_category.php?action=edit', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Category updated!');
+                    loadCategories();
+                } else {
+                    alert('Error: ' + (data.error || 'Unknown error'));
+                }
+            });
+        }
+
+        // Delete category
+        function deleteCategory(id) {
+            if (!confirm('Delete this category?')) return;
+            const formData = new FormData();
+            formData.append('id', id);
+            fetch('process_category.php?action=delete', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Category deleted!');
+                    loadCategories();
+                } else {
+                    alert('Error: ' + (data.error || 'Unknown error'));
+                }
+            });
+        }
+
+        // Populate categories in Add Product form
+        function populateProductCategories() {
+            fetch('process_category.php?action=list')
+                .then(response => response.json())
+                .then(data => {
+                    const select = document.getElementById('productCategory');
+                    select.innerHTML = '<option value="">Select Category</option>';
+                    data.forEach(cat => {
+                        select.innerHTML += `<option value="${cat.name}">${cat.name}</option>`;
+                    });
                 });
         }
 
