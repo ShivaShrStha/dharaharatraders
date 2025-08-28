@@ -211,6 +211,36 @@
     background: #faf7f0;
     box-shadow: 0 1px 8px rgba(139,115,85,0.08);
   }
+  .topbar {
+    min-height: 28px;
+    font-size: 1rem;
+  }
+  .topbar .container {
+    padding: 2px 12px;
+    min-height: 28px;
+  }
+  .site-header {
+    top: 28px;
+    min-height: 44px;
+  }
+  .navwrap {
+    padding: 0.5rem 0;
+  }
+  .logo-img {
+    max-width: 36px !important;
+    max-height: 36px !important;
+    width: 36px !important;
+    height: 36px !important;
+  }
+  .logo-text {
+    font-size: 1.2rem;
+  }
+  .navcontainer {
+    padding: 0 10px;
+  }
+  body {
+    padding-top: 72px;
+  }
 }
 @media (min-width: 1025px) {
   .hamburger {
@@ -233,6 +263,42 @@
     background: none;
     box-shadow: none;
     padding: 0;
+  }
+  .topbar {
+    min-height: 44px;
+    font-size: 1.15rem;
+  }
+  .topbar .container {
+    padding: 12px 32px;
+    min-height: 44px;
+  }
+  .site-header {
+    top: 44px;
+    min-height: 72px;
+  }
+  .navwrap {
+    padding: 1.2rem 0;
+  }
+  .logo-img {
+    max-width: 56px !important;
+    max-height: 56px !important;
+    width: 56px !important;
+    height: 56px !important;
+  }
+  .logo-text {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+  }
+  .navcontainer {
+    padding: 0 40px;
+  }
+  .mainnav .nav-link {
+    font-size: 1.2rem;
+    padding: 1rem 2rem;
+  }
+  body {
+    padding-top: 116px; /* .topbar (44px) + .site-header (72px) */
   }
 }
 @media (max-width: 900px) {
@@ -271,6 +337,16 @@
   .site-header {
     position: static;
     padding-top: 0;
+    min-height: 36px;
+    top: 0;
+  }
+  .topbar {
+    min-height: 24px;
+    font-size: 0.95rem;
+  }
+  .topbar .container {
+    padding: 2px 6px;
+    min-height: 24px;
   }
   .logo-img {
     max-width: 28px !important;
@@ -284,8 +360,8 @@
   .navcontainer {
     padding: 0 4px;
   }
-  .logo {
-    padding: 4px 0;
+  body {
+    padding-top: 60px;
   }
 }
 
