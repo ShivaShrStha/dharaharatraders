@@ -23,7 +23,191 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Inter', sans-serif; background: var(--cream-light); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; padding-top: 120px; }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
-    /* ...existing code... */
+
+    /* HERO SECTION */
+    .hero {
+      background: linear-gradient(135deg, var(--cream-medium) 0%, var(--cream-dark) 100%);
+      padding: 80px 0 40px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-content {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: rgba(255,255,255,0.85);
+      border-radius: 18px;
+      box-shadow: 0 8px 32px var(--shadow-light);
+    }
+    .hero-content h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: #8b7355;
+      margin-bottom: 1.2rem;
+      letter-spacing: 1px;
+    }
+    .hero-content p {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      margin-bottom: 0;
+    }
+
+    /* ABOUT CONTENT */
+    .about-content {
+      padding: 60px 0 30px 0;
+      background: var(--cream-light);
+    }
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      margin-bottom: 3rem;
+    }
+    .content-text h2 {
+      font-size: 2rem;
+      font-family: 'Playfair Display', serif;
+      color: #3661b7;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+    .content-text p {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.2rem;
+      line-height: 1.7;
+    }
+    .content-image img {
+      width: 100%;
+      border-radius: 18px;
+      box-shadow: 0 8px 32px var(--shadow-light);
+      object-fit: cover;
+      min-height: 220px;
+      max-height: 340px;
+    }
+
+    /* STATS SECTION */
+    .stats-section {
+      background: var(--cream-medium);
+      padding: 60px 0;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 2.5rem;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .stat-item {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 16px var(--shadow-light);
+      padding: 2.5rem 1.2rem;
+      transition: box-shadow 0.3s;
+    }
+    .stat-item:hover {
+      box-shadow: 0 8px 32px var(--shadow-light);
+    }
+    .stat-item h3 {
+      font-size: 2.2rem;
+      color: #b8860b;
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 0.7rem;
+      font-weight: 700;
+    }
+    .stat-item p {
+      font-size: 1.08rem;
+      color: #8b7355;
+      font-weight: 600;
+      margin-bottom: 0;
+    }
+
+    /* VALUES SECTION */
+    .values-section {
+      background: var(--cream-light);
+      padding: 60px 0 40px 0;
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .section-header h2 {
+      font-size: 2.2rem;
+      font-family: 'Playfair Display', serif;
+      color: #3661b7;
+      font-weight: 700;
+      margin-bottom: 0.7rem;
+    }
+    .section-header p {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      margin-bottom: 0;
+    }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .value-card {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 4px 16px var(--shadow-light);
+      padding: 2.2rem 1.2rem 1.7rem 1.2rem;
+      text-align: center;
+      transition: box-shadow 0.3s, transform 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .value-card:hover {
+      box-shadow: 0 8px 32px var(--shadow-light);
+      transform: translateY(-6px) scale(1.03);
+    }
+    .value-icon {
+      font-size: 2.7rem;
+      margin-bottom: 1.1rem;
+      color: #ecd9b0;
+      filter: drop-shadow(0 2px 8px #ecd9b0);
+    }
+    .value-card h3 {
+      font-size: 1.25rem;
+      font-family: 'Playfair Display', serif;
+      color: #8b7355;
+      font-weight: 700;
+      margin-bottom: 0.7rem;
+    }
+    .value-card p {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      margin-bottom: 0;
+      line-height: 1.6;
+    }
+
+    /* RESPONSIVE DESIGN */
+    @media (max-width: 900px) {
+      .hero-content h1 { font-size: 2.1rem; }
+      .content-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .content-image img { min-height: 160px; max-height: 220px; }
+      .stats-grid { grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+      .values-grid { grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    }
+    @media (max-width: 600px) {
+      .hero { padding: 40px 0 20px 0; }
+      .hero-content { padding: 1rem; }
+      .hero-content h1 { font-size: 1.3rem; }
+      .content-grid { gap: 1rem; }
+      .content-image img { min-height: 100px; max-height: 140px; }
+      .stats-section { padding: 30px 0; }
+      .stats-grid { grid-template-columns: 1fr; gap: 0.7rem; }
+      .stat-item { padding: 1.2rem 0.7rem; }
+      .values-section { padding: 30px 0 20px 0; }
+      .values-grid { grid-template-columns: 1fr; gap: 0.7rem; }
+      .value-card { padding: 1.2rem 0.7rem 1rem 0.7rem; }
+      .value-icon { font-size: 2rem; }
+    }
   </style>
 </head>
 <body>
@@ -48,7 +232,7 @@
           <p>Our commitment to excellence and customer satisfaction has helped us build lasting relationships with suppliers worldwide and customers across Nepal. We believe in quality, integrity, and innovation as the cornerstones of our business philosophy.</p>
         </div>
         <div class="content-image">
-          <img src="img/medical-equipment.jpg" alt="Medical Equipment">
+          <img src="img/Dharaharalogo.png" alt="Medical Equipment">
         </div>
       </div>
 
@@ -137,5 +321,29 @@
       nav.classList.toggle('active');
     }
   </script>
+  <script>
+document.addEventListener("DOMContentLoaded", function() {
+  function animateCount(el, target, duration = 1500) {
+    let start = 0;
+    let startTime = null;
+    function update(timestamp) {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      el.textContent = Math.floor(progress * (target - start) + start);
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      } else {
+        el.textContent = target + "+";
+      }
+    }
+    requestAnimationFrame(update);
+  }
+
+  document.querySelectorAll('.stat-item h3').forEach(stat => {
+    const target = parseInt(stat.textContent.replace(/\D/g, ''));
+    animateCount(stat, target);
+  });
+});
+</script>
 </body>
 </html>
