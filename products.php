@@ -68,7 +68,7 @@ try {
         }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     /* header spacing handled in includes/header.css */
-    body { font-family: 'Inter', sans-serif; background: var(--cream-light); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; padding-top: 0; }
+    body { font-family: 'Inter', sans-serif; background: var(--cream-light); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
 
     

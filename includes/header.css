@@ -92,6 +92,20 @@
   color: #8b7355;
   padding: 4px 0; /* less vertical space */
 }
+.logo { flex: 0 1 auto; min-width: 0; }
+.logo-img { flex: 0 0 auto; }
+.logo-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #8b7355;
+  letter-spacing: 1px;
+  display: inline-block;
+  max-width: 220px; /* soft cap on wide screens */
+  min-width: 0; /* allow shrinking in flex layouts */
+  white-space: normal; /* allow wrapping */
+  overflow-wrap: anywhere;
+}
 .logo-img {
   max-width: 36px !important;
   max-height: 36px !important;
@@ -231,6 +245,8 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 10px;
+  gap: 0.5rem;
+  min-width: 0;
   }
   .mainnav {
     display: none;
@@ -364,16 +380,18 @@
     padding: 0 10px;
   }
   .logo-img {
-    max-width: 36px !important;
-    max-height: 36px !important;
-    width: 36px !important;
-    height: 36px !important;
-    margin-bottom: 8px;
+  max-width: 36px !important;
+  max-height: 36px !important;
+  width: 36px !important;
+  height: 36px !important;
+  margin-bottom: 8px;
   }
   .logo-text {
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: 1.2px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  max-width: calc(100vw - 140px);
+  white-space: normal;
   }
   .mainnav {
     margin-left: 0;
@@ -403,6 +421,16 @@
   .topbar .container {
     padding: 2px 6px;
     min-height: 24px;
+  }
+  /* mobile: make logo compact and allow wrapping so it doesn't get cut off */
+  .logo-img { width: 28px !important; height: 28px !important; max-width: 28px !important; }
+  .logo-text { font-size: 0.95rem; max-width: calc(100vw - 110px); }
+  /* ensure navcontainer allows content to wrap instead of overflowing */
+  .navcontainer { gap: 0.5rem; }
+  /* on very small viewports, slightly reduce logo text to fit */
+  @media (max-width: 380px) {
+    .logo-text { font-size: 0.9rem; }
+    .logo-img { width: 24px !important; height: 24px !important; }
   }
   .logo-img {
     max-width: 36px !important;

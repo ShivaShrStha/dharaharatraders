@@ -21,7 +21,7 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
     /* header spacing handled in includes/header.css */
-    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #fefcf7; color: #2c1810; margin: 0; padding-top: 0; }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #fefcf7; color: #2c1810; margin: 0; }
     .contact-main { min-height: 100vh; }
     .contact-main .contact-flex { display: flex; flex-wrap: wrap; gap: 40px; max-width: 1200px; margin: 0 auto; padding: 0 20px; align-items: stretch; }
     .contact-main .contact-left { flex: 1 1 400px; min-width: 320px; background: #fff; border-radius: 20px; box-shadow: 0 8px 24px rgba(44,24,16,0.08); padding: 40px 30px; display: flex; flex-direction: column; justify-content: center; border: 1px solid #f5f1e8; }

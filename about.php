@@ -33,7 +33,7 @@
     }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   /* header spacing handled in includes/header.css */
-  body { font-family: 'Inter', sans-serif; background: var(--cream-light); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; padding-top: 0; }
+  body { font-family: 'Inter', sans-serif; background: var(--cream-light); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; }
   /* layout helpers (centralized .container moved to includes/header.css) */
   .hero { padding: 4rem 0 2rem 0; }
   .hero-content { max-width: 900px; margin: 0 auto; text-align: center; }
