@@ -8,7 +8,11 @@
         <span class="logo-text">Dharahara Traders</span>
       </a>
       <!-- Hamburger menu button for mobile only -->
-      <button class="hamburger" aria-label="Toggle navigation" style="display:none;"></button>
+      <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mainnav">
+        <span class="hamburger-box">
+          <span class="hamburger-inner"></span>
+        </span>
+      </button>
       <nav class="mainnav">
         <ul>
           <li><a href="/" class="nav-link">Home</a></li>

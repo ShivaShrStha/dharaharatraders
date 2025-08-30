@@ -37,7 +37,8 @@ try {
         $upload_path = $upload_dir . $filename;
         
         if (move_uploaded_file($_FILES['image']['tmp_name'], $upload_path)) {
-            $image_url = 'uploads/products/' . $filename;
+            // Store leading slash to make path root-absolute
+            $image_url = '/uploads/products/' . $filename;
         }
     }
     

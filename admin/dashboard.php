@@ -602,12 +602,14 @@ if (isset($_GET['logout'])) {
                 .then(data => {
                     let html = '<table class="data-table"><thead><tr><th>ID</th><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Status</th><th>Actions</th></tr></thead><tbody>';
                     data.forEach(product => {
-                        let img = product.image ? product.image : 'img/placeholder-product.jpg';
-                        // Fix relative path for uploaded images
-                        if (img && img.startsWith('uploads/products/')) {
-                            img = '../' + img;
+                        let img = product.image ? product.image : '/img/placeholder-product.jpg';
+                        // Ensure uploaded images and DB image paths are root-absolute
+                        if (img && img.startsWith('/uploads/products/')) {
+                            // already root-absolute
+                        } else if (img && img.startsWith('uploads/products/')) {
+                            img = '/' + img;
                         } else if (img && img.match(/^[^\/]+\.(jpg|jpeg|png|gif)$/i)) {
-                            img = '../img/' + img;
+                            img = '/img/' + img;
                         }
                         html += `<tr>
                             <td>${product.id}</td>

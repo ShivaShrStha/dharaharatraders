@@ -27,7 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $imagePath = $uploadDir . $fileName;
             
             if (move_uploaded_file($_FILES['image']['tmp_name'], $imagePath)) {
-                $imagePath = 'uploads/products/' . $fileName;
+                // Store site-root absolute path to avoid relative URL issues when rendering
+                $imagePath = '/uploads/products/' . $fileName;
             } else {
                 $imagePath = '';
             }
