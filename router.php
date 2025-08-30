@@ -8,6 +8,14 @@ $path = trim($path, '/');
 $route = explode('?', $path)[0];
 $route = rtrim($route, '/'); // Ensure no trailing slash
 
+// Basic sanitization to prevent directory traversal and null bytes
+$path = str_replace("\0", '', $path);
+$path = str_replace('..', '', $path);
+$path = preg_replace('#/+#', '/', $path);
+
+// Normalize route after sanitization
+$route = trim($path, '/');
+
 // Add support for product details with query string (e.g., /product?id=123)
 if ($route === 'product' && isset($_GET['id'])) {
     include 'product.php';

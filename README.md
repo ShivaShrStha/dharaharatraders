@@ -128,6 +128,60 @@ Deployment checklist
 - Create a production `.env` (do not commit `.env` to repo)
 - Set correct ownership and permissions for `uploads/` and the SQLite DB (webserver user must be able to read/write)
 
+What you need to do now (deploy steps)
+1. Upload the project to your server document root (example `/var/www/dharaharatraders` or `~/public_html`).
+
+2. Create a production `.env` from the example and set a strong admin password:
+
+```bash
+cd /var/www/dharaharatraders
+cp .env.example .env
+# edit .env and set ADMIN_PASSWORD and other values
+nano .env
+```
+
+3. Ensure Apache will allow rewrites (so clean URLs like `/about` work):
+
+If you have SSH and sudo on Debian/Ubuntu:
+```bash
+sudo a2enmod rewrite headers deflate expires
+# ensure vhost has AllowOverride All for the DocumentRoot (see README Apache snippet)
+sudo systemctl reload apache2
+```
+
+If you are on cPanel/shared hosting: upload the `.htaccess` from the repo into your `public_html` and ask support to enable mod_rewrite if clean URLs still 404.
+
+4. Set file ownership and permissions so the webserver can read files and write uploads/DB:
+
+```bash
+# adjust web user if your server uses `apache` instead of `www-data`
+sudo chown -R www-data:www-data /var/www/dharaharatraders
+sudo find /var/www/dharaharatraders -type d -exec chmod 755 {} \;
+sudo find /var/www/dharaharatraders -type f -exec chmod 644 {} \;
+sudo chown -R www-data:www-data /var/www/dharaharatraders/uploads
+sudo chown www-data:www-data /var/www/dharaharatraders/admin/dharahara_data.db
+sudo chmod 660 /var/www/dharaharatraders/admin/dharahara_data.db
+```
+
+5. Reload Apache and verify rewrite module is enabled:
+
+```bash
+apachectl -M | grep rewrite
+sudo systemctl reload apache2
+```
+
+6. Quick smoke tests (run locally or on server):
+
+```bash
+curl -I -L https://dharaharatraders.com/
+curl -I -L https://dharaharatraders.com/about
+curl -I -L https://dharaharatraders.com/products
+curl -I -L https://dharaharatraders.com/contact
+curl -I -L https://dharaharatraders.com/includes/header.css
+```
+
+If the clean URLs still return a 404 while `.php` files are reachable, confirm `AllowOverride All` is set or ask your host to add the rewrite rules into the vhost.
+
 Project layout (high level)
 ```
 dharaharatraders/

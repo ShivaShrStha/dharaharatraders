@@ -1,3 +1,18 @@
+# Ignore environment files and database
+.env
+.env.local
+/admin/*.db
+/admin/dharahara_data.db
+
+# Node/npm/yarn artifacts (if any added later)
+node_modules/
+dist/
+
+# Editor/OS files
+.DS_Store
+*.swp
+*.swo
+vscode/
 # Environment files
 .env
 .env.local
