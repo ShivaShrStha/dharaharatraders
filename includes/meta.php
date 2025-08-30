@@ -47,4 +47,7 @@ $org = [
 
 echo "<script type=\"application/ld+json\">" . json_encode($org, JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE) . "</script>\n";
 
+// Header stylesheet: load early in the head for better render performance
+echo "<link rel=\"stylesheet\" href=\"/includes/header.css\">\n";
+
 ?>

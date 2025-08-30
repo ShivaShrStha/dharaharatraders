@@ -1,26 +1,11 @@
-<?php /*
+<?php
+/*
  * Dharahara Traders — Header include
  * Built by: Shiva Sharan Shrestha
  * License: MIT (see LICENSE)
- */ ?>
-<!-- Header I      <a class="logo" href="/">
-  <img src="/img/Dharaharalogo.png" alt="Dharahara Traders Logo" class="logo-img">
-        <span class="logo-text">Dharahara Traders</span>
-      </a>
-      <!-- Hamburger menu button for mobile only -->
-      <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mainnav">
-        <span class="hamburger-box">
-          <span class="hamburger-inner"></span>
-        </span>
-      </button>
-      <nav class="mainnav">
-        <ul>
-          <li><a href="/" class="nav-link">Home</a></li>
-          <li><a href="about" class="nav-link">About</a></li>
-          <li><a href="products" class="nav-link">Products</a></li>
-          <li><a href="contact" class="nav-link">Contact</a></li>
-        </ul>
-      </nav>->
+ */
+?>
+<!-- Header Include -->
 <div class="topbar">
   <div class="container">
     <div class="top-left">
@@ -37,9 +22,15 @@
         <img src="/img/Dharaharalogo.png" alt="Dharahara Traders Logo" class="logo-img">
         <span class="logo-text">Dharahara Traders</span>
       </a>
-      <!-- Hamburger menu button for mobile only -->
-      <button class="hamburger" aria-label="Toggle navigation" style="display:none;"></button>
-      <nav class="mainnav">
+
+      <!-- Single accessible hamburger button -->
+      <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mainnav">
+        <span class="hamburger-box">
+          <span class="hamburger-inner"></span>
+        </span>
+      </button>
+
+      <nav id="mainnav" class="mainnav">
         <ul>
           <li><a href="/" class="nav-link">Home</a></li>
           <li><a href="/about" class="nav-link">About</a></li>
@@ -50,37 +41,58 @@
     </div>
   </div>
 </header>
-<link rel="stylesheet" href="/includes/header.css">
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const hamburger = document.querySelector('.hamburger');
   const siteHeader = document.querySelector('.site-header');
-  if (hamburger && siteHeader) {
-    // Show hamburger only on mobile
-    function updateHamburgerVisibility() {
-      if (window.innerWidth <= 1024) {
-        hamburger.style.display = 'block';
-      } else {
-        hamburger.style.display = 'none';
-        siteHeader.classList.remove('menu-open');
-      }
-    }
-    updateHamburgerVisibility();
-    window.addEventListener('resize', updateHamburgerVisibility);
-    hamburger.addEventListener('click', function(e) {
-      e.stopPropagation();
-      siteHeader.classList.toggle('menu-open');
-    });
-    document.addEventListener('click', function(event) {
-      if (siteHeader.classList.contains('menu-open')) {
-        const nav = document.querySelector('.mainnav');
-        if (nav && !nav.contains(event.target) && !hamburger.contains(event.target)) {
-          siteHeader.classList.remove('menu-open');
-        }
-      }
-    });
+  const mainnav = document.getElementById('mainnav');
+  if (!hamburger || !siteHeader || !mainnav) return;
+
+  function closeMenu() {
+    siteHeader.classList.remove('menu-open');
+    hamburger.classList.remove('is-active');
+    hamburger.setAttribute('aria-expanded', 'false');
   }
+
+  function openMenu() {
+    siteHeader.classList.add('menu-open');
+    hamburger.classList.add('is-active');
+    hamburger.setAttribute('aria-expanded', 'true');
+  }
+
+  function toggleMenu(e) {
+    e.stopPropagation();
+    if (siteHeader.classList.contains('menu-open')) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  }
+
+  hamburger.addEventListener('click', toggleMenu);
+  hamburger.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleMenu(e);
+    }
+  });
+
+  // Close when clicking outside
+  document.addEventListener('click', function(event) {
+    if (siteHeader.classList.contains('menu-open') && !siteHeader.contains(event.target)) {
+      closeMenu();
+    }
+  });
+
+  // Ensure hamburger visibility on resize (CSS handles visibility but keep aria state clean)
+  window.addEventListener('resize', function() {
+    if (window.innerWidth > 1024) {
+      closeMenu();
+    }
+  });
 });
 </script>
+
 <link rel="icon" type="image/png" href="/img/Dharaharalogo.png">
 <!-- Header Include End -->

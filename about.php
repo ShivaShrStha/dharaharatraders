@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>About Us | Dharahara Traders Pvt. Ltd. | Reliable Import Export Company Nepal</title>
-  <meta name="description" content="Learn about Dharahara Traders Pvt. Ltd., Nepal's leading import-export company specializing in medical equipment, cosmetics, herbs, and electronics since our founding.">
-  <meta name="keywords" content="about dharahara traders, import export nepal, company history, medical equipment supplier, reliable products nepal">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/png" href="img/Dharaharalogo.png">
+  <title>About Dharahara Traders | Dharahara Traders Pvt. Ltd.</title>
+  <meta name="description" content="Pioneering excellence in import-export business across Nepal with reliable quality products and unmatched service standards.">
+  <meta name="keywords" content="dharahara traders, about, import export nepal, medical equipment, cosmetics, herbs, electronics">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/img/Dharaharalogo.png">
   <?php
     $meta_title = 'About — Dharahara Traders';
-    $meta_description = 'About Dharahara Traders — reliable import-export services, quality products and trusted partnerships.';
+    $meta_description = 'Pioneering excellence in import-export business across Nepal with reliable quality products and unmatched service standards.';
     $meta_url = 'https://dharaharatraders.com/about';
     include 'includes/meta.php';
   ?>
-  <link rel="stylesheet" href="/includes/header.css">
+  <!-- footer styles (header.css is loaded from includes/meta.php) -->
   <link rel="stylesheet" href="/includes/footer.css">
   <style>
     :root {
@@ -23,62 +23,23 @@
       --cream-dark: #f5f1e8;
       --brown-dark: #8b7355;
       --gold-light: #ecd9b0;
+      --gold-medium: #ecd9b0;
+      --gold-dark: #b8860b;
       --shadow-light: rgba(139, 115, 85, 0.1);
       --text-secondary: #6c5c3a;
+      --text-primary: #2c1810;
+      --accent-gold: #d4af37;
+      --border-subtle: #f5f1e8;
     }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; background: var(--cream-light); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; padding-top: 120px; }
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
-
-    /* HERO SECTION */
-    .hero {
-      background: linear-gradient(135deg, var(--cream-medium) 0%, var(--cream-dark) 100%);
-      padding: 80px 0 40px 0;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero-content {
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 2rem;
-      background: rgba(255,255,255,0.85);
-      border-radius: 18px;
-      box-shadow: 0 8px 32px var(--shadow-light);
-    }
-    .hero-content h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.8rem;
-      font-weight: 700;
-      color: #8b7355;
-      margin-bottom: 1.2rem;
-      letter-spacing: 1px;
-    }
-    .hero-content p {
-      font-size: 1.25rem;
-      color: var(--text-secondary);
-      margin-bottom: 0;
-    }
-
-    /* ABOUT CONTENT */
-    .about-content {
-      padding: 60px 0 30px 0;
-      background: var(--cream-light);
-    }
-    .content-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: center;
-      margin-bottom: 3rem;
-    }
-    .content-text h2 {
-      font-size: 2rem;
-      font-family: 'Playfair Display', serif;
-      color: #3661b7;
-      margin-bottom: 1rem;
-      font-weight: 700;
-    }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  /* header spacing handled in includes/header.css */
+  body { font-family: 'Inter', sans-serif; background: var(--cream-light); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; padding-top: 0; }
+  /* layout helpers (centralized .container moved to includes/header.css) */
+  .hero { padding: 4rem 0 2rem 0; }
+  .hero-content { max-width: 900px; margin: 0 auto; text-align: center; }
+  .content-grid { display: grid; grid-template-columns: 1fr 360px; gap: 2.5rem; align-items: start; }
+  @media (max-width: 900px) { .content-grid { grid-template-columns: 1fr; gap: 1.2rem; } }
+    /* Page styles */
     .content-text p {
       font-size: 1.1rem;
       color: var(--text-secondary);
@@ -438,45 +399,30 @@
 <!-- Footer -->
 <?php include 'includes/footer.php'; ?>
 
-  <script>
-    function toggleMenu() {
-      const nav = document.getElementById('mainnav');
-      nav.classList.toggle('active');
-    }
-
-    document.addEventListener("DOMContentLoaded", function() {
-      function animateCount(el, target, duration = 1500) {
-        let start = 0;
-        let startTime = null;
-        function update(timestamp) {
-          if (!startTime) startTime = timestamp;
-          const progress = Math.min((timestamp - startTime) / duration, 1);
-          el.textContent = Math.floor(progress * (target - start) + start);
-          if (progress < 1) {
-            requestAnimationFrame(update);
-          } else {
-            el.textContent = target + "+";
+    <script>
+      // Page-specific scripts (Animate counts etc.) — mobile menu handled centrally in includes/header.php
+      document.addEventListener("DOMContentLoaded", function() {
+        function animateCount(el, target, duration = 1500) {
+          let start = 0;
+          let startTime = null;
+          function update(timestamp) {
+            if (!startTime) startTime = timestamp;
+            const progress = Math.min((timestamp - startTime) / duration, 1);
+            el.textContent = Math.floor(progress * (target - start) + start);
+            if (progress < 1) {
+              requestAnimationFrame(update);
+            } else {
+              el.textContent = target + "+";
+            }
           }
+          requestAnimationFrame(update);
         }
-        requestAnimationFrame(update);
-      }
 
-      document.querySelectorAll('.stat-item h3').forEach(stat => {
-        const target = parseInt(stat.textContent.replace(/\D/g, ''));
-        animateCount(stat, target);
+        document.querySelectorAll('.stat-item h3').forEach(stat => {
+          const target = parseInt(stat.textContent.replace(/\D/g, ''));
+          animateCount(stat, target);
+        });
       });
-
-      document.addEventListener('click', function(e) {
-        const nav = document.getElementById('mainnav');
-        const toggle = document.querySelector('.nav-toggle');
-        if (nav.classList.contains('active') && !nav.contains(e.target) && !toggle.contains(e.target)) {
-          nav.classList.remove('active');
-        }
-        if (e.target.closest('.nav-list li a')) {
-          nav.classList.remove('active');
-        }
-      });
-    });
-  </script>
+    </script>
 </body>
 </html>

@@ -16,6 +16,11 @@
   border-bottom: 1px solid #f5f1e8;
   min-height: 44px; /* reduce header height */
 }
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
 .site-header a, .site-header a:visited, .site-header a:active {
   color: #8b7355 !important;
   text-decoration: none !important;

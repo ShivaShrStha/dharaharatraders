@@ -15,12 +15,13 @@
     $meta_url = 'https://dharaharatraders.com/contact';
     include 'includes/meta.php';
   ?>
-  <link rel="stylesheet" href="/includes/header.css">
+  <!-- header styles included by include -> includes/header.php -->
   <link rel="stylesheet" href="/includes/footer.css">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
-    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #fefcf7; color: #2c1810; margin: 0; padding-top: 120px; }
+    /* header spacing handled in includes/header.css */
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #fefcf7; color: #2c1810; margin: 0; padding-top: 0; }
     .contact-main { min-height: 100vh; }
     .contact-main .contact-flex { display: flex; flex-wrap: wrap; gap: 40px; max-width: 1200px; margin: 0 auto; padding: 0 20px; align-items: stretch; }
     .contact-main .contact-left { flex: 1 1 400px; min-width: 320px; background: #fff; border-radius: 20px; box-shadow: 0 8px 24px rgba(44,24,16,0.08); padding: 40px 30px; display: flex; flex-direction: column; justify-content: center; border: 1px solid #f5f1e8; }
@@ -50,97 +51,7 @@
     .contact-main .form-message.error { background: #ffeaea; border: 1px solid #ffcdcd; color: #d63031; }
     .contact-main .contact-right { flex: 1 1 400px; min-width: 320px; display: flex; align-items: center; justify-content: center; border-radius: 20px; overflow: hidden; box-shadow: 0 8px 24px rgba(44,24,16,0.08); background: #faf7f0; border: 1px solid #f5f1e8; min-height: 400px; }
     .contact-main .contact-map { width: 100%; height: 400px; border: none; border-radius: 20px; box-shadow: 0 4px 16px rgba(44,24,16,0.07); }
-    .site-nav {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      position: relative;
-    }
-    .nav-list {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-    .nav-list li a {
-      color: #2c1810;
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 1rem;
-      transition: color 0.3s;
-      padding: 8px 16px;
-      border-radius: 8px;
-    }
-    .nav-list li a:hover {
-      background: #ecd9b0;
-      color: #8b7355;
-    }
-    .nav-toggle {
-      display: none;
-      background: none;
-      border: none;
-      cursor: pointer;
-      margin-left: 1rem;
-      padding: 8px;
-    }
-    .hamburger, .hamburger::before, .hamburger::after {
-      background: var(--brown-dark);
-      height: 3px;
-      width: 28px;
-      border-radius: 2px;
-      transition: all 0.3s;
-    }
-    .hamburger {
-      display: block;
-      position: relative;
-    }
-    .hamburger::before,
-    .hamburger::after {
-      content: '';
-      position: absolute;
-      left: 0;
-    }
-    .hamburger::before {
-      top: -8px;
-    }
-    .hamburger::after {
-      top: 8px;
-    }
-    @media (max-width: 900px) { 
-      .contact-main .contact-flex { flex-direction: column; gap: 30px; padding: 0 10px; } 
-      .contact-main .contact-left, .contact-main .contact-right { min-width: 0; padding: 30px 10px; } 
-      .contact-main .contact-map { height: 300px; } 
-      .contact-main .contact-left h2 {
-        font-size: 1.6rem;
-        margin-bottom: 1rem;
-        text-align: center;
-        word-break: break-word;
-        white-space: normal;
-        display: block;
-      }
-      .nav-list {
-        flex-direction: column;
-        position: absolute;
-        top: 60px;
-        right: 0;
-        background: #fefcf7;
-        box-shadow: 0 8px 24px rgba(139, 115, 85, 0.1);
-        border-radius: 12px;
-        padding: 1.5rem 2rem;
-        gap: 1.5rem;
-        min-width: 180px;
-        z-index: 100;
-        display: none;
-      }
-      .site-nav.active .nav-list,
-      #mainnav.active .nav-list {
-        display: flex;
-      }
-      .nav-toggle {
-        display: block;
-      }
-    }
+  
     @media (max-width: 600px) { 
       .contact-main .contact-left, .contact-main .contact-right { padding: 18px 2px; } 
       .contact-main .contact-map { height: 220px; } 
@@ -235,21 +146,7 @@
       });
     });
 
-    function toggleMenu() {
-      const nav = document.getElementById('mainnav');
-      nav.classList.toggle('active');
-    }
-
-    document.addEventListener('click', function(e) {
-      const nav = document.getElementById('mainnav');
-      const toggle = document.querySelector('.nav-toggle');
-      if (nav.classList.contains('active') && !nav.contains(e.target) && !toggle.contains(e.target)) {
-        nav.classList.remove('active');
-      }
-      if (e.target.closest('.nav-list li a')) {
-        nav.classList.remove('active');
-      }
-    });
+  // Menu behavior handled centrally in includes/header.php
   </script>
   <?php
   if (!empty($product['price'])): ?>
