@@ -1,4 +1,9 @@
 <?php
+/**
+ * Dharahara Traders — Website
+ * Built by: Shiva Sharan Shrestha
+ * License: MIT (see LICENSE)
+ */
 // Homepage for Dharahara Traders - Ultra Reliable Design
 require_once 'admin/database.php';
 

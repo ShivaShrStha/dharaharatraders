@@ -1,4 +1,9 @@
 <?php
+/**
+ * Dharahara Traders — Database connection (SQLite)
+ * Built by: Shiva Sharan Shrestha
+ * License: MIT (see LICENSE)
+ */
 // Database connection using SQLite
 class Database {
     private $db;

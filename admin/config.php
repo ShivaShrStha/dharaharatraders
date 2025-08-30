@@ -1,4 +1,9 @@
 <?php
+/**
+ * Dharahara Traders — Admin configuration
+ * Built by: Shiva Sharan Shrestha
+ * License: MIT (see ../LICENSE)
+ */
 // Configuration file for Dharahara Traders
 // Load environment variables
 

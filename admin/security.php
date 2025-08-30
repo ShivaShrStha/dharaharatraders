@@ -1,4 +1,9 @@
 <?php
+/**
+ * Dharahara Traders — Admin security/login
+ * Built by: Shiva Sharan Shrestha
+ * License: MIT (see LICENSE)
+ */
 // Admin Security Check for Dharahara Traders
 // Add this at the top of admin files for basic protection
 

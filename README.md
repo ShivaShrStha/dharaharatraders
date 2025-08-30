@@ -23,151 +23,78 @@ Premium import-export company website built with PHP, featuring an ultra-modern 
 
 ## 📁 Project Structure
 
+# Dharahara Traders — Website
+
+Professional import-export website built with plain PHP and SQLite. This repository contains the public site and a small admin dashboard for managing products, categories, inquiries and newsletters.
+
+Built by Shiva Sharan Shrestha — released under the MIT License (see `LICENSE`).
+
+Quick links
+- Live pages: `/`, `/about`, `/products`, `/contact`, `/product?id=...`
+- Admin: `/admin/dashboard.php`
+
+Why this project
+- Simple, self-hosted PHP site for small businesses.
+- Clean URLs (no .php extensions) via `.htaccess` (Apache) and `router.php` for the PHP built-in server.
+- Mobile-first responsive UI and lightweight admin panel.
+
+Features
+- Responsive frontend with modern typography and a warm cream/gold palette
+- Admin dashboard: products, categories, inquiries, newsletter management
+- SQLite-based data storage (zero external DB dependency)
+- Clean URLs and friendly routing (works on Apache/nginx with rewrites and with `php -S` using `router.php`)
+- Form processors for contact and newsletter
+
+Repository layout
 ```
 dharaharatraders/
 ├── index.php              # Homepage
 ├── about.php              # About page
-├── shop.php               # Products catalog
+├── products.php           # Products listing
+├── product.php            # Product details (uses ?id=)
 ├── contact.php            # Contact page
-├── product.php            # Product details
-├── process_*.php          # Form processors
-├── .htaccess              # URL rewriting & security
-├── .env                   # Environment configuration
-├── admin/                 # Admin dashboard
-│   ├── dashboard.php      # Admin interface
-│   ├── database.php       # Database connection
-│   ├── config.php         # Configuration
-│   └── *.php             # Admin functions
-├── includes/              # Shared components
-│   └── footer.php        # Unified footer
+├── shop.php               # Alternate shop listing
+├── process_*.php          # Form handlers
+├── router.php             # Dev server router for php -S
+├── .htaccess              # Production rewrite rules
+├── .env                   # Environment configuration (not committed)
+├── admin/                 # Admin dashboard + API endpoints
+├── includes/              # header.php, footer.php, CSS
 ├── img/                   # Static images
-└── uploads/               # User uploads
-    └── products/          # Product images
+└── uploads/               # Uploaded product images
 ```
 
-## 🔧 Installation
-
-1. **Clone the repository**
+Quick start (local)
+1. Clone the repo
    ```bash
-   git clone [repository-url]
+   git clone <repo-url>
    cd dharaharatraders
    ```
-
-2. **Configure environment**
+2. Copy and edit environment config
    ```bash
    cp .env.example .env
-   # Edit .env with your settings
+   # Edit ADMIN_PASSWORD, DB_PATH, etc.
    ```
-
-3. **Set up web server**
-   - Ensure Apache/Nginx is configured with PHP
-   - Enable mod_rewrite for clean URLs
-   - Set document root to project directory
-
-4. **Initialize database**
-   - Database will be created automatically on first admin access
-   - Default admin credentials will be generated
-
-5. **Set permissions**
+3. Run local dev server
    ```bash
-   chmod 755 uploads/
-   chmod 755 uploads/products/
-   chmod 644 admin/nexa_data.db
+   php -S localhost:8080 router.php
+   # Visit http://localhost:8080/
    ```
 
-## 🔐 Security Features
+Production notes
+- Ensure the webserver document root is this project folder.
+- Enable mod_rewrite (Apache) or equivalent for nginx and use the rules in `.htaccess`.
+- Secure `.env` and `uploads/` directories with proper permissions.
 
-- Input validation and sanitization
-- SQL injection prevention
-- XSS protection
-- CSRF protection
-- File upload restrictions
-- Environment variable protection
-- HTTP security headers
+License & attribution
+- This project is released under the MIT License. See `LICENSE`.
+- Please keep the author attribution in source files when redistributing.
 
-## 📱 Responsive Design
+Support
+- Email: info@dharaharatraders.com
 
-- Mobile-first approach
-- Tablet optimization
-- Desktop enhancement
-- Touch-friendly interface
-- Fast loading times
-
-## 🎨 Design System
-
-### Color Palette
-- **Cream Light**: #fefcf7
-- **Cream Medium**: #faf7f0
-- **Cream Dark**: #f5f1e8
-- **Gold Light**: #d4af37
-- **Gold Medium**: #b8860b
-- **Brown Dark**: #4a3728
-
-### Typography
-- **Headings**: Playfair Display (Serif)
-- **Body**: Inter (Sans-serif)
-- **Clean, modern hierarchy**
-
-## 🚀 Deployment
-
-### Production Setup
-1. Upload files to web server
-2. Configure domain DNS
-3. Set up SSL certificate
-4. Update .env for production
-5. Test all functionality
-
-### Performance Optimization
-- Image compression
-- CSS/JS minification
-- Gzip compression
-- Browser caching
-- CDN integration (optional)
-
-## 🔄 Clean URLs
-
-The website uses clean URLs without .php extensions:
-- `/` → `index.php`
-- `/about` → `about.php`
-- `/shop` → `shop.php`
-- `/contact` → `contact.php`
-- `/product?id=1` → `product.php?id=1`
-
-## 📊 Admin Features
-
-- **Dashboard**: Overview of site statistics
-- **Products**: Add, edit, delete products
-- **Categories**: Manage product categories
-- **Inquiries**: Handle customer inquiries
-- **Newsletter**: Manage subscriptions
-- **Settings**: Site configuration
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit changes (`git commit -m 'Add AmazingFeature'`)
-4. Push to branch (`git push origin feature/AmazingFeature`)
-5. Open Pull Request
-
-## 📄 License
-
-This project is proprietary software owned by Dharahara Traders Pvt. Ltd.
-
-## 👨‍💻 Development
-
-**Developed by**: [Shiva Sharan Shrestha](https://shivasharanshrestha.com.np)  
-**Company**: Dharahara Traders Pvt. Ltd.  
-**Version**: 1.0.0  
-**Last Updated**: August 2025
-
-## 📞 Support
-
-For support and inquiries:
-- **Email**: info@dharaharatraders.com
-- **Phone**: +977-9818852676
-- **Website**: http://dharaharatraders.com
+Thank you for using this project.
 
 ---
 
-**© 2024 Dharahara Traders Pvt. Ltd. All rights reserved.**
+© 2025 Shiva Sharan Shrestha — Dharahara Traders Pvt. Ltd.

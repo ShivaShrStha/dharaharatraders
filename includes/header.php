@@ -1,3 +1,8 @@
+<?php /*
+ * Dharahara Traders — Header include
+ * Built by: Shiva Sharan Shrestha
+ * License: MIT (see LICENSE)
+ */ ?>
 <!-- Header I      <a class="logo" href="/">
         <img src="img/Dharaharalogo.png" alt="Dharahara Traders Logo" class="logo-img">
         <span class="logo-text">Dharahara Traders</span>

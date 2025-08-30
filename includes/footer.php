@@ -1,3 +1,8 @@
+<?php /*
+ * Dharahara Traders — Footer include
+ * Built by: Shiva Sharan Shrestha
+ * License: MIT (see LICENSE)
+ */ ?>
 <!-- Footer Include Start -->
 <footer class="site-footer">
   <div class="container">
