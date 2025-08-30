@@ -25,6 +25,45 @@ try {
     header('Location: products');
     exit;
 }
+
+// Helper: normalize image path from DB (accepts 'image_url' or legacy 'image')
+function normalize_image_path($p) {
+    if (empty($p)) return '';
+    $p = trim($p);
+    // If already absolute URL, return as-is
+    if (stripos($p, 'http://') === 0 || stripos($p, 'https://') === 0) return $p;
+    // Ensure it begins with a slash for site-root relative paths
+    if ($p[0] !== '/') $p = '/' . $p;
+    return $p;
+}
+
+// Determine main product image
+$img = '/img/placeholder-product.jpg';
+$db_image = $product['image_url'] ?? $product['image'] ?? '';
+$db_image = normalize_image_path($db_image);
+if (!empty($db_image)) {
+    $img = $db_image;
+} else {
+    $name = strtolower($product['name']);
+    $cat = strtolower($product['category']);
+    if (strpos($name, 'thermometer') !== false) {
+        $img = '/img/digital-thermometer.jpg';
+    } elseif (strpos($name, 'oximeter') !== false) {
+        $img = '/img/pulse-oximeter.jpg';
+    } elseif (strpos($name, 'smart watch') !== false) {
+        $img = '/img/bluetooth-smart-watch.jpg';
+    } elseif (strpos($name, 'glucose') !== false) {
+        $img = '/img/blood-glucose-monitor.jpg';
+    } elseif (strpos($name, 'ecg') !== false) {
+        $img = '/img/ecg-monitor.jpg';
+    } elseif ($cat === 'medical') {
+        $img = '/img/medical-equipment.jpg';
+    } elseif ($cat === 'electronics') {
+        $img = '/img/electronics.jpg';
+    } elseif ($cat === 'cosmetic' || $cat === 'cosmetics' || strpos($name, 'cream') !== false) {
+        $img = '/img/himalayan-face-cream.jpg';
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,6 +72,72 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($product['name']); ?> | Dharahara Traders Pvt. Ltd.</title>
     <meta name="description" content="<?php echo htmlspecialchars(substr($product['description'], 0, 160)); ?>">
+    <link rel="canonical" href="<?php echo 'https://dharaharatraders.com/product?id=' . urlencode($product['id']); ?>">
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="product">
+    <meta property="og:title" content="<?php echo htmlspecialchars($product['name']); ?> | Dharahara Traders">
+    <meta property="og:description" content="<?php echo htmlspecialchars(substr($product['description'], 0, 160)); ?>">
+    <?php
+        // Prefer normalized DB image (image_url or legacy image) for social previews/structured data
+        $img_for_meta = '';
+        if (!empty($db_image)) {
+            $img_for_meta = $db_image; // already normalized with leading slash or absolute URL
+        } else {
+            // Fallback heuristics (same as main-image logic above)
+            $img_for_meta = '/img/placeholder-product.jpg';
+            $name = strtolower($product['name']);
+            $cat = strtolower($product['category']);
+            if (strpos($name, 'thermometer') !== false) {
+                $img_for_meta = '/img/digital-thermometer.jpg';
+            } elseif (strpos($name, 'oximeter') !== false) {
+                $img_for_meta = '/img/pulse-oximeter.jpg';
+            } elseif (strpos($name, 'smart watch') !== false) {
+                $img_for_meta = '/img/bluetooth-smart-watch.jpg';
+            } elseif (strpos($name, 'glucose') !== false) {
+                $img_for_meta = '/img/blood-glucose-monitor.jpg';
+            } elseif (strpos($name, 'ecg') !== false) {
+                $img_for_meta = '/img/ecg-monitor.jpg';
+            } elseif ($cat === 'medical') {
+                $img_for_meta = '/img/medical-equipment.jpg';
+            } elseif ($cat === 'electronics') {
+                $img_for_meta = '/img/electronics.jpg';
+            } elseif ($cat === 'cosmetic' || $cat === 'cosmetics' || strpos($name, 'cream') !== false) {
+                $img_for_meta = '/img/himalayan-face-cream.jpg';
+            }
+        }
+    $abs_img = (strpos($img_for_meta, 'http') === 0) ? $img_for_meta : 'https://dharaharatraders.com' . $img_for_meta;
+    ?>
+    <meta property="og:image" content="<?php echo htmlspecialchars($abs_img); ?>">
+    <meta property="og:url" content="<?php echo 'https://dharaharatraders.com/product?id=' . urlencode($product['id']); ?>">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="<?php echo htmlspecialchars($product['name']); ?>">
+    <meta name="twitter:description" content="<?php echo htmlspecialchars(substr($product['description'], 0, 160)); ?>">
+    <meta name="twitter:image" content="<?php echo htmlspecialchars($abs_img); ?>">
+    <?php
+        // Product JSON-LD (structured data)
+        $product_json = [
+            '@context' => 'https://schema.org',
+            '@type' => 'Product',
+            'name' => $product['name'],
+            'image' => [$abs_img],
+            'description' => trim(strip_tags($product['description'])),
+            'sku' => (string)$product['id'],
+            'brand' => [
+                '@type' => 'Organization',
+                'name' => 'Dharahara Traders'
+            ],
+            'offers' => [
+                '@type' => 'Offer',
+                'url' => 'https://dharaharatraders.com/product?id=' . urlencode($product['id']),
+                'priceCurrency' => 'NPR',
+                'price' => is_numeric($product['price']) ? (float)$product['price'] : ($product['price'] ?? ''),
+                'availability' => 'https://schema.org/InStock'
+            ]
+        ];
+    ?>
+    <script type="application/ld+json">
+        <?php echo json_encode($product_json, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE); ?>
+    </script>
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
@@ -41,7 +146,7 @@ try {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="img/Dharaharalogo.png">
+    <link rel="icon" type="image/png" href="/img/Dharaharalogo.png">
     
     <link rel="stylesheet" href="/includes/header.css">
     <link rel="stylesheet" href="/includes/footer.css">
@@ -634,34 +739,19 @@ try {
     <main class="product-detail">
         <div class="product-grid">
             <div class="product-images">
-                <?php
-                // Use same image logic as index.php
-                                $img = '/img/placeholder-product.jpg';
-                if (!empty($product['image'])) {
-                    $img = htmlspecialchars($product['image']);
-                } else {
-                    $name = strtolower($product['name']);
-                    $cat = strtolower($product['category']);
-                    if (strpos($name, 'thermometer') !== false) {
-                        $img = '/img/digital-thermometer.jpg';
-                    } elseif (strpos($name, 'oximeter') !== false) {
-                        $img = '/img/pulse-oximeter.jpg';
-                    } elseif (strpos($name, 'smart watch') !== false) {
-                        $img = '/img/bluetooth-smart-watch.jpg';
-                    } elseif (strpos($name, 'glucose') !== false) {
-                        $img = '/img/blood-glucose-monitor.jpg';
-                    } elseif (strpos($name, 'ecg') !== false) {
-                        $img = '/img/ecg-monitor.jpg';
-                    } elseif ($cat === 'medical') {
-                        $img = '/img/medical-equipment.jpg';
-                    } elseif ($cat === 'electronics') {
-                        $img = '/img/electronics.jpg';
-                    } elseif ($cat === 'cosmetic' || $cat === 'cosmetics' || strpos($name, 'cream') !== false) {
-                        $img = '/img/himalayan-face-cream.jpg';
-                    }
-                }
-                ?>
-                <img src="<?php echo $img; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="main-image">
+                        <?php
+                        // $img already computed and normalized above (uses DB image or heuristics)
+                        ?>
+             <?php // Prepare absolute URL for img tag
+             $main_img_url = (strpos($img, 'http') === 0) ? $img : ('https://dharaharatraders.com' . $img);
+             ?>
+             <img src="<?php echo htmlspecialchars($img); ?>" 
+                 alt="<?php echo htmlspecialchars($product['name']); ?>" 
+                 class="main-image"
+                 loading="lazy"
+                 width="1200" height="800"
+                 srcset="<?php echo htmlspecialchars($img); ?> 800w, <?php echo htmlspecialchars($img); ?> 1200w"
+                 sizes="(max-width: 600px) 100vw, 50vw">
             </div>
 
             <div class="product-info">
@@ -815,18 +905,20 @@ try {
         <section class="related-products">
             <h2 class="related-title">Related Products</h2>
             <div class="related-grid">
-                <?php foreach ($related_products as $related): ?>
+                <?php foreach ($related_products as $related):
+                    // Prefer normalized image_url or legacy image, fall back to placeholder
+                    $related_img_raw = $related['image_url'] ?? $related['image'] ?? '';
+                    $related_img = normalize_image_path($related_img_raw);
+                    if (empty($related_img)) {
+                        $related_img = '/img/placeholder-product.jpg';
+                    }
+                ?>
                 <a href="/product?id=<?php echo $related['id']; ?>" class="related-card">
-                    <?php if (!empty($related['image'])): ?>
-                        <img src="<?php echo htmlspecialchars($related['image']); ?>" 
-                             alt="<?php echo htmlspecialchars($related['name']); ?>" 
-                             class="related-image"
-                             onerror="this.src='/img/placeholder-product.jpg'">
-                    <?php else: ?>
-                        <img src="/img/placeholder-product.jpg" 
-                             alt="Product placeholder" 
-                             class="related-image">
-                    <?php endif; ?>
+                    <img src="<?php echo htmlspecialchars($related_img); ?>" 
+                         alt="<?php echo htmlspecialchars($related['name']); ?>" 
+                         class="related-image"
+                         loading="lazy"
+                         onerror="this.src='/img/placeholder-product.jpg'">
                     
                     <div class="related-content">
                         <div class="related-name">

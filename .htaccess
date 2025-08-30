@@ -1,93 +1,74 @@
-# Dharahara Traders Website - .htaccess Configuration
+# Dharahara Traders Website - improved .htaccess
 
-# Enable URL Rewriting
-RewriteEngine On
+# Turn on rewrite engine and set base
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
 
-# Force HTTPS (active)
-RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    # Canonicalize host: redirect www to non-www (change if you prefer www)
+    RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+    RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
 
-# Redirect .php URLs to clean URLs (MUST come before internal rewrites)
-RewriteCond %{THE_REQUEST} \s/+(.+?)\.php[\s?] [NC]
-RewriteRule ^ /%1? [R=301,L]
+    # Force HTTPS (only if SSL is configured on the server)
+    RewriteCond %{HTTPS} !=on
+    RewriteCond %{HTTP:X-Forwarded-Proto} !https
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-# Handle clean URLs - map clean URLs to PHP files
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^about/?$ about.php [L]
+    # Redirect requests for physical .php files to clean URL (external redirect)
+    RewriteCond %{THE_REQUEST} \s/+(.*?)(?:\.php)[\s?] [NC]
+    RewriteRule ^ /%1 [R=301,L]
 
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^shop/?$ shop.php [L]
+    # Serve existing files/directories directly
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
 
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^contact/?$ contact.php [L]
+    # Pretty routes (explicit mapping)
+    RewriteRule ^about/?$ about.php [L,QSA]
+    RewriteRule ^products/?$ products.php [L,QSA]
+    RewriteRule ^shop/?$ shop.php [L,QSA]
+    RewriteRule ^contact/?$ contact.php [L,QSA]
+    RewriteRule ^product/?$ product.php [L,QSA]
 
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^products/?$ products.php [L]
+    # Pretty product by ID: /product/123 -> product.php?id=123
+    RewriteRule ^product/([0-9]+)/?$ product.php?id=$1 [L,QSA]
+    # Category listing: /category/name -> shop.php?category=name
+    RewriteRule ^category/([a-zA-Z0-9-]+)/?$ shop.php?category=$1 [L,QSA]
 
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^product/?$ product.php [L]
-
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^$ index.php [L]
-
-# Pretty URLs for products
-RewriteRule ^product/([0-9]+)/?$ product.php?id=$1 [L,QSA]
-RewriteRule ^category/([a-zA-Z0-9-]+)/?$ shop.php?category=$1 [L,QSA]
-
-# Security Headers
-<IfModule mod_headers.c>
-    # Prevent clickjacking
-    Header always append X-Frame-Options SAMEORIGIN
-    
-    # Prevent MIME type sniffing
-    Header always set X-Content-Type-Options nosniff
-    
-    # Enable XSS protection
-    Header always set X-XSS-Protection "1; mode=block"
-    
-    # Security header
-    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    # Fallback: route everything else to index.php (for SPA-like behavior / CMS)
+    RewriteRule ^ index.php [L,QSA]
 </IfModule>
 
-# Protect sensitive files and directories
-<Files ".env">
-    Order Allow,Deny
-    Deny from all
-</Files>
+# Security headers
+<IfModule mod_headers.c>
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set X-XSS-Protection "1; mode=block"
+    # Consider adding a Content-Security-Policy tailored to your site
+</IfModule>
 
-<Files "*.db">
-    Order Allow,Deny
-    Deny from all
-</Files>
-
-<Files "config.php">
-    Order Allow,Deny
-    Deny from all
-</Files>
-
-# Protect admin configuration
-<FilesMatch "\.(env|db|config)$">
-    Order Allow,Deny
-    Deny from all
+# Protect sensitive files (Apache 2.4+ syntax)
+<FilesMatch "^(?:\.env|.*\.db|config\.php)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order Allow,Deny
+        Deny from all
+    </IfModule>
 </FilesMatch>
 
-# Protect backup files
+# Deny access to common backup/temp files
 <FilesMatch "\.(bak|backup|old|tmp)$">
-    Order Allow,Deny
-    Deny from all
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order Allow,Deny
+        Deny from all
+    </IfModule>
 </FilesMatch>
-
-# Protect admin area (optional additional security)
-<Directory "admin">
-    # You can add IP restrictions here if needed
-    # Require ip 192.168.1.0/24
-</Directory>
 
 # Browser caching for static files
 <IfModule mod_expires.c>
@@ -101,31 +82,14 @@ RewriteRule ^category/([a-zA-Z0-9-]+)/?$ shop.php?category=$1 [L,QSA]
     ExpiresByType image/svg+xml "access plus 1 month"
 </IfModule>
 
-# Gzip compression
+# Gzip compression for supported content types
 <IfModule mod_deflate.c>
-    AddOutputFilterByType DEFLATE text/plain
-    AddOutputFilterByType DEFLATE text/html
-    AddOutputFilterByType DEFLATE text/xml
-    AddOutputFilterByType DEFLATE text/css
-    AddOutputFilterByType DEFLATE application/xml
-    AddOutputFilterByType DEFLATE application/xhtml+xml
-    AddOutputFilterByType DEFLATE application/rss+xml
-    AddOutputFilterByType DEFLATE application/javascript
-    AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE text/plain text/html text/xml text/css
+    AddOutputFilterByType DEFLATE application/xml application/xhtml+xml application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript application/x-javascript
 </IfModule>
 
-# Custom error pages (optional)
+# Optional: custom error pages
 # ErrorDocument 404 /404.php
 # ErrorDocument 500 /500.php
 
-# Redirect www to non-www (optional)
-# RewriteCond %{HTTP_HOST} ^www\.dharaharatraders\.com [NC]
-# RewriteRule ^(.*)$ https://dharaharatraders.com/$1 [R=301,L]
-
-# Force HTTPS (uncomment when SSL is installed)
-# RewriteCond %{HTTPS} off
-# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-
-# Pretty URLs for products (optional enhancement)
-RewriteRule ^product/([0-9]+)/?$ product.php?id=$1 [L,QSA]
-RewriteRule ^category/([a-zA-Z0-9-]+)/?$ shop.php?category=$1 [L,QSA]

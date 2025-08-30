@@ -9,6 +9,12 @@
   <meta name="keywords" content="contact dharahara traders, import export nepal contact, business inquiries, product inquiries, partnerships">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="img/Dharaharalogo.png">
+  <?php
+    $meta_title = 'Contact — Dharahara Traders';
+    $meta_description = 'Contact Dharahara Traders for inquiries, partnerships, and product information.';
+    $meta_url = 'https://dharaharatraders.com/contact';
+    include 'includes/meta.php';
+  ?>
   <link rel="stylesheet" href="/includes/header.css">
   <link rel="stylesheet" href="/includes/footer.css">
   <style>

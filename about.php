@@ -8,6 +8,12 @@
   <meta name="keywords" content="about dharahara traders, import export nepal, company history, medical equipment supplier, reliable products nepal">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="img/Dharaharalogo.png">
+  <?php
+    $meta_title = 'About — Dharahara Traders';
+    $meta_description = 'About Dharahara Traders — reliable import-export services, quality products and trusted partnerships.';
+    $meta_url = 'https://dharaharatraders.com/about';
+    include 'includes/meta.php';
+  ?>
   <link rel="stylesheet" href="/includes/header.css">
   <link rel="stylesheet" href="/includes/footer.css">
   <style>
@@ -282,7 +288,7 @@
           <p>Our commitment to excellence and customer satisfaction has helped us build lasting relationships with suppliers worldwide and customers across Nepal. We believe in quality, integrity, and innovation as the cornerstones of our business philosophy.</p>
         </div>
         <div class="content-image">
-          <img src="img/Dharaharalogo.png" alt="Medical Equipment">
+          <img src="/img/Dharaharalogo.png" alt="Medical Equipment">
         </div>
       </div>
 

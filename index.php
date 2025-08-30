@@ -34,8 +34,8 @@ try {
   <meta property="og:title" content="Dharahara Traders Pvt. Ltd. | Reliable Import Export Company Nepal">
   <meta property="og:description" content="Leading import-export company in Nepal specializing in medical equipment, cosmetics, herbs, and electronics.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="http://dharaharatraders.com">
-  <meta property="og:image" content="http://dharaharatraders.com/img/Dharaharalogo.png">
+  <meta property="og:url" content="https://dharaharatraders.com">
+  <meta property="og:image" content="https://dharaharatraders.com/img/Dharaharalogo.png">
   
   <!-- Twitter Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
@@ -48,6 +48,13 @@ try {
   
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="/img/Dharaharalogo.png">
+  <?php
+    $meta_title = 'Dharahara Traders Pvt. Ltd. | Reliable Import Export Company Nepal';
+    $meta_description = 'Leading import-export company in Nepal specializing in medical equipment, cosmetics, herbs, and electronics.';
+    $meta_image = 'https://dharaharatraders.com/img/Dharaharalogo.png';
+    $meta_url = 'https://dharaharatraders.com/';
+    include 'includes/meta.php';
+  ?>
   <link rel="stylesheet" href="/includes/header.css">
   <link rel="stylesheet" href="/includes/footer.css">
   <style>
@@ -740,7 +747,7 @@ try {
           <?php else: ?>
             <!-- Default category cards when no products -->
             <div class="product-card">
-              <img src="img/medical-equipment.jpg" alt="Medical Equipment" class="product-image">
+              <img src="/img/medical-equipment.jpg" alt="Medical Equipment" class="product-image">
               <div class="product-info">
                 <div class="product-category">Medical</div>
                 <h3 class="product-name">Medical Equipment</h3>
@@ -749,7 +756,7 @@ try {
               </div>
             </div>
             <div class="product-card">
-              <img src="img/placeholder-product.jpg" alt="Cosmetics" class="product-image">
+              <img src="/img/placeholder-product.jpg" alt="Cosmetics" class="product-image">
               <div class="product-info">
                 <div class="product-category">Beauty</div>
                 <h3 class="product-name">Cosmetics & Beauty</h3>
@@ -758,7 +765,7 @@ try {
               </div>
             </div>
             <div class="product-card">
-              <img src="img/electronics.jpg" alt="Electronics" class="product-image">
+              <img src="/img/electronics.jpg" alt="Electronics" class="product-image">
               <div class="product-info">
                 <div class="product-category">Electronics</div>
                 <h3 class="product-name">Electronics</h3>

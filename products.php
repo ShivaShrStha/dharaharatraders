@@ -47,8 +47,14 @@ try {
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="img/Dharaharalogo.png">
     
-    <link rel="stylesheet" href="/includes/header.css">
-    <link rel="stylesheet" href="/includes/footer.css">
+        <?php
+            $meta_title = 'Products — Dharahara Traders';
+            $meta_description = 'Browse reliable medical equipment, cosmetics, herbs and electronics supplied by Dharahara Traders.';
+            $meta_url = 'https://dharaharatraders.com/products';
+            include 'includes/meta.php';
+        ?>
+        <link rel="stylesheet" href="/includes/header.css">
+        <link rel="stylesheet" href="/includes/footer.css">
     
     <style>
         :root {
@@ -609,13 +615,19 @@ try {
                 $img = '/img/placeholder-product.jpg';
                 if (!empty($product['image'])) {
                     $imagePath = $product['image'];
-                    // Always use uploads/products/ for admin-uploaded images
-                    if (strpos($imagePath, 'uploads/products/') === 0) {
+                    // Normalize image path: prefer DB value but ensure it's root-absolute when rendered
+                    if (strpos($imagePath, 'http://') === 0 || strpos($imagePath, 'https://') === 0) {
                         $img = $imagePath;
-                    } elseif (strpos($imagePath, '/') === false) {
-                        $img = 'uploads/products/' . $imagePath;
                     } else {
-                        $img = $imagePath;
+                        // If DB stored 'uploads/products/...' or 'product.jpg' or '/uploads/..', make it '/uploads/...'
+                        if (strpos($imagePath, 'uploads/products/') === 0) {
+                            $img = '/' . $imagePath;
+                        } elseif (strpos($imagePath, '/') === false) {
+                            $img = '/uploads/products/' . $imagePath;
+                        } else {
+                            // ensure leading slash
+                            $img = ($imagePath[0] === '/') ? $imagePath : ('/' . $imagePath);
+                        }
                     }
                 }
             ?>

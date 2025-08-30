@@ -45,8 +45,14 @@ try {
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="img/Dharaharalogo.png">
     
-    <link rel="stylesheet" href="/includes/header.css">
-    <link rel="stylesheet" href="/includes/footer.css">
+        <?php
+            $meta_title = 'Shop — Dharahara Traders';
+            $meta_description = 'Explore our full catalog of products including medical equipment, cosmetics, herbs, and electronics.';
+            $meta_url = 'https://dharaharatraders.com/shop';
+            include 'includes/meta.php';
+        ?>
+        <link rel="stylesheet" href="/includes/header.css">
+        <link rel="stylesheet" href="/includes/footer.css">
     
     <style>
         :root {
