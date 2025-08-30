@@ -1,3 +1,22 @@
+# Enable mod_rewrite for pretty/clean URLs and route requests to router.php
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # If the request maps to an existing file or directory, serve it directly
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Otherwise forward the request to router.php (keep query string)
+  RewriteRule ^(.*)$ /router.php [QSA,L]
+</IfModule>
+
+# Fallback DirectoryIndex (router.php will handle routes)
+DirectoryIndex index.php router.php
+
+# Prevent directory listing
+Options -Indexes
 # Dharahara Traders Website - improved .htaccess
 
 # Turn on rewrite engine and set base
