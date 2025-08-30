@@ -9,8 +9,8 @@
   <meta name="keywords" content="contact dharahara traders, import export nepal contact, business inquiries, product inquiries, partnerships">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="img/Dharaharalogo.png">
-  <link rel="stylesheet" href="includes/header.css">
-  <link rel="stylesheet" href="includes/footer.css">
+  <link rel="stylesheet" href="/includes/header.css">
+  <link rel="stylesheet" href="/includes/footer.css">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }

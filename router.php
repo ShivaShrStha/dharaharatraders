@@ -26,8 +26,27 @@ if (is_file($static_file)) {
     }
     
     // For non-PHP files (images, CSS, JS, etc.), serve them directly
-    $mime = mime_content_type($static_file);
-    header("Content-Type: $mime");
+    $ext = strtolower(pathinfo($static_file, PATHINFO_EXTENSION));
+    $mime_map = [
+        'css' => 'text/css',
+        'js' => 'application/javascript',
+        'png' => 'image/png',
+        'jpg' => 'image/jpeg',
+        'jpeg' => 'image/jpeg',
+        'gif' => 'image/gif',
+        'svg' => 'image/svg+xml',
+        'ico' => 'image/x-icon',
+        'json' => 'application/json',
+        'woff' => 'font/woff',
+        'woff2' => 'font/woff2',
+        'ttf' => 'font/ttf'
+    ];
+    if (isset($mime_map[$ext])) {
+        header("Content-Type: " . $mime_map[$ext]);
+    } else {
+        $mime = mime_content_type($static_file);
+        header("Content-Type: $mime");
+    }
     readfile($static_file);
     exit;
 }

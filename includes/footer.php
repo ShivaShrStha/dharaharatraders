@@ -5,9 +5,9 @@
       <div>
         <h4>Useful Links</h4>
         <ul>
-          <li><a href="about.php">About us</a></li>
-          <li><a href="products.php">Products</a></li>
-          <li><a href="contact.php">Contact</a></li>
+          <li><a href="about">About us</a></li>
+          <li><a href="products">Products</a></li>
+          <li><a href="contact">Contact</a></li>
         </ul>
       </div>
       <div>

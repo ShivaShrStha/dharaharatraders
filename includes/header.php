@@ -1,4 +1,17 @@
-<!-- Header Include Start -->
+<!-- Header I      <a class="logo" href="/">
+        <img src="img/Dharaharalogo.png" alt="Dharahara Traders Logo" class="logo-img">
+        <span class="logo-text">Dharahara Traders</span>
+      </a>
+      <!-- Hamburger menu button for mobile only -->
+      <button class="hamburger" aria-label="Toggle navigation" style="display:none;"></button>
+      <nav class="mainnav">
+        <ul>
+          <li><a href="/" class="nav-link">Home</a></li>
+          <li><a href="about" class="nav-link">About</a></li>
+          <li><a href="products" class="nav-link">Products</a></li>
+          <li><a href="contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>->
 <div class="topbar">
   <div class="container">
     <div class="top-left">
@@ -11,24 +24,24 @@
 <header class="site-header">
   <div class="navwrap">
     <div class="navcontainer">
-      <a class="logo" href="index.php">
-        <img src="img/Dharaharalogo.png" alt="Dharahara Traders Logo" class="logo-img">
+      <a class="logo" href="/">
+        <img src="/img/Dharaharalogo.png" alt="Dharahara Traders Logo" class="logo-img">
         <span class="logo-text">Dharahara Traders</span>
       </a>
       <!-- Hamburger menu button for mobile only -->
       <button class="hamburger" aria-label="Toggle navigation" style="display:none;"></button>
       <nav class="mainnav">
         <ul>
-          <li><a href="index.php" class="nav-link">Home</a></li>
-          <li><a href="about.php" class="nav-link">About</a></li>
-          <li><a href="products.php" class="nav-link">Products</a></li>
-          <li><a href="contact.php" class="nav-link">Contact</a></li>
+          <li><a href="/" class="nav-link">Home</a></li>
+          <li><a href="/about" class="nav-link">About</a></li>
+          <li><a href="/products" class="nav-link">Products</a></li>
+          <li><a href="/contact" class="nav-link">Contact</a></li>
         </ul>
       </nav>
     </div>
   </div>
 </header>
-<link rel="stylesheet" href="includes/header.css">
+<link rel="stylesheet" href="/includes/header.css">
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const hamburger = document.querySelector('.hamburger');
@@ -60,5 +73,5 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 </script>
-<link rel="icon" type="image/png" href="img/Dharaharalogo.png">
+<link rel="icon" type="image/png" href="/img/Dharaharalogo.png">
 <!-- Header Include End -->

@@ -45,8 +45,8 @@ try {
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="img/Dharaharalogo.png">
     
-    <link rel="stylesheet" href="includes/header.css">
-    <link rel="stylesheet" href="includes/footer.css">
+    <link rel="stylesheet" href="/includes/header.css">
+    <link rel="stylesheet" href="/includes/footer.css">
     
     <style>
         :root {
@@ -605,28 +605,28 @@ try {
             <?php
             foreach ($products as $product):
                 // Use same image logic as index.php
-                $img = 'img/placeholder-product.jpg';
+                $img = '/img/placeholder-product.jpg';
                 if (!empty($product['image'])) {
                     $img = htmlspecialchars($product['image']);
                 } else {
                     $name = strtolower($product['name']);
                     $cat = strtolower($product['category']);
                     if (strpos($name, 'thermometer') !== false) {
-                        $img = 'img/digital-thermometer.jpg';
+                        $img = '/img/digital-thermometer.jpg';
                     } elseif (strpos($name, 'oximeter') !== false) {
-                        $img = 'img/pulse-oximeter.jpg';
+                        $img = '/img/pulse-oximeter.jpg';
                     } elseif (strpos($name, 'smart watch') !== false) {
-                        $img = 'img/bluetooth-smart-watch.jpg';
+                        $img = '/img/bluetooth-smart-watch.jpg';
                     } elseif (strpos($name, 'glucose') !== false) {
-                        $img = 'img/blood-glucose-monitor.jpg';
+                        $img = '/img/blood-glucose-monitor.jpg';
                     } elseif (strpos($name, 'ecg') !== false) {
-                        $img = 'img/ecg-monitor.jpg';
+                        $img = '/img/ecg-monitor.jpg';
                     } elseif ($cat === 'medical') {
-                        $img = 'img/medical-equipment.jpg';
+                        $img = '/img/medical-equipment.jpg';
                     } elseif ($cat === 'electronics') {
-                        $img = 'img/electronics.jpg';
+                        $img = '/img/electronics.jpg';
                     } elseif ($cat === 'cosmetic' || $cat === 'cosmetics' || strpos($name, 'cream') !== false) {
-                        $img = 'img/himalayan-face-cream.jpg';
+                        $img = '/img/himalayan-face-cream.jpg';
                     }
                 }
             ?>
@@ -653,7 +653,7 @@ try {
                         ?>
                     </div>
                     <?php endif; ?>
-                    <a href="product.php?id=<?= $product['id'] ?>" class="product-btn">
+                    <a href="/product/<?= $product['id'] ?>" class="product-btn">
                         View Details
                     </a>
                 </div>

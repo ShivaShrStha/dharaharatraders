@@ -42,9 +42,9 @@ try {
   <link rel="preload" href="img/Dharaharalogo.png" as="image">
   
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/png" href="img/Dharaharalogo.png">
-  <link rel="stylesheet" href="includes/header.css">
-  <link rel="stylesheet" href="includes/footer.css">
+  <link rel="icon" type="image/png" href="/img/Dharaharalogo.png">
+  <link rel="stylesheet" href="/includes/header.css">
+  <link rel="stylesheet" href="/includes/footer.css">
   <style>
     :root {
       --cream-light: #fefcf7;
@@ -604,8 +604,8 @@ try {
           <h1>Dharahara Traders</h1>
           <p class="hero-subtitle">Your trusted partner for reliable quality products from Nepal to the world. Specializing in medical equipment, cosmetics, herbs, and electronics.</p>
           <div class="hero-cta">
-            <a href="products.php" class="btn btn-primary">Explore Products</a>
-            <a href="contact.php" class="btn btn-secondary">Get in Touch</a>
+            <a href="products" class="btn btn-primary">Explore Products</a>
+            <a href="contact" class="btn btn-secondary">Get in Touch</a>
           </div>
         </div>
       </div>
@@ -727,7 +727,7 @@ try {
                       }
                     ?>
                   </div>
-                  <a href="product.php?id=<?php echo $product['id']; ?>" class="product-link">View Details &rarr;</a>
+                  <a href="product?id=<?php echo $product['id']; ?>" class="product-link">View Details &rarr;</a>
                   <a href="https://wa.me/9779851040562?text=Hi! I'm interested in <?php echo urlencode($product['name']); ?>" class="product-link" target="_blank" style="color:#25D366;font-weight:600;">WhatsApp Inquiry</a>
                 </div>
               </div>
@@ -740,7 +740,7 @@ try {
                 <div class="product-category">Medical</div>
                 <h3 class="product-name">Medical Equipment</h3>
                 <div class="product-price">Contact for Price</div>
-                <a href="products.php" class="product-link">View Products →</a>
+                <a href="products" class="product-link">View Products →</a>
               </div>
             </div>
             <div class="product-card">
@@ -749,7 +749,7 @@ try {
                 <div class="product-category">Beauty</div>
                 <h3 class="product-name">Cosmetics & Beauty</h3>
                 <div class="product-price">Contact for Price</div>
-                <a href="products.php" class="product-link">View Products →</a>
+                <a href="products" class="product-link">View Products →</a>
               </div>
             </div>
             <div class="product-card">
@@ -758,13 +758,13 @@ try {
                 <div class="product-category">Electronics</div>
                 <h3 class="product-name">Electronics</h3>
                 <div class="product-price">Contact for Price</div>
-                <a href="products.php" class="product-link">View Products →</a>
+                <a href="products" class="product-link">View Products →</a>
               </div>
             </div>
           <?php endif; ?>
         </div>
         <div style="text-align: center; margin-top: 3rem;">
-          <a href="shop.php" class="btn btn-primary">View All Products</a>
+          <a href="shop" class="btn btn-primary">View All Products</a>
         </div>
       </div>
     </section>

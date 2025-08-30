@@ -8,8 +8,8 @@
   <meta name="keywords" content="about dharahara traders, import export nepal, company history, medical equipment supplier, reliable products nepal">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="img/Dharaharalogo.png">
-  <link rel="stylesheet" href="includes/header.css">
-  <link rel="stylesheet" href="includes/footer.css">
+  <link rel="stylesheet" href="/includes/header.css">
+  <link rel="stylesheet" href="/includes/footer.css">
   <style>
     :root {
       --cream-light: #fefcf7;
@@ -238,6 +238,26 @@
         font-size: 1rem;
       }
     }
+    @media (max-width: 480px) {
+      .hero-content h1 { font-size: 1.1rem; }
+      .hero-content p { font-size: 1rem; }
+      .content-text h2 { font-size: 1.5rem; }
+      .content-text p { font-size: 1rem; }
+      .stats-section { padding: 20px 0; }
+      .stat-item h3 { font-size: 1.8rem; }
+      .stat-item p { font-size: 0.9rem; }
+      .values-section { padding: 20px 0 15px 0; }
+      .section-header h2 { font-size: 1.8rem; }
+      .section-header p { font-size: 1rem; }
+      .value-card h3 { font-size: 1.1rem; }
+      .value-card p { font-size: 0.9rem; }
+      .value-icon { font-size: 1.8rem; }
+      .products-section { padding: 60px 0; }
+      .section-title { font-size: 1.8rem; }
+      .section-subtitle { font-size: 1rem; }
+      .product-name { font-size: 1rem; }
+      .product-price { font-size: 1rem; }
+    }
   </style>
 </head>
 <body>
@@ -364,13 +384,13 @@
       <?php if (!empty($featured_products)): ?>
       <div class="products-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;">
         <?php foreach ($featured_products as $product):
-          $img = 'img/placeholder-product.jpg';
+          $img = '/img/placeholder-product.jpg';
           if (!empty($product['image'])) {
             $img = htmlspecialchars($product['image']);
           }
         ?>
         <div class="product-card" style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 8px 30px var(--shadow-light);transition:all 0.4s ease;border:1px solid var(--cream-dark);">
-          <a href="product.php?id=<?= $product['id'] ?>" style="text-decoration:none;display:block;">
+          <a href="/product/<?= $product['id'] ?>" style="text-decoration:none;display:block;">
             <img src="<?= $img ?>" alt="<?= htmlspecialchars($product['name']) ?>" class="product-image" style="width:100%;height:220px;object-fit:cover;">
             <div class="product-content" style="padding:1.5rem;">
               <div class="product-category" style="font-size:0.95rem;font-weight:600;color:#3661b7;margin-bottom:0.5rem;">
@@ -393,7 +413,7 @@
                 ?>
               </div>
               <?php endif; ?>
-              <a href="product.php?id=<?= $product['id'] ?>" class="product-btn" style="background:linear-gradient(135deg,#ecd9b0,#8b7355);color:white;border:none;padding:0.7rem 1.5rem;border-radius:50px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block;text-align:center;">View Details</a>
+              <a href="/product/<?= $product['id'] ?>" class="product-btn" style="background:linear-gradient(135deg,#ecd9b0,#8b7355);color:white;border:none;padding:0.7rem 1.5rem;border-radius:50px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block;text-align:center;">View Details</a>
             </div>
           </a>
         </div>

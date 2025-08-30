@@ -47,8 +47,8 @@ try {
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="img/Dharaharalogo.png">
     
-    <link rel="stylesheet" href="includes/header.css">
-    <link rel="stylesheet" href="includes/footer.css">
+    <link rel="stylesheet" href="/includes/header.css">
+    <link rel="stylesheet" href="/includes/footer.css">
     
     <style>
         :root {
@@ -606,7 +606,7 @@ try {
         <div class="products-grid" id="products-grid">
             <?php
             foreach ($products as $product):
-                $img = 'img/placeholder-product.jpg';
+                $img = '/img/placeholder-product.jpg';
                 if (!empty($product['image'])) {
                     $imagePath = $product['image'];
                     // Always use uploads/products/ for admin-uploaded images
@@ -620,7 +620,7 @@ try {
                 }
             ?>
             <div class="product-card" data-category="<?= htmlspecialchars($product['category']) ?>">
-                <img src="<?= $img ?>" alt="<?= htmlspecialchars($product['name']) ?>" class="product-image" style="width:100%;height:280px;object-fit:cover;" onerror="this.src='img/placeholder-product.jpg'">
+                <img src="<?= $img ?>" alt="<?= htmlspecialchars($product['name']) ?>" class="product-image" style="width:100%;height:280px;object-fit:cover;" onerror="this.src='/img/placeholder-product.jpg'">
                 <div class="product-content">
                     <div class="product-category">
                         <?= htmlspecialchars(ucfirst($product['category'])) ?>
@@ -642,7 +642,7 @@ try {
                         ?>
                     </div>
                     <?php endif; ?>
-                    <a href="product.php?id=<?= $product['id'] ?>" class="product-btn">
+                    <a href="/product/<?= $product['id'] ?>" class="product-btn">
                         View Details
                     </a>
                 </div>

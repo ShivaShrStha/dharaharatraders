@@ -243,6 +243,78 @@ if (isset($_GET['logout'])) {
             }
         }
         
+        @media (max-width: 600px) {
+            .admin-header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .nav-tab {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .section-title {
+                font-size: 1.2rem;
+            }
+            
+            .data-table th,
+            .data-table td {
+                padding: 8px 4px;
+                font-size: 0.85rem;
+            }
+            
+            .btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.85rem;
+            }
+            
+            .form-group input,
+            .form-group textarea,
+            .form-group select {
+                padding: 10px;
+                font-size: 14px;
+            }
+            
+            .modal-content {
+                width: 95%;
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .admin-header {
+                padding: 0.5rem 1rem;
+            }
+            
+            .admin-nav {
+                padding: 0.5rem 1rem;
+            }
+            
+            .admin-content {
+                padding: 0.5rem 1rem;
+            }
+            
+            .content-section {
+                padding: 1rem;
+            }
+            
+            .stats-grid {
+                gap: 1rem;
+            }
+            
+            .stat-card {
+                padding: 1rem;
+            }
+            
+            .stat-number {
+                font-size: 1.5rem;
+            }
+            
+            .stat-label {
+                font-size: 0.8rem;
+            }
+        }
+        
         .status-pending {
             background: #ffc107;
             color: #212529;

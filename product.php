@@ -43,8 +43,8 @@ try {
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="img/Dharaharalogo.png">
     
-    <link rel="stylesheet" href="includes/header.css">
-    <link rel="stylesheet" href="includes/footer.css">
+    <link rel="stylesheet" href="/includes/header.css">
+    <link rel="stylesheet" href="/includes/footer.css">
     
     <style>
         :root {
@@ -622,9 +622,9 @@ try {
     <!-- Breadcrumb -->
     <section class="breadcrumb">
         <div class="breadcrumb-container">
-            <a href="index.php">Home</a>
+            <a href="/">Home</a>
             <i class="bi bi-chevron-right"></i>
-            <a href="products.php">Products</a>
+            <a href="/products">Products</a>
             <i class="bi bi-chevron-right"></i>
             <span><?php echo htmlspecialchars($product['name']); ?></span>
         </div>
@@ -636,28 +636,28 @@ try {
             <div class="product-images">
                 <?php
                 // Use same image logic as index.php
-                $img = 'img/placeholder-product.jpg';
+                                $img = '/img/placeholder-product.jpg';
                 if (!empty($product['image'])) {
                     $img = htmlspecialchars($product['image']);
                 } else {
                     $name = strtolower($product['name']);
                     $cat = strtolower($product['category']);
                     if (strpos($name, 'thermometer') !== false) {
-                        $img = 'img/digital-thermometer.jpg';
+                        $img = '/img/digital-thermometer.jpg';
                     } elseif (strpos($name, 'oximeter') !== false) {
-                        $img = 'img/pulse-oximeter.jpg';
+                        $img = '/img/pulse-oximeter.jpg';
                     } elseif (strpos($name, 'smart watch') !== false) {
-                        $img = 'img/bluetooth-smart-watch.jpg';
+                        $img = '/img/bluetooth-smart-watch.jpg';
                     } elseif (strpos($name, 'glucose') !== false) {
-                        $img = 'img/blood-glucose-monitor.jpg';
+                        $img = '/img/blood-glucose-monitor.jpg';
                     } elseif (strpos($name, 'ecg') !== false) {
-                        $img = 'img/ecg-monitor.jpg';
+                        $img = '/img/ecg-monitor.jpg';
                     } elseif ($cat === 'medical') {
-                        $img = 'img/medical-equipment.jpg';
+                        $img = '/img/medical-equipment.jpg';
                     } elseif ($cat === 'electronics') {
-                        $img = 'img/electronics.jpg';
+                        $img = '/img/electronics.jpg';
                     } elseif ($cat === 'cosmetic' || $cat === 'cosmetics' || strpos($name, 'cream') !== false) {
-                        $img = 'img/himalayan-face-cream.jpg';
+                        $img = '/img/himalayan-face-cream.jpg';
                     }
                 }
                 ?>
@@ -816,14 +816,14 @@ try {
             <h2 class="related-title">Related Products</h2>
             <div class="related-grid">
                 <?php foreach ($related_products as $related): ?>
-                <a href="product?id=<?php echo $related['id']; ?>" class="related-card">
+                <a href="/product?id=<?php echo $related['id']; ?>" class="related-card">
                     <?php if (!empty($related['image'])): ?>
                         <img src="<?php echo htmlspecialchars($related['image']); ?>" 
                              alt="<?php echo htmlspecialchars($related['name']); ?>" 
                              class="related-image"
-                             onerror="this.src='img/placeholder-product.jpg'">
+                             onerror="this.src='/img/placeholder-product.jpg'">
                     <?php else: ?>
-                        <img src="img/placeholder-product.jpg" 
+                        <img src="/img/placeholder-product.jpg" 
                              alt="Product placeholder" 
                              class="related-image">
                     <?php endif; ?>
