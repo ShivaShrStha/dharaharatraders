@@ -1,7 +1,8 @@
 # Dharahara Traders
 
-**Author:** Shiva Sharan Shrestha — [https://shivasharanshrestha.com.np](https://shivasharanshrestha.com.np)
+**Author:** Shiva Sharan Shrestha — [https://shivasharanshrestha.com.np](https://shivasharanshrest## License
 
+This project is licensed under the MIT License. See the `LICENSE` file for details.
 **Live Demo:** The site is live at [https://dharaharatraders.com/](https://dharaharatraders.com/)
 
 A professional, lightweight e-commerce website for Dharahara Traders, built with plain PHP and SQLite. This project includes a responsive public storefront and an admin dashboard for managing products, inquiries, and newsletters.
@@ -60,7 +61,7 @@ A professional, lightweight e-commerce website for Dharahara Traders, built with
    ```bash
    cd /var/www/dharaharatraders
    cp .env.example .env
-   # Edit .env with production values (e.g., set a strong ADMIN_PASSWORD)
+   # Edit .env with production values
    ```
 
 3. **Set Permissions**:
