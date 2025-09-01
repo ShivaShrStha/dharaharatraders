@@ -2,6 +2,8 @@
 
 **Author:** Shiva Sharan Shrestha — [https://shivasharanshrestha.com.np](https://shivasharanshrestha.com.np)
 
+**Live Demo:** The site is live at [https://dharaharatraders.com/](https://dharaharatraders.com/)
+
 A professional, lightweight e-commerce website for Dharahara Traders, built with plain PHP and SQLite. This project includes a responsive public storefront and an admin dashboard for managing products, inquiries, and newsletters.
 
 ## Features
