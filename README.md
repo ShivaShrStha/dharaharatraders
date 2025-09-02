@@ -32,13 +32,7 @@ A professional, lightweight e-commerce website for Dharahara Traders, built with
    cd dharaharatraders
    ```
 
-2. **Set Up Environment**:
-   ```bash
-   cp .env.example .env
-   # Edit .env with your configuration values
-   ```
-
-3. **Run the Development Server**:
+2. **Run the Development Server**:
    ```bash
    php -S localhost:8080 router.php
    ```
