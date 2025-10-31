@@ -7,17 +7,39 @@
 // Homepage for Dharahara Traders - Ultra Reliable Design
 require_once 'admin/database.php';
 
-// Get featured products
+// Get all active products from admin
 $featured_products = [];
 try {
     $db = new Database();
     $conn = $db->getConnection();
     
-    $stmt = $conn->prepare("SELECT * FROM products WHERE status = 'active' ORDER BY created_at DESC LIMIT 6");
+    $stmt = $conn->prepare("SELECT * FROM products WHERE status = 'active' ORDER BY created_at DESC");
     $stmt->execute();
     $featured_products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch(Exception $e) {
     // Continue without products if database error
+}
+
+// Build an index of available images in uploads/products to auto-match by product name
+$slugify = function(string $text): string {
+  $text = strtolower($text);
+  $text = iconv('UTF-8', 'ASCII//TRANSLIT', $text);
+  $text = preg_replace('/[^a-z0-9]+/i', '', $text);
+  return $text ?? '';
+};
+$imageIndex = [];
+$uploadsDir = __DIR__ . '/uploads/products';
+if (is_dir($uploadsDir)) {
+  $patterns = ['/*.jpg','/*.jpeg','/*.png','/*.webp','/*.gif','/*.JPG','/*.JPEG','/*.PNG','/*.WEBP','/*.GIF'];
+  foreach ($patterns as $pattern) {
+    foreach (glob($uploadsDir . $pattern) as $file) {
+      $base = pathinfo($file, PATHINFO_FILENAME);
+      $key = $slugify($base);
+      if ($key !== '') {
+        $imageIndex[$key] = '/uploads/products/' . basename($file);
+      }
+    }
+  }
 }
 ?>
 <!doctype html>
@@ -593,7 +615,7 @@ try {
       <div class="container">
         <div class="section-header">
           <div class="section-eyebrow">Our Products</div>
-          <h2 class="section-title">Featured Categories</h2>
+          <h2 class="section-title">Our Product Range</h2>
           <p class="section-subtitle">Discover our reliable collection of carefully curated products across multiple categories.</p>
         </div>
         <div class="products-grid">
@@ -604,23 +626,33 @@ try {
                   // Use actual uploaded product images with proper URL encoding
                   $img = '/img/placeholder.svg'; // Local fallback placeholder
                   
-                  // Check for uploaded image (prefer image_url, fallback to image column)
-                  $imagePath = !empty($product['image_url']) ? $product['image_url'] : (!empty($product['image']) ? $product['image'] : '');
-                  
-                  if (!empty($imagePath)) {
-                    // Ensure path starts with slash and normalize
-                    if (!str_starts_with($imagePath, '/')) {
-                      $imagePath = '/' . $imagePath;
+                  // Determine image path: prefer explicit DB fields, otherwise try auto-match by name from uploads
+                  $imagePath = '';
+                  if (!empty($product['image_url'])) {
+                    $imagePath = $product['image_url'];
+                  } elseif (!empty($product['image'])) {
+                    $imagePath = $product['image'];
+                  } elseif (!empty($product['name'])) {
+                    $nameKey = $slugify($product['name']);
+                    if ($nameKey && isset($imageIndex[$nameKey])) {
+                      $imagePath = $imageIndex[$nameKey];
                     }
-                    
-                    // Extract directory and filename for proper URL encoding
+                  }
+
+                  if (!empty($imagePath)) {
+                    // Ensure path starts with slash and normalize when it's a local path
+                    if (!preg_match('#^https?://#i', $imagePath)) {
+                      if (!str_starts_with($imagePath, '/')) {
+                        $imagePath = '/' . $imagePath;
+                      }
+                    }
+                    // Extract directory and filename for proper URL encoding (encode only filename)
                     $pathParts = pathinfo($imagePath);
-                    $directory = $pathParts['dirname'];
-                    $filename = $pathParts['basename'];
-                    
-                    // URL encode only the filename part to handle spaces
+                    $directory = $pathParts['dirname'] ?? '';
+                    $filename = $pathParts['basename'] ?? '';
+
                     $encodedFilename = rawurlencode($filename);
-                    $img = $directory . '/' . $encodedFilename;
+                    $img = ($directory ? $directory . '/' : '/') . $encodedFilename;
                   }
                 ?>
                 <img src="<?php echo $img; ?>?v=<?php echo time(); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="product-image" onerror="this.src='/img/placeholder.svg';">
