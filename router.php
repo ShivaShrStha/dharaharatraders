@@ -2,30 +2,15 @@
 // Simple router for clean URLs
 $request = $_SERVER['REQUEST_URI'];
 $path = parse_url($request, PHP_URL_PATH);
-$path = trim($path, '/');
 
-// Remove query string for routing
-$route = explode('?', $path)[0];
-$route = rtrim($route, '/'); // Ensure no trailing slash
+// Remove leading slash for file checking and decode URL
+$file_path = ltrim($path, '/');
+$file_path = urldecode($file_path); // Decode URL-encoded characters like %20 for spaces
 
-// Basic sanitization to prevent directory traversal and null bytes
-$path = str_replace("\0", '', $path);
-$path = str_replace('..', '', $path);
-$path = preg_replace('#/+#', '/', $path);
-
-// Normalize route after sanitization
-$route = trim($path, '/');
-
-// Add support for product details with query string (e.g., /product?id=123)
-if ($route === 'product' && isset($_GET['id'])) {
-    include 'product.php';
-    exit;
-}
-
-// Check if it's a PHP file that exists and should be executed
-$static_file = __DIR__ . '/' . $path;
+// Check if it's a static file that exists (images, CSS, JS, etc.)
+$static_file = __DIR__ . '/' . $file_path;
 if (is_file($static_file)) {
-    $extension = pathinfo($static_file, PATHINFO_EXTENSION);
+    $extension = strtolower(pathinfo($static_file, PATHINFO_EXTENSION));
     
     // If it's a PHP file, include it to execute the PHP code
     if ($extension === 'php') {
@@ -33,8 +18,7 @@ if (is_file($static_file)) {
         exit;
     }
     
-    // For non-PHP files (images, CSS, JS, etc.), serve them directly
-    $ext = strtolower(pathinfo($static_file, PATHINFO_EXTENSION));
+    // For non-PHP files, serve them directly with proper MIME type
     $mime_map = [
         'css' => 'text/css',
         'js' => 'application/javascript',
@@ -49,13 +33,29 @@ if (is_file($static_file)) {
         'woff2' => 'font/woff2',
         'ttf' => 'font/ttf'
     ];
-    if (isset($mime_map[$ext])) {
-        header("Content-Type: " . $mime_map[$ext]);
+    
+    if (isset($mime_map[$extension])) {
+        header("Content-Type: " . $mime_map[$extension]);
     } else {
         $mime = mime_content_type($static_file);
-        header("Content-Type: $mime");
+        if ($mime) {
+            header("Content-Type: $mime");
+        }
     }
     readfile($static_file);
+    exit;
+}
+
+// Continue with routing logic
+$route = trim($path, '/');
+
+// Remove query string for routing
+$route = explode('?', $route)[0];
+$route = rtrim($route, '/');
+
+// Add support for product details with query string
+if ($route === 'product' && isset($_GET['id'])) {
+    include 'product.php';
     exit;
 }
 

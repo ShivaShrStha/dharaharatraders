@@ -602,18 +602,21 @@ if (isset($_GET['logout'])) {
                 .then(data => {
                     let html = '<table class="data-table"><thead><tr><th>ID</th><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Status</th><th>Actions</th></tr></thead><tbody>';
                     data.forEach(product => {
-                        let img = product.image ? product.image : '/img/placeholder-product.jpg';
-                        // Ensure uploaded images and DB image paths are root-absolute
-                        if (img && img.startsWith('/uploads/products/')) {
-                            // already root-absolute
-                        } else if (img && img.startsWith('uploads/products/')) {
-                            img = '/' + img;
-                        } else if (img && img.match(/^[^\/]+\.(jpg|jpeg|png|gif)$/i)) {
-                            img = '/img/' + img;
+                        // Handle image path properly 
+                        let img = product.image || product.image_url || '/img/placeholder.svg';
+                        
+                        // Ensure uploaded images have root-absolute paths
+                        if (img && img !== '/img/placeholder.svg' && !img.startsWith('http')) {
+                            if (!img.startsWith('/')) {
+                                img = '/' + img;
+                            }
+                            // Properly encode URL for images with spaces
+                            img = encodeURI(img);
                         }
+                        
                         html += `<tr>
                             <td>${product.id}</td>
-                            <td><img src="${img}" alt="${product.name}" style="width:60px;height:60px;object-fit:cover;border-radius:8px;max-width:100%;height:auto;"></td>
+                            <td><img src="${img}" alt="${product.name}" style="width:60px;height:60px;object-fit:cover;border-radius:8px;max-width:100%;height:auto;" onerror="this.src='/img/placeholder.svg'"></td>
                             <td>${product.name}</td>
                             <td>${product.category}</td>
                             <td>${product.price || 'Contact for price'}</td>
@@ -679,8 +682,18 @@ if (isset($_GET['logout'])) {
                     document.getElementById('editProductDescription').value = product.description;
                     document.getElementById('editProductPrice').value = product.price;
                     document.getElementById('editProductStatus').value = product.status;
-                    let img = product.image ? product.image : 'img/placeholder-product.jpg';
-                    document.getElementById('editProductImagePreview').innerHTML = `<img src='${img}' alt='${product.name}' style='width:100px;height:100px;object-fit:cover;border-radius:8px;'>`;
+                    
+                    // Handle image preview
+                    let img = product.image || product.image_url || '/img/placeholder.svg';
+                    if (img && img !== '/img/placeholder.svg' && !img.startsWith('http')) {
+                        if (!img.startsWith('/')) {
+                            img = '/' + img;
+                        }
+                        // Properly encode URL for images with spaces
+                        img = encodeURI(img);
+                    }
+                    
+                    document.getElementById('editProductImagePreview').innerHTML = `<img src='${img}' alt='${product.name}' style='width:100px;height:100px;object-fit:cover;border-radius:8px;' onerror="this.src='/img/placeholder.svg'">`;
                     document.getElementById('editProductModal').style.display = 'flex';
                 });
         }

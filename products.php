@@ -13,6 +13,28 @@ try {
     $stmt = $conn->prepare("SELECT * FROM products WHERE status = 'active' ORDER BY created_at DESC");
     $stmt->execute();
     $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    // Build an index of available images in uploads/products to auto-match by product name
+    $slugify = function(string $text): string {
+        $text = strtolower($text);
+        $text = iconv('UTF-8', 'ASCII//TRANSLIT', $text);
+        $text = preg_replace('/[^a-z0-9]+/i', '', $text);
+        return $text ?? '';
+    };
+    $imageIndex = [];
+    $uploadsDir = __DIR__ . '/uploads/products';
+    if (is_dir($uploadsDir)) {
+        $patterns = ['/*.jpg','/*.jpeg','/*.png','/*.webp','/*.gif','/*.JPG','/*.JPEG','/*.PNG','/*.WEBP','/*.GIF'];
+        foreach ($patterns as $pattern) {
+            foreach (glob($uploadsDir . $pattern) as $file) {
+                $base = pathinfo($file, PATHINFO_FILENAME);
+                $key = $slugify($base);
+                if ($key !== '') {
+                    $imageIndex[$key] = '/uploads/products/' . basename($file);
+                }
+            }
+        }
+    }
     // Group products by category
     $productsByCategory = [];
     foreach ($products as $product) {
@@ -534,27 +556,45 @@ try {
         <div class="products-grid" id="products-grid">
             <?php
             foreach ($products as $product):
-                $img = '/img/placeholder-product.jpg';
-                if (!empty($product['image'])) {
-                    $imagePath = $product['image'];
-                    // Normalize image path: prefer DB value but ensure it's root-absolute when rendered
-                    if (strpos($imagePath, 'http://') === 0 || strpos($imagePath, 'https://') === 0) {
-                        $img = $imagePath;
-                    } else {
-                        // If DB stored 'uploads/products/...' or 'product.jpg' or '/uploads/..', make it '/uploads/...'
-                        if (strpos($imagePath, 'uploads/products/') === 0) {
-                            $img = '/' . $imagePath;
-                        } elseif (strpos($imagePath, '/') === false) {
-                            $img = '/uploads/products/' . $imagePath;
-                        } else {
-                            // ensure leading slash
-                            $img = ($imagePath[0] === '/') ? $imagePath : ('/' . $imagePath);
-                        }
+                // Handle image path - check both fields and prefer the one that actually exists
+                $img = '/img/placeholder.svg';
+                
+                // Check image_url first, then image field
+                $imageField = '';
+                if (!empty($product['image_url'])) {
+                    $imageField = $product['image_url'];
+                } elseif (!empty($product['image'])) {
+                    $imageField = $product['image'];
+                }
+                // If still empty, try to auto-match by product name against uploads index
+                if (empty($imageField) && !empty($product['name'])) {
+                    $nameKey = $slugify($product['name']);
+                    if ($nameKey && isset($imageIndex[$nameKey])) {
+                        $imageField = $imageIndex[$nameKey];
                     }
                 }
+                
+                if (!empty($imageField)) {
+                    // Normalize image path: ensure it's root-absolute when rendered
+                    if (strpos($imageField, 'http://') === 0 || strpos($imageField, 'https://') === 0) {
+                        $img = $imageField;
+                    } else {
+                        // Ensure leading slash for absolute path
+                        if (strpos($imageField, '/') !== 0) {
+                            $imageField = '/' . $imageField;
+                        }
+                        $img = $imageField;
+                    }
+                }
+                
+                // Properly encode URL for filenames with spaces (encode only the filename part)
+                $imgParts = explode('/', $img);
+                $filename = array_pop($imgParts);
+                $encodedFilename = rawurlencode($filename);
+                $encodedImg = implode('/', $imgParts) . '/' . $encodedFilename;
             ?>
             <div class="product-card" data-category="<?= htmlspecialchars($product['category']) ?>">
-                <img src="<?= $img ?>" alt="<?= htmlspecialchars($product['name']) ?>" class="product-image" style="width:100%;height:280px;object-fit:cover;" onerror="this.src='/img/placeholder-product.jpg'">
+                <img src="<?= htmlspecialchars($encodedImg) ?>?v=<?= time() ?>" alt="<?= htmlspecialchars($product['name']) ?>" class="product-image" style="width:100%;height:280px;object-fit:cover;" onerror="this.src='/img/placeholder.svg';">
                 <div class="product-content">
                     <div class="product-category">
                         <?= htmlspecialchars(ucfirst($product['category'])) ?>

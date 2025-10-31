@@ -44,8 +44,8 @@ try {
     
     // Update product
     if ($image_url) {
-        $stmt = $conn->prepare("UPDATE products SET name = ?, category = ?, price = ?, description = ?, image_url = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?");
-        $stmt->execute([$name, $category, $price, $description, $image_url, $id]);
+        $stmt = $conn->prepare("UPDATE products SET name = ?, category = ?, price = ?, description = ?, image_url = ?, image = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?");
+        $stmt->execute([$name, $category, $price, $description, $image_url, $image_url, $id]);
     } else {
         $stmt = $conn->prepare("UPDATE products SET name = ?, category = ?, price = ?, description = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?");
         $stmt->execute([$name, $category, $price, $description, $id]);

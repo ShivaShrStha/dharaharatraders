@@ -601,34 +601,29 @@ try {
             <?php foreach ($featured_products as $product): ?>
               <div class="product-card">
                 <?php
-                  // Choose image based on product name/category if image_url is missing
-                  $img = 'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=400&q=80'; // Default online placeholder
-                  if (!empty($product['image_url'])) {
-                    $img = htmlspecialchars($product['image_url']);
-                  } else {
-                    $name = strtolower($product['name']);
-                    if (strpos($name, 'thermometer') !== false) {
-                      $img = 'https://images.unsplash.com/photo-1588776814546-ec7e8e8b6b6b?auto=format&fit=crop&w=400&q=80'; // Digital Thermometer
-                    } elseif (strpos($name, 'oximeter') !== false) {
-                      $img = 'https://images.unsplash.com/photo-1588776814546-ec7e8e8b6b6b?auto=format&fit=crop&w=400&q=80'; // Pulse Oximeter
-                    } elseif (strpos($name, 'smart watch') !== false) {
-                      $img = 'https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?auto=format&fit=crop&w=400&q=80'; // Bluetooth Smart Watch
-                    } elseif (strpos($name, 'glucose') !== false) {
-                      $img = 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80'; // Blood Glucose Monitor
-                    } elseif (strpos($name, 'ecg') !== false) {
-                      $img = 'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=400&q=80'; // ECG Monitor
-                    } elseif (strpos($name, 'cream') !== false) {
-                      $img = 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80'; // Himalayan Face Cream
-                    } elseif (strpos($name, 'medical') !== false) {
-                      $img = 'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=400&q=80'; // Medical Equipment
-                    } elseif (strpos($name, 'electronics') !== false) {
-                      $img = 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=400&q=80'; // Electronics
-                    } else {
-                      $img = 'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=400&q=80'; // Fallback
+                  // Use actual uploaded product images with proper URL encoding
+                  $img = '/img/placeholder.svg'; // Local fallback placeholder
+                  
+                  // Check for uploaded image (prefer image_url, fallback to image column)
+                  $imagePath = !empty($product['image_url']) ? $product['image_url'] : (!empty($product['image']) ? $product['image'] : '');
+                  
+                  if (!empty($imagePath)) {
+                    // Ensure path starts with slash and normalize
+                    if (!str_starts_with($imagePath, '/')) {
+                      $imagePath = '/' . $imagePath;
                     }
+                    
+                    // Extract directory and filename for proper URL encoding
+                    $pathParts = pathinfo($imagePath);
+                    $directory = $pathParts['dirname'];
+                    $filename = $pathParts['basename'];
+                    
+                    // URL encode only the filename part to handle spaces
+                    $encodedFilename = rawurlencode($filename);
+                    $img = $directory . '/' . $encodedFilename;
                   }
                 ?>
-                <img src="<?php echo $img; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="product-image">
+                <img src="<?php echo $img; ?>?v=<?php echo time(); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="product-image" onerror="this.src='/img/placeholder.svg';">
                 <div class="product-info">
                   <div class="product-category" style="color:#3661b7;font-weight:600;letter-spacing:1px;"><?php echo ucfirst($product['category']); ?></div>
                   <h3 class="product-name" style="color:#8b7355;font-weight:700;"><?php echo htmlspecialchars($product['name']); ?></h3>
@@ -678,7 +673,7 @@ try {
               </div>
             </div>
             <div class="product-card">
-              <img src="/img/placeholder-product.jpg" alt="Cosmetics" class="product-image">
+              <img src="/img/placeholder.svg" alt="Cosmetics" class="product-image">
               <div class="product-info">
                 <div class="product-category">Beauty</div>
                 <h3 class="product-name">Cosmetics & Beauty</h3>

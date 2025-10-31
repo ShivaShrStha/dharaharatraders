@@ -19,6 +19,14 @@ try {
     $product = $stmt->fetch(PDO::FETCH_ASSOC);
     
     if ($product) {
+        // Fix image path for compatibility
+        $imageField = !empty($product['image']) ? $product['image'] : $product['image_url'];
+        if (!empty($imageField) && strpos($imageField, '/') !== 0) {
+            $imageField = '/' . $imageField;
+        }
+        $product['image'] = $imageField;
+        $product['image_url'] = $imageField;
+        
         echo json_encode($product);
     } else {
         echo json_encode(['error' => 'Product not found']);

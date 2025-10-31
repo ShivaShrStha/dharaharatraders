@@ -24,9 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             $fileExtension = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
             $fileName = uniqid() . '.' . $fileExtension;
-            $imagePath = $uploadDir . $fileName;
+            $fullPath = $uploadDir . $fileName;
             
-            if (move_uploaded_file($_FILES['image']['tmp_name'], $imagePath)) {
+            if (move_uploaded_file($_FILES['image']['tmp_name'], $fullPath)) {
                 // Store site-root absolute path to avoid relative URL issues when rendering
                 $imagePath = '/uploads/products/' . $fileName;
             } else {
@@ -34,8 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
         
-        $stmt = $conn->prepare("INSERT INTO products (name, category, description, price, image, status) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->execute([$name, $category, $description, $price, $imagePath, $status]);
+        // Update both image columns for compatibility
+        $stmt = $conn->prepare("INSERT INTO products (name, category, description, price, image, image_url, status) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt->execute([$name, $category, $description, $price, $imagePath, $imagePath, $status]);
         
         echo json_encode(['success' => true, 'message' => 'Product added successfully']);
         
